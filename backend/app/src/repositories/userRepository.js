@@ -12,7 +12,7 @@ class UserRepository {
 
   async create(data) {
     const newUser = await User.create(data);
-    const { password, ...res } = newUser.toJSON(); // убираем пароль из ответа
+    const { password, ...res } = newUser.toJSON();
     return res;
   }
 }

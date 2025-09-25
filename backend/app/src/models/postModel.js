@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   profile_photo: { type: String, require: true },
-  photo_url: { type: String, required: true },
+  // photo_url: { type: String, required: true },
   user_name: { type: String, required: true },
   caption: { type: String, default: '' },
   count_of_likes: { type: Number, default: 0 },

@@ -5,7 +5,7 @@ import healthRoutes from './routes/healthRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
-// import postRoutes from './routes/postRoutes.js';
+import postRoutes from './routes/postRoutes.js';
 // import commentRoutes from './routes/commentRoutes.js';
 // import messageRoutes from './routes/messageRoutes.js';
 // import searchRoutes from './routes/searchRoutes.js';
@@ -24,7 +24,7 @@ app.use('/api/v1/health', healthRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
-// app.use('/api/post', postRoutes);
+app.use('/api/v1/posts', postRoutes);
 // app.use('/api/comments', commentRoutes);
 // app.use('/api/messages', messageRoutes);
 // app.use('/api/search', searchRoutes);

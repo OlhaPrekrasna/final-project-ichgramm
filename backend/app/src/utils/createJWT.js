@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 // секретный ключ (обязательно вынеси в .env)
-const SECRET = process.env.JWT_SECRET || 'supersecret';
+const SECRET = process.env.SECRET_JWT || 'supersecret';
 const EXPIRES_IN = '7d';
 
 // функция для генерации токена

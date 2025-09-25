@@ -1,39 +1,38 @@
-import multer from 'multer';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+// import multer from 'multer';
 
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
 import getUserIdFromToken from '../utils/tokenDecoded.js';
 
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage });
 
 // Настройка клиента S3
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION,           // например: "us-east-1"
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,     // ключ пользователя
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // секрет
-  },
-});
+// const s3Client = new S3Client({
+//   region: process.env.AWS_REGION,           // например: "us-east-1"
+//   credentials: {
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,     // ключ пользователя
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // секрет
+//   },
+// });
 
 // Утилита для загрузки файла в S3
-const uploadToS3 = async (file) => {
-  const fileName = `${Date.now()}-${file.originalname}`; // уникальное имя файла
-  const bucketName = process.env.AWS_BUCKET_NAME;        // имя бакета
+// const uploadToS3 = async (file) => {
+//   const fileName = `${Date.now()}-${file.originalname}`; // уникальное имя файла
+//   const bucketName = process.env.AWS_BUCKET_NAME;        // имя бакета
 
-  const params = {
-    Bucket: bucketName,       // бакет
-    Key: fileName,            // имя файла
-    Body: file.buffer,        // содержимое (буфер из multer)
-    ContentType: file.mimetype, // MIME-тип (image/jpeg, image/png и т.д.)
-  };
+//   const params = {
+//     Bucket: bucketName,       // бакет
+//     Key: fileName,            // имя файла
+//     Body: file.buffer,        // содержимое (буфер из multer)
+//     ContentType: file.mimetype, // MIME-тип (image/jpeg, image/png и т.д.)
+//   };
 
-  await s3Client.send(new PutObjectCommand(params));
+//   await s3Client.send(new PutObjectCommand(params));
 
-  // URL файла (если бакет публичный)
-  return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
-};
+// URL файла (если бакет публичный)
+//   return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+// };
 
 // Получение всех постов пользователя
 export const getUserPosts = async (req, res) => {
@@ -48,13 +47,13 @@ export const getUserPosts = async (req, res) => {
 // Создание нового поста
 export const createPost = async (req, res) => {
   const userId = getUserIdFromToken(req);
-  const { caption } = req.body;
+  const { caption } = req.params;
 
   try {
-    if (!req.file) return res.status(400).json({ error: 'Image not provided' });
+    // if (!req.file) return res.status(400).json({ error: 'Image not provided' });
 
     // Загружаем файл в AWS S3
-    const image_url = await uploadToS3(req.file);
+    // const image_url = await uploadToS3(req.file);
 
     // Находим пользователя
     const user = await User.findById(userId);
@@ -63,9 +62,9 @@ export const createPost = async (req, res) => {
     // Создаем новый пост
     const post = new Post({
       user_id: userId,
-      image_url,
+      // image_url,
       user_name: user.username,
-      profile_image: user.profile_image,
+      // profile_image: user.profile_image,
       caption,
       created_at: new Date(),
     });
@@ -146,7 +145,10 @@ export const updatePost = async (req, res) => {
 // Получение всех постов
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({}).populate('user_id', 'username profile_image');
+    const posts = await Post.find({}).populate(
+      'user_id',
+      'username profile_image'
+    );
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ error: 'Error retrieving all posts' });
@@ -178,7 +180,8 @@ export const getFollowingPosts = async (req, res) => {
 
     res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ error: 'Error retrieving posts from subscribed users' });
+    res
+      .status(500)
+      .json({ error: 'Error retrieving posts from subscribed users' });
   }
 };
-
