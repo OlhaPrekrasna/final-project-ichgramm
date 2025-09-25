@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ichgramm-backend
+    restart: unless-stopped
+    volumes:
+      - ./backend/app:/app
+      # - /app/node_modules 
+    ports:
+      - '3001:80'
+    env_file:
+      - ./backend/.env
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: myproject-frontend
+  #   restart: unless-stopped
+  #   working_dir: /app
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "3000:3000"             
+  #   environment:
+  #     - PORT=3000
+  #     - REACT_APP_API_URL=http://localhost:5000  # если CRA → переменные для браузера
+  #   depends_on:
+  #     - backend
