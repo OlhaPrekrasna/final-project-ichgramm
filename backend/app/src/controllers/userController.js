@@ -1,27 +1,120 @@
-import user from '../repositories/userRepository.js';
+import mongoose from 'mongoose';
+import User from '../models/userModel.js';
+import userRepository from '../repositories/userRepository.js';
 
+// Получение профиля пользователя
+export const getUserProfile = async (req, res) => {
+  const { id } = req.params; // берём id из маршрута /user/:id
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'Некорректный ID пользователя' });
+  }
+
+  try {
+    const user = await User.findById(id).select('-password -created_at');
+    if (!user) {
+      return res.status(404).json({ message: 'Пользователь не найден' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Ошибка получения профиля пользователя',
+      error: error.message
+    });
+  }
+};
+
+// Получение списка пользователей (пример)
 export const find = async (req, res) => {
   try {
-    const query = {};
-
-    if (req.query.email) {
-      query.email = req.query.email;
-    }
-
-    if (req.query.username) {
-      query.username = req.query.username;
-    }
-
-    const users = await user.find(query);
+    const users = await userRepository.find(req.query);
     res.status(200).json(users);
   } catch (error) {
-    console.error('Error fetching users:', error);
     res.status(500).json({
-      message: 'Error fetching users',
+      message: 'Ошибка получения списка пользователей',
+      error: error.message
+    });
+  }
+};
+
+// update profile
+export const updateProfile = async (req, res) => {
+  const { id } = req.params;
+  const { username, email, first_name, last_name, bio, bio_website, profile_photo } = req.body;
+
+  try {
+    const updatedUser = await userRepository.updateById(id, {
+      username,
+      email,
+      first_name,
+      last_name,
+      bio,
+      bio_website,
+      profile_photo,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({
+      message: 'User profile successfully updated',
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: 'Error updating user profile',
       error: error.message,
     });
   }
 };
+
+// delete user
+export const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await userRepository.deleteById(req.params.id);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User successfully deleted' });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error deleting user',
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+
+// это рабочая функция
+
+// export const find = async (req, res) => {
+//   try {
+//     const query = {};
+
+//     if (req.query.email) {
+//       query.email = req.query.email;
+//     }
+
+//     if (req.query.username) {
+//       query.username = req.query.username;
+//     }
+
+//     const users = await user.find(query);
+//     res.status(200).json(users);
+//   } catch (error) {
+//     console.error('Error fetching users:', error);
+//     res.status(500).json({
+//       message: 'Error fetching users',
+//       error: error.message,
+//     });
+//   }
+// };
 
 // export const findById = async (req, res) => {
 //   try {

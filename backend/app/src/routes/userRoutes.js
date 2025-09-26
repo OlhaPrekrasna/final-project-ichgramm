@@ -1,18 +1,31 @@
 import express from 'express';
-import { find } from '../controllers/userController.js';
+import {
+  find,
+  getUserProfile,
+  updateProfile,
+  deleteUser,
+} from '../controllers/userController.js';
 import { getUserLikes } from '../controllers/likeController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-// GET /api/v1/user - get users filtered by query params
+// GET /api/v1/user - список пользователей +
 router.get('/', find);
 
-// GET /api/v1/user/:id/likes
+// GET /api/v1/user/:id - профиль пользователя +
+router.get('/:id', getUserProfile);
+
+// GET /api/v1/user/:id/likes - лайки пользователя +
 router.get('/:id/likes', authMiddleware, getUserLikes);
 
-// GET /api/v1/user/:id - get user by ID
-// router.get('/:id', findById);
+// PATCH /api/v1/users/update-profile/:id - update user profile +
+router.patch('/update-profile/:id', updateProfile);
+
+// DELETE /api/v1/users/:id - delete user +
+router.delete('/:id', deleteUser);
+
+export default router;
 
 // PATCH /api/v1/users/update-email/:id - update user email
 // router.patch('/update-email/:id', async (req, res) => {
@@ -47,33 +60,15 @@ router.get('/:id/likes', authMiddleware, getUserLikes);
 //   }
 // });
 
-// PATCH /api/v1/users/update-profile/:id - update user profile
-// router.patch('/update-profile/:id', async (req, res) => {
-//   const userId = req.params.id;
-//   const { name, bio, website } = req.body;
-
-//   try {
-//     const updatedUser = await User.findByIdAndUpdate(
-//       userId,
-//       { name, bio, website },
-//       { new: true, runValidators: true }
-//     ).select('-password');
-
-//     if (!updatedUser) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     res.json({
-//       message: 'User profile successfully updated',
-//       user: updatedUser,
-//     });
-//   } catch (error) {
-//     res.status(400).json({
-//       message: 'Error updating user profile',
-//       error: error.message,
-//     });
-//   }
-// });
+//
+//
+//
+//
+//
+//
+//
+//
+// ,
 
 // POST /api/v1/users/upload-photo - upload user photo
 // router.post('/upload-photo', uploadUserPhoto);
@@ -81,20 +76,9 @@ router.get('/:id/likes', authMiddleware, getUserLikes);
 // POST /api/v1/users/upload-profile-image - upload profile image
 // router.post('/upload-profile-image', uploadProfileImage);
 
-// DELETE /api/v1/users/:id - delete user
-// router.delete('/:id', async (req, res) => {
-//   try {
-//     const deletedUser = await User.findByIdAndDelete(req.params.id);
-//     if (!deletedUser) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-//     res.json({ message: 'User successfully deleted' });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: 'Error deleting user',
-//       error: error.message,
-//     });
-//   }
-// });
-
-export default router;
+//
+//
+//
+//
+//
+//

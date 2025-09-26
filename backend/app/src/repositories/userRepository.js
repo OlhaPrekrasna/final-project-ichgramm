@@ -15,11 +15,20 @@ class UserRepository {
     const { password, ...res } = newUser.toJSON();
     return res;
   }
+
+  async updateById(id, data) {
+    return await User.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true,
+    }).select('-password');
+  }
+
+  async deleteById(id) {
+    return await User.findByIdAndDelete(id);
+  }
 }
 
 export default new UserRepository();
-
-
 
 /////////////////////////////////////////////////
 
@@ -46,16 +55,15 @@ export default new UserRepository();
 //   }
 // }
 
-
 // export async function findOne(query = {}, options = {}) {
 //   try {
 //     await client.connect();
 //     const db = client.db(dbName);
 //     const collection = db.collection(users);
-    
+
 //     return await collection.findOne(query, options);
-    ///////////// const users = [];
-    ///////////// result.forEach((row) => users.push(User.create(row)));
+///////////// const users = [];
+///////////// result.forEach((row) => users.push(User.create(row)));
 //   } catch (error) {
 //     console.error('Error finding record:', error);
 //   } finally {
