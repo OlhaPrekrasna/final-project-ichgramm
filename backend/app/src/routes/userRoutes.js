@@ -1,10 +1,15 @@
 import express from 'express';
 import { find } from '../controllers/userController.js';
+import { getUserLikes } from '../controllers/likeController.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 // GET /api/v1/user - get users filtered by query params
 router.get('/', find);
+
+// GET /api/v1/user/:id/likes
+router.get('/:id/likes', authMiddleware, getUserLikes);
 
 // GET /api/v1/user/:id - get user by ID
 // router.get('/:id', findById);

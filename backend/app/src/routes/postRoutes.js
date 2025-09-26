@@ -12,12 +12,13 @@ import {
   getOtherUserPosts,
   getFollowingPosts,
 } from '../controllers/postController.js';
+import { getPostLikes, toggleLikePost } from '../controllers/likeController.js';
 
 const router = express.Router();
 
 // Создание поста с одним изображением
 // router.post('/', authMiddleware, upload.single('image'), createPost);
-router.post('/', createPost);
+router.post('/', authMiddleware, createPost);
 
 // Создание поста с несколькими медиа (до 5 файлов)
 // router.post(
@@ -28,24 +29,32 @@ router.post('/', createPost);
 // );
 
 // Получение поста по ID
-// router.get('/post/:postId', authMiddleware, getPostById);
+router.get('/:postId', authMiddleware, getPostById);
+
+// Получение поста по ID -> likes
+router.get('/:postId/likes', authMiddleware, getPostLikes);
+
+// Toggle like/unlike a post
+// router.post('/:postId/:userId', authMiddleware, toggleLikePost);
+router.post('/:postId/likes', authMiddleware, toggleLikePost);
 
 // Получение всех постов текущего пользователя
-// router.get('/user/me', authMiddleware, getUserPosts);
+router.get('/user/me', authMiddleware, getUserPosts);
 
 // Получение всех постов (публичные)
-// router.get('/all', getAllPosts);
+router.get('/', getAllPosts);
 
 // Получение постов другого пользователя по ID
-// router.get('/user/:userId', authMiddleware, getOtherUserPosts);
+router.get('/user/:userId', authMiddleware, getOtherUserPosts);
 
 // Получение постов пользователей, на которых подписан текущий юзер
-router.get('/following', authMiddleware, getFollowingPosts);
+// router.get('/following', authMiddleware, getFollowingPosts);
 
 // Обновление поста
 // router.put('/post/:postId', authMiddleware, upload.single('image'), updatePost);
+router.put('/:postId', authMiddleware, updatePost);
 
 // Удаление поста
-router.delete('/post/:postId', authMiddleware, deletePost);
+router.delete('/:postId', authMiddleware, deletePost);
 
 export default router;

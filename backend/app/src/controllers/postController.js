@@ -34,7 +34,7 @@ import getUserIdFromToken from '../utils/tokenDecoded.js';
 //   return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
 // };
 
-// Получение всех постов пользователя
+// Получение всех постов пользователя +
 export const getUserPosts = async (req, res) => {
   try {
     const posts = await Post.find({ user_id: getUserIdFromToken(req) });
@@ -44,28 +44,21 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
-// Создание нового поста
+// create Post +
 export const createPost = async (req, res) => {
-  const userId = getUserIdFromToken(req);
-  const { caption } = req.params;
-
   try {
-    // if (!req.file) return res.status(400).json({ error: 'Image not provided' });
+    const user = req.user;
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
 
-    // Загружаем файл в AWS S3
-    // const image_url = await uploadToS3(req.file);
+    const { title, content } = req.body;
 
-    // Находим пользователя
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ error: 'User not found' });
-
-    // Создаем новый пост
     const post = new Post({
-      user_id: userId,
-      // image_url,
-      user_name: user.username,
-      // profile_image: user.profile_image,
-      caption,
+      user_id: user._id,
+      username: user.username,
+      title,
+      content,
       created_at: new Date(),
     });
 
@@ -76,12 +69,12 @@ export const createPost = async (req, res) => {
 
     res.status(201).json(post);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: 'Error creating post' });
   }
 };
 
-// Удаление поста
+// Удаление поста +
 export const deletePost = async (req, res) => {
   const { postId } = req.params;
 
@@ -101,7 +94,7 @@ export const deletePost = async (req, res) => {
   }
 };
 
-// Получение поста по ID
+// Получение поста по ID +
 export const getPostById = async (req, res) => {
   const { postId } = req.params;
 
@@ -115,34 +108,30 @@ export const getPostById = async (req, res) => {
   }
 };
 
-// Обновление поста
+// update post +
 export const updatePost = async (req, res) => {
   const { postId } = req.params;
-  const { caption } = req.body;
+  const { title, content } = req.body;
 
   try {
-    const post = await Post.findById(postId);
-    if (!post) return res.status(404).json({ error: 'Post not found' });
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      { $set: { title, content } },
+      { new: true, runValidators: true }
+    );
 
-    // Обновляем caption
-    if (caption !== undefined) {
-      post.caption = caption;
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
     }
 
-    // Обновляем картинку
-    if (req.file) {
-      const image_url = await uploadToS3(req.file);
-      post.image_url = image_url;
-    }
-
-    await post.save();
     res.status(200).json(post);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Error updating post' });
   }
 };
 
-// Получение всех постов
+// Получение всех постов +
 export const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find({}).populate(
@@ -155,13 +144,15 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-// Посты другого пользователя
+// Посты другого пользователя +
 export const getOtherUserPosts = async (req, res) => {
   try {
-    const { user_id } = req.params;
-    const posts = await Post.find({ user_id: user_id });
+    const { userId } = req.params;
+    const posts = await Post.find({ user_id: userId });
+
     res.status(200).json(posts);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Error retrieving posts' });
   }
 };
@@ -175,7 +166,7 @@ export const getFollowingPosts = async (req, res) => {
     const followingIds = user.following.map((followedUser) => followedUser._id);
 
     const posts = await Post.find({ user_id: { $in: followingIds } })
-      .populate('user_id', 'username profile_image')
+      .populate('id', 'username profile_image')
       .sort({ created_at: -1 });
 
     res.status(200).json(posts);
