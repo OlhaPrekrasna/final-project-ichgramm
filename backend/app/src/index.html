@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Socket.IO Chat</title>
+  <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
+</head>
+<body>
+  <input id="targetUserId" placeholder="Target User ID">
+  <input id="messageText" placeholder="Message">
+  <button id="joinBtn">Join Room</button>
+  <button id="sendBtn">Send Message</button>
+  <div id="messages"></div>
+
+  <script>
+    const token = "ВАШ_JWT_ТОКЕН"; // Нужно получить через авторизацию
+    const socket = io("http://localhost:3001", {
+      auth: { token }
+    });
+
+    socket.on("connect", () => {
+      console.log("Connected to socket.io");
+    });
+
+    socket.on("loadMessages", messages => {
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.innerHTML = "";
+      messages.forEach(msg => {
+        messagesDiv.innerHTML += `<p><b>${msg.sender_id}</b>: ${msg.text_of_message}</p>`;
+      });
+    });
+
+    socket.on("receiveMessage", msg => {
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.innerHTML += `<p><b>${msg.sender_id}</b>: ${msg.text_of_message}</p>`;
+    });
+
+    document.getElementById("joinBtn").onclick = () => {
+      const targetUserId = document.getElementById("targetUserId").value;
+      socket.emit("joinRoom", { targetUserId });
+    };
+
+    document.getElementById("sendBtn").onclick = () => {
+      const targetUserId = document.getElementById("targetUserId").value;
+      const messageText = document.getElementById("messageText").value;
+      socket.emit("sendMessage", { targetUserId, messageText });
+    };
+  </script>
+</body>
+</html>

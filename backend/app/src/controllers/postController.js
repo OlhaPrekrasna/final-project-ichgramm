@@ -80,8 +80,15 @@ export const deletePost = async (req, res) => {
 
   try {
     const post = await Post.findById(postId);
-    if (!post) return res.status(404).json({ error: 'Post not found' });
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
 
+    const { userId } = req.user;
+    if (userId !== post.user_id) {
+      return res.status(403).json({ error: 'Not authorised!' });
+    }
+    
     await Post.findByIdAndDelete(postId);
 
     const user = await User.findById(post.user_id);
@@ -114,17 +121,23 @@ export const updatePost = async (req, res) => {
   const { title, content } = req.body;
 
   try {
-    const post = await Post.findByIdAndUpdate(
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    const { userId } = req.user;
+    if (userId !== post.user_id) {
+      return res.status(403).json({ error: 'Not authorised!' });
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
       postId,
       { $set: { title, content } },
       { new: true, runValidators: true }
     );
 
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-
-    res.status(200).json(post);
+    res.status(200).json(updatedPost);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error updating post' });
@@ -158,21 +171,21 @@ export const getOtherUserPosts = async (req, res) => {
 };
 
 // Посты пользователей, на которых подписан текущий
-export const getFollowingPosts = async (req, res) => {
-  try {
-    const userId = getUserIdFromToken(req);
+// export const getFollowingPosts = async (req, res) => {
+//   try {
+//     const userId = getUserIdFromToken(req);
 
-    const user = await User.findById(userId).populate('following', '_id');
-    const followingIds = user.following.map((followedUser) => followedUser._id);
+//     const user = await User.findById(userId).populate('following', '_id');
+//     const followingIds = user.following.map((followedUser) => followedUser._id);
 
-    const posts = await Post.find({ user_id: { $in: followingIds } })
-      .populate('id', 'username profile_image')
-      .sort({ created_at: -1 });
+//     const posts = await Post.find({ user_id: { $in: followingIds } })
+//       .populate('id', 'username profile_image')
+//       .sort({ created_at: -1 });
 
-    res.status(200).json(posts);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'Error retrieving posts from subscribed users' });
-  }
-};
+//     res.status(200).json(posts);
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ error: 'Error retrieving posts from subscribed users' });
+//   }
+// };

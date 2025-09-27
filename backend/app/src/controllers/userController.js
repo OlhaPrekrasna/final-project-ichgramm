@@ -4,7 +4,7 @@ import userRepository from '../repositories/userRepository.js';
 
 // Получение профиля пользователя
 export const getUserProfile = async (req, res) => {
-  const { id } = req.params; // берём id из маршрута /user/:id
+  const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Некорректный ID пользователя' });
@@ -19,7 +19,7 @@ export const getUserProfile = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: 'Ошибка получения профиля пользователя',
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -32,7 +32,7 @@ export const find = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: 'Ошибка получения списка пользователей',
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -40,7 +40,20 @@ export const find = async (req, res) => {
 // update profile
 export const updateProfile = async (req, res) => {
   const { id } = req.params;
-  const { username, email, first_name, last_name, bio, bio_website, profile_photo } = req.body;
+  const {
+    username,
+    email,
+    first_name,
+    last_name,
+    bio,
+    bio_website,
+    profile_photo,
+  } = req.body;
+
+  const { userId: loggedUserId } = req.user;
+  if (loggedUserId !== id) {
+    return res.status(403).json({ error: 'Not authorised!' });
+  }
 
   try {
     const updatedUser = await userRepository.updateById(id, {
@@ -52,7 +65,6 @@ export const updateProfile = async (req, res) => {
       bio_website,
       profile_photo,
     });
-
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -71,8 +83,15 @@ export const updateProfile = async (req, res) => {
 
 // delete user
 export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  const { userId: loggedUserId } = req.user;
+  if (loggedUserId !== id) {
+    return res.status(403).json({ error: 'Not authorised!' });
+  }
+
   try {
-    const deletedUser = await userRepository.deleteById(req.params.id);
+    const deletedUser = await userRepository.deleteById(id);
 
     if (!deletedUser) {
       return res.status(404).json({ message: 'User not found' });
@@ -86,10 +105,6 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
-
-
-
-
 
 // это рабочая функция
 

@@ -16,14 +16,14 @@ router.get('/', find);
 // GET /api/v1/user/:id - профиль пользователя +
 router.get('/:id', getUserProfile);
 
-// GET /api/v1/user/:id/likes - лайки пользователя +
-router.get('/:id/likes', authMiddleware, getUserLikes);
-
-// PATCH /api/v1/users/update-profile/:id - update user profile +
-router.patch('/update-profile/:id', updateProfile);
+// PUT /api/v1/user/:id - update user profile +
+router.put('/:id', authMiddleware, updateProfile);
 
 // DELETE /api/v1/users/:id - delete user +
-router.delete('/:id', deleteUser);
+router.delete('/:id', authMiddleware, deleteUser);
+
+// GET /api/v1/user/:id/likes - лайки пользователя +
+router.get('/:id/likes', authMiddleware, getUserLikes);
 
 export default router;
 

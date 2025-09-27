@@ -3,11 +3,6 @@ import Notification from '../models/notificationModel.js';
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
 
-/**
- * Toggle like on a post.
- * If the user has already liked the post, it removes the like.
- * Otherwise, it adds a like and sends a notification to the post author.
- */
 export const toggleLikePost = async (req, res) => {
   const { postId } = req.params;
   const { _id: userId } = req.user;
@@ -20,7 +15,7 @@ export const toggleLikePost = async (req, res) => {
       post_id: postId,
       user_id: userId,
     });
-    const sender = await User.findById(userId); // User who is liking/unliking
+    const sender = await User.findById(userId);
 
     if (existingLike) {
       // Remove like
@@ -41,7 +36,7 @@ export const toggleLikePost = async (req, res) => {
 
     // Create notification for post author
     const newNotification = new Notification({
-      user_id: post.user_id, // Post author
+      user_id: post.user_id,
       type: 'Like',
       text_content: `${sender.username} liked your post`,
       sender_id: userId,
@@ -59,9 +54,6 @@ export const toggleLikePost = async (req, res) => {
   }
 };
 
-/**
- * Get list of likes for a post, including user IDs and usernames.
- */
 export const getPostLikes = async (req, res) => {
   const { postId } = req.params;
 
@@ -83,9 +75,6 @@ export const getPostLikes = async (req, res) => {
   }
 };
 
-/**
- * Get all posts liked by a specific user.
- */
 export const getUserLikes = async (req, res) => {
   const { id } = req.params;
 
