@@ -4,7 +4,7 @@ import generateToken from '../utils/createJWT.js';
 import sendEmail from '../utils/sendEmail.js';
 import jwt from 'jsonwebtoken';
 
-// Регистрация пользователя
+// User registration
 export const signup = async (req, res) => {
   const { username, email, password, first_name, last_name } = req.body;
 
@@ -15,7 +15,7 @@ export const signup = async (req, res) => {
 
     if (existingUser) {
       return res.status(400).json({
-        message: 'User with this username and/or email already exists',
+        message: 'A user with this username and/or email already exists',
       });
     }
 
@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
       last_name,
     });
 
-    // создаём JWT с id нового пользователя
+    // create JWT with the id of the new user
     const token = generateToken({ id: newUser._id });
 
     res.status(201).json({
@@ -45,22 +45,22 @@ export const signup = async (req, res) => {
   }
 };
 
-// Авторизация пользователя
+// User login
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await userRepo.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Incorrect email' });
+      return res.status(400).json({ message: 'Invalid email' });
     }
 
     const isMatch = await compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Incorrect password' });
+      return res.status(400).json({ message: 'Invalid password' });
     }
 
-    // создаём JWT с id пользователя
+    // create JWT with the user id
     const token = generateToken({ id: user._id });
 
     res.status(200).json({ token, user });
@@ -73,7 +73,7 @@ export const login = async (req, res) => {
   }
 };
 
-// Функция для обновления пароля
+// Function to update password
 export const updatePassword = async (req, res) => {
   try {
     const { email, newPassword } = req.body;
@@ -81,26 +81,26 @@ export const updatePassword = async (req, res) => {
     if (!email || !newPassword) {
       return res
         .status(400)
-        .json({ message: 'The required data was not transmitted' });
+        .json({ message: 'Required data was not provided' });
     }
 
-    // Ищем пользователя
+    // Find user
     const user = await userRepo.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Хешируем новый пароль
+    // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Обновляем пароль
+    // Update password
     user.password = hashedPassword;
     await user.save();
 
     return res
       .status(200)
-      .json({ message: 'The password has been updated successfully' });
+      .json({ message: 'Password has been updated successfully' });
   } catch (error) {
     console.error('Error updating password:', error);
     return res
@@ -109,7 +109,7 @@ export const updatePassword = async (req, res) => {
   }
 };
 
-// forgotPassword
+// Forgot password
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -139,12 +139,12 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-// resetPassword
+// Reset password
 export const resetPassword = async (req, res) => {
   // const { userId, token, newPassword } = req.body;
   const token = req.query.token;
 
-  // TODO change
+  // TODO: change this logic
   res
     .status(200)
     .json({ message: 'Password has been reset successfully', token });

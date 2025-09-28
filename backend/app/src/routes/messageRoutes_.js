@@ -2,26 +2,30 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
-import { loadMessages, sendMessage, getUsersWithChats } from '../controllers/messageController.js';
+import {
+  loadMessages,
+  sendMessage,
+  getUsersWithChats,
+} from '../controllers/messageController.js';
 
-// Middleware для Socket.IO
+// Middleware for Socket.IO
 export const authenticateSocket = async (socket, next) => {
   const token = socket.handshake.auth?.token;
-  if (!token) return next(new Error('Токен не предоставлен'));
+  if (!token) return next(new Error('Token not provided'));
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.user_id);
-    if (!user) return next(new Error('Пользователь не найден'));
+    if (!user) return next(new Error('User not found'));
 
     socket.user = user;
     next();
   } catch (err) {
-    next(new Error('Неверный токен'));
+    next(new Error('Invalid token'));
   }
 };
 
-// Обработчики событий Socket.IO
+// Socket.IO event handlers
 export const messageSocketHandler = (socket, io) => {
   socket.on('joinRoom', async ({ targetUserId }) => {
     const userId = socket.user._id.toString();

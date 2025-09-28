@@ -1,7 +1,7 @@
 import Comment from '../models/commentModel.js';
 import Post from '../models/postModel.js';
 
-// Создание комментария +
+// Create a comment +
 export const createComment = async (req, res) => {
   const { postId } = req.params;
   const { comment_text } = req.body;
@@ -9,13 +9,13 @@ export const createComment = async (req, res) => {
   const profileImage = req.user.profile_image;
 
   try {
-    // Проверяем, существует ли пост
+    // Check if the post exists
     const post = await Post.findById(postId);
     if (!post) {
-      return res.status(404).json({ error: 'Пост не найден' });
+      return res.status(404).json({ error: 'Post not found' });
     }
 
-    // Создаём комментарий
+    // Create a comment
     const comment = new Comment({
       post_id: postId,
       user_id: userId,
@@ -25,35 +25,34 @@ export const createComment = async (req, res) => {
 
     await comment.save();
 
-    // Увеличиваем счётчик комментариев у поста
+    // Increase the post’s comments counter
     post.comments_count = (post.comments_count || 0) + 1;
     await post.save();
 
     res.status(201).json(comment);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Ошибка при создании комментария' });
+    res.status(500).json({ error: 'Error creating comment' });
   }
 };
 
-// Получение комментариев к посту +
+// Get comments for a post +
 export const getPostComments = async (req, res) => {
   try {
     const comments = await Comment.find({ post_id: req.params.postId });
     res.status(200).json(comments);
   } catch (error) {
-    res.status(500).json({ error: 'Ошибка при получении комментариев' });
+    res.status(500).json({ error: 'Error fetching comments' });
   }
 };
 
-// Удаление комментария +
+// Delete a comment +
 export const deleteComment = async (req, res) => {
   const { commentId } = req.params;
 
   try {
     const comment = await Comment.findById(commentId);
-    if (!comment)
-      return res.status(404).json({ error: 'Комментарий не найден' });
+    if (!comment) return res.status(404).json({ error: 'Comment not found' });
 
     await Comment.findByIdAndDelete(commentId);
 
@@ -61,9 +60,9 @@ export const deleteComment = async (req, res) => {
     post.comments_count -= 1;
     await post.save();
 
-    res.status(200).json({ message: 'Комментарий удалён' });
+    res.status(200).json({ message: 'Comment deleted' });
   } catch (error) {
-    res.status(500).json({ error: 'Ошибка при удалении комментария' });
+    res.status(500).json({ error: 'Error deleting comment' });
   }
 };
 
@@ -75,7 +74,7 @@ export const likeComment = async (req, res) => {
   try {
     const comment = await Comment.findById(commentId);
     if (!comment) {
-      return res.status(404).json({ error: 'Комментарий не найден' });
+      return res.status(404).json({ error: 'Comment not found' });
     }
 
     const isLiked = comment.likes?.some(
@@ -98,7 +97,7 @@ export const likeComment = async (req, res) => {
       isLiked: !isLiked,
     });
   } catch (error) {
-    console.error('Ошибка в likeComment:', error);
-    res.status(500).json({ error: 'Ошибка при лайке комментария' });
+    console.error('Error in likeComment:', error);
+    res.status(500).json({ error: 'Error liking comment' });
   }
 };

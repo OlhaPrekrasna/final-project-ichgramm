@@ -4,12 +4,11 @@ import { searchUsers, searchPosts } from '../controllers/searchController.js';
 
 const router = express.Router();
 
-// Поиск пользователей по имени GET http://localhost:3001/api/v1/search/users?query=alex +
-// с автозаполнением GET http://localhost:3001/api/v1/search/users?query=a
-
+// Search users by name GET http://localhost:3001/api/v1/search/users?query=alex +
+// with autocomplete GET http://localhost:3001/api/v1/search/users?query=a
 router.get('/users', searchUsers);
 
-// Поиск постов по содержимому GET http://localhost:3001/api/v1/search/posts?query=travel +
+// Search posts by content GET http://localhost:3001/api/v1/search/posts?query=travel +
 router.get('/posts', searchPosts);
 
 export default router;

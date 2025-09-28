@@ -9,16 +9,17 @@ import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-// Добавить комментарий к посту POST http://localhost:3001/api/v1/comments/:postId/comments
+// Add a comment to a post POST http://localhost:3001/api/v1/comments/:postId/comments
 router.post('/:postId/comments', authMiddleware, createComment);
 
-// Получить все комментарии к посту GET http://localhost:3001/api/v1/comments/:postId/comments
+// Get all comments for a post GET http://localhost:3001/api/v1/comments/:postId/comments
 router.get('/:postId/comments', authMiddleware, getPostComments);
 
-// Удалить комментарий DELETE http://localhost:3001/api/v1/comments/<commentId>
+// Delete a comment DELETE http://localhost:3001/api/v1/comments/<commentId>
 router.delete('/:commentId', authMiddleware, deleteComment);
 
-// Лайк или анлайк комментария POST http://localhost:3001/api/v1/comments/like/<commentId>
+// Like or unlike a comment POST http://localhost:3001/api/v1/comments/like/<commentId>
 router.post('/like/:commentId', authMiddleware, likeComment);
 
 export default router;
+

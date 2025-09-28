@@ -10,6 +10,7 @@ import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 import searchRoutes from './routes/searchRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
+import followRoutes from './routes/followRoutes.js';
 
 import { notificationSocketHandler } from './middlewares/notificationsSocket.js';
 
@@ -36,6 +37,7 @@ app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/comments', commentRoutes);
 app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/follow', followRoutes);
 
 io.on('connection', (socket) => {
   console.log('Пользователь подключился к WebSocket');

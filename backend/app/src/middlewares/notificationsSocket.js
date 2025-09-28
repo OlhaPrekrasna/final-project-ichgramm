@@ -10,7 +10,7 @@ export const notificationSocketHandler = (socket, io) => {
   });
 };
 
-// Функция для отправки уведомления конкретному пользователю
+// Function to send a notification to a specific user
 export const emitNotification = (io, userId, notification) => {
   io.to(`notifications:${userId}`).emit('newNotification', notification);
 };

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-// секретный ключ (обязательно вынеси в .env)
+// секретный ключ (обязательно в .env)
 const SECRET = process.env.SECRET_JWT || 'supersecret';
 const EXPIRES_IN = '7d';
 

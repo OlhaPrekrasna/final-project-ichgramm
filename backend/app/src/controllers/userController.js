@@ -2,42 +2,42 @@ import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 import userRepository from '../repositories/userRepository.js';
 
-// Получение профиля пользователя
+// Get user profile
 export const getUserProfile = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: 'Некорректный ID пользователя' });
+    return res.status(400).json({ message: 'Invalid user ID' });
   }
 
   try {
     const user = await User.findById(id).select('-password -created_at');
     if (!user) {
-      return res.status(404).json({ message: 'Пользователь не найден' });
+      return res.status(404).json({ message: 'User not found' });
     }
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({
-      message: 'Ошибка получения профиля пользователя',
+      message: 'Error fetching user profile',
       error: error.message,
     });
   }
 };
 
-// Получение списка пользователей (пример)
+// Get user list (example)
 export const find = async (req, res) => {
   try {
     const users = await userRepository.find(req.query);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({
-      message: 'Ошибка получения списка пользователей',
+      message: 'Error fetching user list',
       error: error.message,
     });
   }
 };
 
-// update profile
+// Update profile
 export const updateProfile = async (req, res) => {
   const { id } = req.params;
   const {
@@ -81,7 +81,7 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// delete user
+// Delete user
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
 

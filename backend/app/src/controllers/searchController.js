@@ -1,7 +1,7 @@
 import User from '../models/userModel.js';
 import Post from '../models/postModel.js';
 
-// Поиск пользователей +
+// Search users +
 export const searchUsers = async (req, res) => {
   const { query } = req.query;
 
@@ -13,11 +13,11 @@ export const searchUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Ошибка при поиске пользователей' });
+    res.status(500).json({ error: 'Error searching users' });
   }
 };
 
-// Поиск постов +
+// Search posts +
 export const searchPosts = async (req, res) => {
   const { query } = req.query;
 
@@ -35,6 +35,6 @@ export const searchPosts = async (req, res) => {
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Ошибка при поиске постов' });
+    res.status(500).json({ error: 'Error searching posts' });
   }
 };
