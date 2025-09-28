@@ -11,8 +11,13 @@ import commentRoutes from './routes/commentRoutes.js';
 import searchRoutes from './routes/searchRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import followRoutes from './routes/followRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
 
-import { notificationSocketHandler } from './middlewares/notificationsSocket.js';
+import {
+  notificationSocketHandler,
+  authenticateSocket,
+  messageSocketHandler,
+} from './middlewares/notificationsSocket.js';
 
 const app = express();
 const server = createServer(app);
@@ -26,6 +31,8 @@ const io = new Server(server, {
 
 app.set('io', io); // чтобы использовать io в контроллерах
 
+app.use(express.static('public'));
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,11 +45,24 @@ app.use('/api/v1/comments', commentRoutes);
 app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/follow', followRoutes);
+app.use('/api/v1/messages', messageRoutes);
 
 io.on('connection', (socket) => {
   console.log('Пользователь подключился к WebSocket');
 
+  // Подключаем уведомления
   notificationSocketHandler(socket, io);
+
+  // Подключаем чат — нужно авторизовать
+  authenticateSocket(socket, (err) => {
+    if (err) {
+      console.log('Ошибка авторизации сокета:', err.message);
+      socket.disconnect();
+      return;
+    }
+    console.log('Пользователь авторизован для чата:', socket.user.username);
+    messageSocketHandler(socket, io);
+  });
 
   socket.on('disconnect', () => {
     console.log('Пользователь отключился от WebSocket');
