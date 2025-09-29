@@ -47,11 +47,11 @@ app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/follow', followRoutes);
 app.use('/api/v1/messages', messageRoutes);
 
+app.use(express.static('public'));
+
+
 io.on('connection', (socket) => {
   console.log('User connected to WebSocket');
-
-  // Attach notifications
-  notificationSocketHandler(socket, io);
 
   // Attach chat — requires authorization
   authenticateSocket(socket, (err) => {
@@ -61,8 +61,11 @@ io.on('connection', (socket) => {
       return;
     }
     console.log('User authorized for chat:', socket.user.username);
-    messageSocketHandler(socket, io);
+    messageSocketHandler(socket, io, socket.user);
   });
+
+  // Attach notifications
+  notificationSocketHandler(socket, io);
 
   socket.on('disconnect', () => {
     console.log('User disconnected from WebSocket');

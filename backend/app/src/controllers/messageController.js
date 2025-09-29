@@ -1,14 +1,17 @@
 import Message from '../models/messageModel.js';
 import User from '../models/userModel.js';
 
-export const loadMessages = async (userId, targetUserId, socket) => {
+export const loadMessagesSocket = async (userId, targetUserId, socket) => {
   try {
     const messages = await Message.find({
       $or: [
         { sender_id: userId, receiver_id: targetUserId },
         { sender_id: targetUserId, receiver_id: userId },
       ],
-    }).sort({ created_at: 1 });
+    })
+      .sort({ created_at: 1 })
+      .populate('sender_id', 'username')
+      .populate('receiver_id', 'username');
 
     const roomId = [userId, targetUserId].sort().join('_');
     socket.emit('loadMessages', { roomId, messages });
@@ -17,13 +20,28 @@ export const loadMessages = async (userId, targetUserId, socket) => {
   }
 };
 
-export const sendMessage = async (
-  userId,
-  targetUserId,
-  messageText,
-  roomId,
-  io
-) => {
+// HTTP версия
+export const loadMessagesHTTP = async (userId, targetUserId) => {
+  try {
+    const messages = await Message.find({
+      $or: [
+        { sender_id: userId, receiver_id: targetUserId },
+        { sender_id: targetUserId, receiver_id: userId },
+      ],
+    })
+      .sort({ created_at: 1 })
+      .populate('sender_id', 'username')
+      .populate('receiver_id', 'username');
+
+    return messages;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+// Отправка сообщения через WebSocket
+export const sendMessage = async (userId, targetUserId, messageText, roomId, io) => {
   try {
     const message = await Message.create({
       sender_id: userId,
@@ -31,12 +49,15 @@ export const sendMessage = async (
       text_of_message: messageText,
     });
 
-    io.to(roomId).emit('newMessage', message);
+    const populatedMessage = await message.populate('sender_id', 'username');
+
+    io.to(roomId).emit('newMessage', populatedMessage);
   } catch (err) {
     console.error(err);
   }
 };
 
+// Получение списка чатов пользователя
 export const getUsersWithChats = async (req, res) => {
   try {
     const userId = req.user._id;

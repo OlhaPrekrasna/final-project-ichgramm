@@ -12,7 +12,9 @@
     <div id="messages"></div>
 
     <script>
-      const token = 'ВАШ_JWT_ТОКЕn'; // Нужно получить через авторизацию
+      const token =
+        'REPLACE_WITH_JWT_TOKEN';
+
       const socket = io('http://localhost:3001', {
         auth: { token },
       });
@@ -21,15 +23,15 @@
         console.log('Connected to socket.io');
       });
 
-      socket.on('loadMessages', (messages) => {
+      socket.on('loadMessages', ({ roomId, messages }) => {
         const messagesDiv = document.getElementById('messages');
-        messagesDiv.innerHTML = '';
+        messagesDiv.innerHTML = `<h3>Room: ${roomId}</h3>`;
         messages.forEach((msg) => {
           messagesDiv.innerHTML += `<p><b>${msg.sender_id}</b>: ${msg.text_of_message}</p>`;
         });
       });
 
-      socket.on('receiveMessage', (msg) => {
+      socket.on('newMessage', (msg) => {
         const messagesDiv = document.getElementById('messages');
         messagesDiv.innerHTML += `<p><b>${msg.sender_id}</b>: ${msg.text_of_message}</p>`;
       });
