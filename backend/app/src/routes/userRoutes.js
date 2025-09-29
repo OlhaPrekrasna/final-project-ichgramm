@@ -3,10 +3,12 @@ import {
   find,
   getUserProfile,
   updateProfile,
+  uploadProfilePhoto,
   deleteUser,
 } from '../controllers/userController.js';
 import { getUserLikes } from '../controllers/likeController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
+import uploadMiddleware from '../middlewares/uploadMiddleware.js';
 
 const router = express.Router();
 
@@ -18,6 +20,14 @@ router.get('/:id', getUserProfile);
 
 // PUT /api/v1/user/:id - update user profile +
 router.put('/:id', authMiddleware, updateProfile);
+
+// PUT /api/v1/user/upload-photo - upload user photo
+// router.put('/:id/upload-photo', authMiddleware, uploadProfilePhoto);
+router.put(
+  '/:id/upload-photo',
+  [authMiddleware, uploadMiddleware.single('profile')],
+  uploadProfilePhoto
+);
 
 // DELETE /api/v1/users/:id - delete user +
 router.delete('/:id', authMiddleware, deleteUser);
@@ -69,9 +79,6 @@ export default router;
 //
 //
 // ,
-
-// POST /api/v1/users/upload-photo - upload user photo
-// router.post('/upload-photo', uploadUserPhoto);
 
 // POST /api/v1/users/upload-profile-image - upload profile image
 // router.post('/upload-profile-image', uploadProfileImage);

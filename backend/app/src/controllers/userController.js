@@ -106,6 +106,50 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// Загрузка фото пользователя
+export const uploadProfilePhoto = async (req, res) => {
+  try {
+    // Загружен ли файл?
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Тип файла
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+    ];
+    if (!allowedMimeTypes.includes(req.file.mimetype)) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid file type. Only images are allowed.' });
+    }
+
+    // Загружаем в S3
+    const fileUrl = req.file.location;
+
+    // Если нужно, обновим профиль пользователя
+    const userId = req.user.userId;
+    if (userId) {
+      await User.findByIdAndUpdate(userId, {
+        profile_photo: fileUrl,
+      });
+    }
+
+    return res.json({
+      message: 'File uploaded successfully',
+      url: fileUrl,
+    });
+  } catch (err) {
+    console.error('Error uploading file:', err);
+    return res
+      .status(500)
+      .json({ error: `Error uploading file: ${err.message}` });
+  }
+};
+
 // это рабочая функция
 
 // export const find = async (req, res) => {

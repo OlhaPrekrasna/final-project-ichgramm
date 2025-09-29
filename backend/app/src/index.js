@@ -29,7 +29,7 @@ const io = new Server(server, {
   },
 });
 
-app.set('io', io); // чтобы использовать io в контроллерах
+app.set('io', io); // to use io in controllers
 
 app.use(express.static('public'));
 
@@ -48,24 +48,24 @@ app.use('/api/v1/follow', followRoutes);
 app.use('/api/v1/messages', messageRoutes);
 
 io.on('connection', (socket) => {
-  console.log('Пользователь подключился к WebSocket');
+  console.log('User connected to WebSocket');
 
-  // Подключаем уведомления
+  // Attach notifications
   notificationSocketHandler(socket, io);
 
-  // Подключаем чат — нужно авторизовать
+  // Attach chat — requires authorization
   authenticateSocket(socket, (err) => {
     if (err) {
-      console.log('Ошибка авторизации сокета:', err.message);
+      console.log('Socket authorization error:', err.message);
       socket.disconnect();
       return;
     }
-    console.log('Пользователь авторизован для чата:', socket.user.username);
+    console.log('User authorized for chat:', socket.user.username);
     messageSocketHandler(socket, io);
   });
 
   socket.on('disconnect', () => {
-    console.log('Пользователь отключился от WebSocket');
+    console.log('User disconnected from WebSocket');
   });
 });
 
@@ -75,3 +75,4 @@ server.listen(port, () => {
 });
 
 export default app;
+
