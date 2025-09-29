@@ -9,11 +9,12 @@
     <input id="messageText" placeholder="Message" />
     <button id="joinBtn">Join Room</button>
     <button id="sendBtn">Send Message</button>
+    <div id="room"></div>
     <div id="messages"></div>
 
     <script>
       const token =
-        'REPLACE_WITH_JWT_TOKEN';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1OTE3MzA3MCwiZXhwIjoxNzU5Nzc3ODcwfQ.Jm2AzcDx2zY-fSdiMJhQl8HZNZvF-eYQ-pzvGzJSEtE';
 
       const socket = io('http://localhost:3001', {
         auth: { token },
@@ -24,27 +25,49 @@
       });
 
       socket.on('loadMessages', ({ roomId, messages }) => {
+        const roomDiv = document.getElementById('room');
+        roomDiv.innerHTML = `<h3>Room: ${roomId}</h3>`;
+
         const messagesDiv = document.getElementById('messages');
-        messagesDiv.innerHTML = `<h3>Room: ${roomId}</h3>`;
         messages.forEach((msg) => {
-          messagesDiv.innerHTML += `<p><b>${msg.sender_id}</b>: ${msg.text_of_message}</p>`;
+          messagesDiv.innerHTML += `<p><b>${msg.sender_id.username}</b>: ${msg.text_of_message}</p>`;
         });
       });
 
       socket.on('newMessage', (msg) => {
         const messagesDiv = document.getElementById('messages');
-        messagesDiv.innerHTML += `<p><b>${msg.sender_id}</b>: ${msg.text_of_message}</p>`;
+        messagesDiv.innerHTML =
+          `<p><b>${msg.sender_id.username}</b>: ${msg.text_of_message}</p>` +
+          messagesDiv.innerHTML;
       });
 
       document.getElementById('joinBtn').onclick = () => {
         const targetUserId = document.getElementById('targetUserId').value;
+        if (!targetUserId) {
+          window.alert('Recipient ID is required!');
+          return;
+        }
+
         socket.emit('joinRoom', { targetUserId });
       };
 
       document.getElementById('sendBtn').onclick = () => {
         const targetUserId = document.getElementById('targetUserId').value;
+        if (!targetUserId) {
+          window.alert('Recipient ID is required!');
+          return;
+        }
+
         const messageText = document.getElementById('messageText').value;
+        if (!messageText) {
+          window.alert('Message text is required!');
+          return;
+        }
+
         socket.emit('sendMessage', { targetUserId, messageText });
+        console.log('Message has been sent');
+
+        document.getElementById('messageText').value = '';
       };
     </script>
   </body>

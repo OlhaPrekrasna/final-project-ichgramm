@@ -1,5 +1,4 @@
 import Message from '../models/messageModel.js';
-import User from '../models/userModel.js';
 
 export const loadMessagesSocket = async (userId, targetUserId, socket) => {
   try {
@@ -9,7 +8,7 @@ export const loadMessagesSocket = async (userId, targetUserId, socket) => {
         { sender_id: targetUserId, receiver_id: userId },
       ],
     })
-      .sort({ created_at: 1 })
+      .sort({ created_at: -1 })
       .populate('sender_id', 'username')
       .populate('receiver_id', 'username');
 
@@ -41,7 +40,13 @@ export const loadMessagesHTTP = async (userId, targetUserId) => {
 };
 
 // Отправка сообщения через WebSocket
-export const sendMessage = async (userId, targetUserId, messageText, roomId, io) => {
+export const sendMessage = async (
+  userId,
+  targetUserId,
+  messageText,
+  roomId,
+  io
+) => {
   try {
     const message = await Message.create({
       sender_id: userId,
@@ -52,6 +57,7 @@ export const sendMessage = async (userId, targetUserId, messageText, roomId, io)
     const populatedMessage = await message.populate('sender_id', 'username');
 
     io.to(roomId).emit('newMessage', populatedMessage);
+    console.log('Message has been processed');
   } catch (err) {
     console.error(err);
   }
@@ -60,7 +66,7 @@ export const sendMessage = async (userId, targetUserId, messageText, roomId, io)
 // Получение списка чатов пользователя
 export const getUsersWithChats = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const { userId } = req.user;
     const messages = await Message.find({
       $or: [{ sender_id: userId }, { receiver_id: userId }],
     }).populate('sender_id receiver_id', 'username email');

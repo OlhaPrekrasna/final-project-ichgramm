@@ -44,7 +44,7 @@ export const authenticateSocket = async (socket, next) => {
 export const messageSocketHandler = (socket, io, user) => {
   const { id: userId } = user;
 
-  socket.on('joinChat', async ({ targetUserId }) => {
+  socket.on('joinRoom', async ({ targetUserId }) => {
     const roomId = [userId, targetUserId].sort().join('_');
     socket.join(roomId);
 
@@ -55,6 +55,13 @@ export const messageSocketHandler = (socket, io, user) => {
   });
 
   socket.on('sendMessage', async ({ targetUserId, messageText }) => {
+    if (!targetUserId || !messageText) {
+      console.log(
+        `Empty targetUserId (${targetUserId}) or messageText (${messageText})`
+      );
+      return;
+    }
+
     const roomId = [userId, targetUserId].sort().join('_');
     await sendMessage(userId, targetUserId, messageText, roomId, io);
   });

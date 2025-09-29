@@ -47,6 +47,7 @@ app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/follow', followRoutes);
 app.use('/api/v1/messages', messageRoutes);
 
+
 app.use(express.static('public'));
 
 
