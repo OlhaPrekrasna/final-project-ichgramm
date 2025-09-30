@@ -15,7 +15,7 @@ const router = express.Router();
 // GET /api/v1/user - список пользователей +
 router.get('/', find);
 
-// GET /api/v1/user/:id - профиль пользователя +
+// ??? GET /api/v1/user/:id - профиль пользователя +
 router.get('/:id', getUserProfile);
 
 // PUT /api/v1/user/:id - update user profile +

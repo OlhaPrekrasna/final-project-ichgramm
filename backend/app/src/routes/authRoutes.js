@@ -20,10 +20,10 @@ router.post('/signin', login);
 // POST /api/v1/auth/logout -  login user
 router.post('/logout', logout);
 
-// POST /api/v1/auth/update-password - update password
+// POST /api/v1/auth/update-password - update password +
 router.post('/update-password', updatePassword);
 
-// POST /api/v1/auth/forgot-password
+// POST /api/v1/auth/forgot-password +
 router.post('/forgot-password', forgotPassword);
 
 // GET /api/v1/auth/reset-password

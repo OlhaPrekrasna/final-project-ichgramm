@@ -1,0 +1,1310 @@
+{
+	"info": {
+		"_postman_id": "4acc08df-3b0e-46cd-ba7a-39a767c6f7bd",
+		"name": "Ichgramm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47539637"
+	},
+	"item": [
+		{
+			"name": "signUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"EmmaTravel\",\n    \"email\": \"emma.clark@example.com\",\n    \"password\": \"123456\",\n    \"first_name\": \"Emma\",\n    \"last_name\": \"Clark\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup"
+					]
+				},
+				"description": "## API Documentation – User Signup\n\n### Endpoint\n\n`POST /api/v1/auth/signup`\n\n### Description\n\nCreates a new user account.\n\n### Request\n\n#### Headers\n\n| Key | Value | Required |\n| --- | --- | --- |\n| Content-Type | application/json | ✅ |\n\n#### Body (JSON)\n\n```\n{\n  \"username\": \"john_doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePassword123\"\n}\n\n ```\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| username | string | ✅ | Unique username for the user |\n| email | string | ✅ | User’s email address |\n| password | string | ✅ | User’s password (min 6 chars) |\n\n---\n\n### Response\n\n#### ✅ Success (201 Created)\n\n```\n{\n  \"message\": \"User created successfully\",\n  \"user\": {\n    \"id\": \"64f2b87c1a5e12345\",\n    \"username\": \"john_doe\",\n    \"email\": \"john@example.com\"\n  },\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI...\"\n}\n\n ```\n\n| Field | Type | Description |\n| --- | --- | --- |\n| message | string | Success message |\n| user.id | string | Unique identifier of the new user |\n| username | string | Registered username |\n| email | string | Registered email |\n| token | string | JWT token for authentication |\n\n---\n\n#### ❌ Error Responses\n\n**400 Bad Request**\n\n```\n{\n  \"error\": \"Email is required\"\n}\n\n ```\n\n**409 Conflict**\n\n```\n{\n  \"error\": \"User already exists\"\n}\n\n ```\n\n**500 Internal Server Error**\n\n```\n{\n  \"error\": \"Something went wrong\"\n}\n\n ```\n\n---\n\n### Example in Postman\n\n- **Method:** `POST`\n    \n- **URL:** `http://localhost:5000/api/v1/auth/signup`\n    \n- **Headers:**\n    \n    - `Content-Type: application/json`\n        \n- { \"username\": \"jane_doe\", \"email\": \"jane@example.com\", \"password\": \"Password123!\"}"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserByEmail",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Harry Potter\",\n    \"email\": \"harrypotter@example.com\",\n    \"password\": \"1234567\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/?email=michaelbrand@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "michaelbrand@example.com"
+						}
+					]
+				},
+				"description": "## **Get User Profile by Email**\n\n**Endpoint:**\n\n```\nGET /api/v1/user/email\n\n ```\n\n**Description:**  \n  \nThis endpoint retrieves the profile details of a specific user by their **email address**.  \n  \nRequires a valid **JWT token** in the request header.\n\n---\n\n### **Headers**\n\n| Key | Value | Required |\n| --- | --- | --- |\n| Authorization | Bearer | Yes |\n| Content-Type | application/json | Yes |\n\n---\n\n### **Query Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| email | string | Yes | The email address of the user |\n\nExample:\n\n```\n/api/v1/user/email?email=user@example.com\n\n ```\n\n---\n\n### **Success Response (200 OK)**\n\n```\n{\n  \"id\": \"64f0d92b1d2f3e6b8c123456\",\n  \"username\": \"john_doe\",\n  \"email\": \"user@example.com\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"createdAt\": \"2025-09-01T10:00:00.000Z\",\n  \"updatedAt\": \"2025-09-10T12:30:00.000Z\"\n}\n\n ```\n\n---\n\n### **Error Responses**\n\n**400 Bad Request** – Missing email parameter\n\n```\n{\n  \"message\": \"Email parameter is required\"\n}\n\n ```\n\n**401 Unauthorized** – Missing or invalid token\n\n```\n{\n  \"message\": \"Authorization token is missing or invalid\"\n}\n\n ```\n\n**404 Not Found** – User doesn’t exist\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```\n\n**500 Internal Server Error** – Server error\n\n```\n{\n  \"message\": \"Error retrieving user profile\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				},
+				"description": "### **GET /api/v1/user**\n\n#### **Description**\n\nRetrieves a list of all registered users.\n\n---\n\n#### **URL**\n\n```\n/api/v1/user\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Optional — required only if endpoint is protected. |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **Query Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `page` | number | Optional. Page number for pagination. |\n| `limit` | number | Optional. Number of users per page. |\n| `sort` | string | Optional. Field to sort by (e.g., `name`, `email`). |\n| `filter` | string | Optional. Filter condition (e.g., `role=admin`). |\n\n---\n\n#### **Request Example**\n\n```\nGET /api/v1/user?page=1&limit=10&sort=name\nAuthorization: Bearer eyJhbGciOiJIUzI1NiIsInR...\nContent-Type: application/json\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"status\": \"success\",\n  \"data\": {\n    \"users\": [\n      {\n        \"id\": \"12345\",\n        \"name\": \"John Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"createdAt\": \"2025-09-30T10:15:30Z\",\n        \"updatedAt\": \"2025-09-30T12:00:00Z\"\n      },\n      {\n        \"id\": \"12346\",\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane.smith@example.com\",\n        \"createdAt\": \"2025-09-29T08:45:20Z\",\n        \"updatedAt\": \"2025-09-30T11:30:00Z\"\n      }\n    ],\n    \"pagination\": {\n      \"page\": 1,\n      \"limit\": 10,\n      \"totalPages\": 5,\n      \"totalUsers\": 50\n    }\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | No valid JWT token provided or token expired. |\n| 403 | `\"Forbidden\"` | User does not have permission to access this resource. |\n| 500 | `\"Internal Server Error\"` | Unexpected server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"status\": \"error\",\n  \"message\": \"Unauthorized\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getFilteredUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user?username=harry.p2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "harry.p2"
+						}
+					]
+				},
+				"description": "### **GET /api/v1/user**\n\n#### **Description**\n\nRetrieves a list of users filtered by username. This endpoint returns users whose username matches the specified query parameter.\n\n---\n\n#### **URL**\n\n```\nhttp://localhost:3001/api/v1/user\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Optional — required if the endpoint is protected. |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **Query Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `username` | string | Required. The username to filter users by. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/user?username=harry.p2\nAuthorization: Bearer eyJhbGciOiJIUzI1NiIsInR...\nContent-Type: application/json\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"status\": \"success\",\n  \"data\": {\n    \"users\": [\n      {\n        \"id\": \"78910\",\n        \"name\": \"Harry Potter\",\n        \"username\": \"harry.p2\",\n        \"email\": \"harry.p2@example.com\",\n        \"createdAt\": \"2025-09-28T09:20:00Z\",\n        \"updatedAt\": \"2025-09-29T14:45:00Z\"\n      }\n    ]\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Bad Request\"` | Missing or invalid `username` query parameter. |\n| 401 | `\"Unauthorized\"` | No valid JWT token provided or token expired. |\n| 404 | `\"User not found\"` | No users matching the provided username. |\n| 500 | `\"Internal Server Error\"` | Unexpected server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"status\": \"error\",\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "signIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"luna.sky@example.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signin"
+					]
+				},
+				"description": "## **Login User**\n\n**Endpoint:**\n\n```\nPOST /api/v1/auth/signin\n\n ```\n\n**Description:**  \n  \nThis endpoint allows an existing user to log in by providing valid credentials (email and password).  \n  \nOn success, it returns a JWT token that should be used for accessing protected routes.\n\n---\n\n### **Headers**\n\n| Key | Value | Required |\n| --- | --- | --- |\n| Content-Type | application/json | Yes |\n\n---\n\n### **Request Body**\n\n```\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"yourPassword123\"\n}\n\n ```\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| email | string | Yes | The user’s registered email |\n| password | string | Yes | The user’s account password |\n\n---\n\n### **Success Response (200 OK)**\n\n```\n{\n  \"message\": \"Login successful\",\n  \"token\": \"jwt_token_here\",\n  \"user\": {\n    \"id\": \"64f0d92b1d2f3e6b8c123456\",\n    \"username\": \"john_doe\",\n    \"email\": \"user@example.com\"\n  }\n}\n\n ```\n\n---\n\n### **Error Responses**\n\n**400 Bad Request** – Missing fields\n\n```\n{\n  \"message\": \"Email and password are required\"\n}\n\n ```\n\n**401 Unauthorized** – Invalid credentials\n\n```\n{\n  \"message\": \"Invalid email or password\"\n}\n\n ```\n\n**500 Internal Server Error** – Server error\n\n```\n{\n  \"message\": \"Error logging in user\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "forgot-password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"prekrasnaya.olya@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/auth/forgot-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"forgot-password"
+					]
+				},
+				"description": "### **POST /api/v1/auth/forgot-password**\n\n#### **Description**\n\nInitiates the password reset process for a user by sending a password reset link or token to their registered email address.\n\n---\n\n#### **URL**\n\n```\n/api/v1/auth/forgot-password\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `email` | string | Required. The email address of the user requesting password reset. |\n\n**Example Request Body:**\n\n```\n{\n  \"email\": \"user@example.com\"\n}\n\n ```\n\n---\n\n#### **Request Example**\n\n```\nPOST /api/v1/auth/forgot-password\nContent-Type: application/json\n{\n  \"email\": \"user@example.com\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"status\": \"success\",\n  \"message\": \"Password reset link has been sent to your email address.\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Bad Request\"` | Missing or invalid email in request body. |\n| 404 | `\"User not found\"` | No account found with the provided email. |\n| 500 | `\"Internal Server Error\"` | Unexpected server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"status\": \"error\",\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "createPost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhZDNkZmQ5YWU3MmQ1ZmZlYmM0OCIsImlhdCI6MTc1ODgzNzEzMiwiZXhwIjoxNzU5NDQxOTMyfQ.Mbsz3W1edDVXmb80TmqNIAJJwPVFJSFf61YEmBKye_o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "caption",
+							"value": "My first post",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts"
+					]
+				},
+				"description": "### **POST /api/v1/posts**\n\n#### **Description**\n\nCreates a new post. Requires authentication via token. The request body must contain the post details.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `title` | string | Required. Title of the post. |\n| `content` | string | Required. Content of the post. |\n| `tags` | array | Optional. Tags associated with the post. |\n| `category` | string | Optional. Category of the post. |\n\n**Example Request Body:**\n\n```\n{\n  \"title\": \"My First Post\",\n  \"content\": \"This is the content of my first post.\",\n  \"tags\": [\"javascript\", \"nodejs\"],\n  \"category\": \"programming\"\n}\n\n ```\n\n---\n\n#### **Request Example**\n\n```\nPOST http://localhost:3001/api/v1/posts\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n{\n  \"title\": \"My First Post\",\n  \"content\": \"This is the content of my first post.\",\n  \"tags\": [\"javascript\", \"nodejs\"],\n  \"category\": \"programming\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `201 Created`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Post created successfully\",\n  \"post\": {\n    \"id\": \"12345\",\n    \"title\": \"My First Post\",\n    \"content\": \"This is the content of my first post.\",\n    \"tags\": [\"javascript\", \"nodejs\"],\n    \"category\": \"programming\",\n    \"author\": \"user@example.com\",\n    \"createdAt\": \"2025-09-30T12:00:00Z\"\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Required data was not provided\"` | Missing required fields (`title` or `content`). |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 500 | `\"Error creating post\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllPosts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhZDNkZmQ5YWU3MmQ1ZmZlYmM0OCIsImlhdCI6MTc1ODgzNzEzMiwiZXhwIjoxNzU5NDQxOTMyfQ.Mbsz3W1edDVXmb80TmqNIAJJwPVFJSFf61YEmBKye_o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "caption",
+							"value": "My first post",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts"
+					]
+				},
+				"description": "### **GET /api/v1/posts**\n\n#### **Description**\n\nRetrieves a list of all public posts. No authentication required.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **Query Parameters** (optional)\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `page` | integer | Page number for pagination (default: 1). |\n| `limit` | integer | Number of posts per page (default: 10). |\n| `category` | string | Filter posts by category. |\n| `tags` | string | Filter posts by tags (comma-separated). |\n| `author` | string | Filter posts by author's username or ID. |\n\n**Example Query Parameters:**\n\n```\n?page=1&limit=5&category=programming&tags=javascript,nodejs\n\n ```\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/posts?page=1&limit=5\nContent-Type: application/json\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"page\": 1,\n  \"limit\": 5,\n  \"totalPosts\": 25,\n  \"posts\": [\n    {\n      \"id\": \"12345\",\n      \"title\": \"My First Post\",\n      \"content\": \"This is the content of my first post.\",\n      \"tags\": [\"javascript\", \"nodejs\"],\n      \"category\": \"programming\",\n      \"author\": \"user@example.com\",\n      \"createdAt\": \"2025-09-30T12:00:00Z\"\n    },\n    {\n      \"id\": \"12346\",\n      \"title\": \"Second Post\",\n      \"content\": \"Content of the second post.\",\n      \"tags\": [\"react\"],\n      \"category\": \"frontend\",\n      \"author\": \"anotheruser@example.com\",\n      \"createdAt\": \"2025-09-29T08:30:00Z\"\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 500 | `\"Error retrieving posts\"` | Server error while fetching posts. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Error retrieving posts\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "updatePost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1ODg3MzYwMywiZXhwIjoxNzU5NDc4NDAzfQ.vTRMTgEkOOudSGIXxrMndUvwNtOXUb3tngT3y1JrfLA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"New title\",\n  \"content\": \"Updated text\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/68d5bcd8cbbfd1cd3968c7ea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"68d5bcd8cbbfd1cd3968c7ea"
+					]
+				},
+				"description": "### **PUT /api/v1/posts/:postId**\n\n#### **Description**\n\nUpdates an existing post. Requires authentication via token. Only the author of the post can update it.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/:postId\n\n ```\n\n---\n\n#### **Method**\n\n```\nPUT\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `postId` | string | Required. ID of the post to be updated. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `title` | string | Optional. New title of the post. |\n| `content` | string | Optional. New content of the post. |\n| `tags` | array | Optional. Updated tags for the post. |\n| `category` | string | Optional. Updated category of the post. |\n\n**Example Request Body:**\n\n```\n{\n  \"title\": \"Updated Post Title\",\n  \"content\": \"Updated content for my post.\",\n  \"tags\": [\"javascript\", \"react\"],\n  \"category\": \"frontend\"\n}\n\n ```\n\n---\n\n#### **Request Example**\n\n```\nPUT http://localhost:3001/api/v1/posts/12345\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n{\n  \"title\": \"Updated Post Title\",\n  \"content\": \"Updated content for my post.\",\n  \"tags\": [\"javascript\", \"react\"],\n  \"category\": \"frontend\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Post updated successfully\",\n  \"post\": {\n    \"id\": \"12345\",\n    \"title\": \"Updated Post Title\",\n    \"content\": \"Updated content for my post.\",\n    \"tags\": [\"javascript\", \"react\"],\n    \"category\": \"frontend\",\n    \"author\": \"user@example.com\",\n    \"updatedAt\": \"2025-09-30T14:00:00Z\"\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Required data was not provided\"` | Missing necessary fields. |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User is not the author of the post. |\n| 404 | `\"Post not found\"` | Post with given `postId` does not exist. |\n| 500 | `\"Error updating post\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getPostById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhZDNkZmQ5YWU3MmQ1ZmZlYmM0OCIsImlhdCI6MTc1ODg3NTA3MiwiZXhwIjoxNzU5NDc5ODcyfQ.uObAaP5QVY7lJAxCcjMFWP-5FQ2nt6TnhxLd6-_sD0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/68d5bcd8cbbfd1cd3968c7ea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"68d5bcd8cbbfd1cd3968c7ea"
+					]
+				},
+				"description": "### **GET /api/v1/posts/:postId**\n\n#### **Description**\n\nRetrieves a single post by its ID. Requires authentication via token.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/:postId\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `postId` | string | Required. ID of the post to retrieve. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/posts/12345\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"id\": \"12345\",\n  \"title\": \"My First Post\",\n  \"content\": \"This is the content of my first post.\",\n  \"tags\": [\"javascript\", \"nodejs\"],\n  \"category\": \"programming\",\n  \"author\": \"user@example.com\",\n  \"createdAt\": \"2025-09-30T12:00:00Z\",\n  \"updatedAt\": \"2025-09-30T13:00:00Z\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to access this post. |\n| 404 | `\"Post not found\"` | Post with the given `postId` does not exist. |\n| 500 | `\"Error retrieving post\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getPostsAnotherUserById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhZDNkZmQ5YWU3MmQ1ZmZlYmM0OCIsImlhdCI6MTc1ODg3NTA3MiwiZXhwIjoxNzU5NDc5ODcyfQ.uObAaP5QVY7lJAxCcjMFWP-5FQ2nt6TnhxLd6-_sD0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/user/68d5ac0ffd9ae72d5ffebc3b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"user",
+						"68d5ac0ffd9ae72d5ffebc3b"
+					]
+				},
+				"description": "### **GET /api/v1/posts/user/:userId**\n\n#### **Description**\n\nRetrieves all posts created by another user by their user ID. Requires authentication via token.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/user/:userId\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `userId` | string | Required. ID of the user whose posts are being retrieved. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/posts/user/98765\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n[\n  {\n    \"id\": \"12345\",\n    \"title\": \"My First Post\",\n    \"content\": \"This is the content of my first post.\",\n    \"tags\": [\"javascript\", \"nodejs\"],\n    \"category\": \"programming\",\n    \"author\": \"user@example.com\",\n    \"createdAt\": \"2025-09-30T12:00:00Z\",\n    \"updatedAt\": \"2025-09-30T13:00:00Z\"\n  },\n  {\n    \"id\": \"12346\",\n    \"title\": \"Another Post\",\n    \"content\": \"Some other content from this user.\",\n    \"tags\": [\"react\", \"frontend\"],\n    \"category\": \"web development\",\n    \"author\": \"user@example.com\",\n    \"createdAt\": \"2025-09-29T15:00:00Z\",\n    \"updatedAt\": \"2025-09-29T16:00:00Z\"\n  }\n]\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to access these posts. |\n| 404 | `\"User not found\"` | No user exists with the given `userId`. |\n| 500 | `\"Error retrieving posts\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserPosts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhZDNkZmQ5YWU3MmQ1ZmZlYmM0OCIsImlhdCI6MTc1ODg3NTA3MiwiZXhwIjoxNzU5NDc5ODcyfQ.uObAaP5QVY7lJAxCcjMFWP-5FQ2nt6TnhxLd6-_sD0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/user/68d5ad3dfd9ae72d5ffebc48",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"user",
+						"68d5ad3dfd9ae72d5ffebc48"
+					]
+				},
+				"description": "### **GET /api/v1/posts/user/me**\n\n#### **Description**\n\nRetrieves all posts created by the currently authenticated user. Requires authentication via token.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/user/me\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/posts/user/me\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n[\n  {\n    \"id\": \"12345\",\n    \"title\": \"My First Post\",\n    \"content\": \"This is the content of my first post.\",\n    \"tags\": [\"javascript\", \"nodejs\"],\n    \"category\": \"programming\",\n    \"author\": \"me@example.com\",\n    \"createdAt\": \"2025-09-30T12:00:00Z\",\n    \"updatedAt\": \"2025-09-30T13:00:00Z\"\n  },\n  {\n    \"id\": \"12346\",\n    \"title\": \"Another Post\",\n    \"content\": \"Additional content from me.\",\n    \"tags\": [\"react\", \"frontend\"],\n    \"category\": \"web development\",\n    \"author\": \"me@example.com\",\n    \"createdAt\": \"2025-09-29T15:00:00Z\",\n    \"updatedAt\": \"2025-09-29T16:00:00Z\"\n  }\n]\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to access these posts. |\n| 500 | `\"Error retrieving posts\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "deletePost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhZDNkZmQ5YWU3MmQ1ZmZlYmM0OCIsImlhdCI6MTc1ODg3NTA3MiwiZXhwIjoxNzU5NDc5ODcyfQ.uObAaP5QVY7lJAxCcjMFWP-5FQ2nt6TnhxLd6-_sD0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/68d5c1397dfff207796f1555",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"68d5c1397dfff207796f1555"
+					]
+				},
+				"description": "### **DELETE /api/v1/posts/:postId**\n\n#### **Description**\n\nDeletes a specific post by its ID. Requires authentication. Only the author of the post can delete it.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/:postId\n\n ```\n\n---\n\n#### **Method**\n\n```\nDELETE\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `postId` | string | Required. ID of the post to delete. |\n\n---\n\n#### **Request Example**\n\n```\nDELETE http://localhost:3001/api/v1/posts/12345\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Post deleted successfully\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to delete this post. |\n| 404 | `\"Post not found\"` | No post exists with the given `postId`. |\n| 500 | `\"Error deleting post\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "likeAndUnlikePost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1ODg3NzQ0MSwiZXhwIjoxNzU5NDgyMjQxfQ.HkNyjydrZTAu1zEQMEWwwVaC-lT2mWM6d7d-PH7PaNk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/68d655a2b85bf13e783fac79/likes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"68d655a2b85bf13e783fac79",
+						"likes"
+					]
+				},
+				"description": "### **POST /api/v1/posts/:postId/likes**\n\n#### **Description**\n\nToggles a like or unlike for a specific post.  \n  \nIf the authenticated user has already liked the post, this request will remove the like.  \n  \nIf the user hasn’t liked the post yet, this request will add a like. Requires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/:postId/likes\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `postId` | string | Required. ID of the post to like or unlike. |\n\n---\n\n#### **Request Example**\n\n```\nPOST http://localhost:3001/api/v1/posts/12345/likes\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example (Liked):**\n\n```\n{\n  \"message\": \"Post liked successfully\",\n  \"likesCount\": 5\n}\n\n ```\n\n**Content Example (Unliked):**\n\n```\n{\n  \"message\": \"Post unliked successfully\",\n  \"likesCount\": 4\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to like/unlike. |\n| 404 | `\"Post not found\"` | No post exists with the given `postId`. |\n| 500 | `\"Error toggling like\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getPostLikes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1ODg3NzQ0MSwiZXhwIjoxNzU5NDgyMjQxfQ.HkNyjydrZTAu1zEQMEWwwVaC-lT2mWM6d7d-PH7PaNk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/posts/68d655a2b85bf13e783fac79/likes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"68d655a2b85bf13e783fac79",
+						"likes"
+					]
+				},
+				"description": "### **GET /api/v1/posts/:postId/likes**\n\n#### **Description**\n\nRetrieves the list of users who liked a specific post. Requires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/posts/:postId/likes\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `postId` | string | Required. ID of the post to retrieve likes for. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/posts/12345/likes\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"postId\": \"12345\",\n  \"likesCount\": 5,\n  \"likes\": [\n    {\n      \"userId\": \"u1\",\n      \"username\": \"harry.p2\",\n      \"email\": \"harry@example.com\"\n    },\n    {\n      \"userId\": \"u2\",\n      \"username\": \"emma.w\",\n      \"email\": \"emma@example.com\"\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to view likes. |\n| 404 | `\"Post not found\"` | No post exists with the given `postId`. |\n| 500 | `\"Error retrieving likes\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserLikes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1ODg3NzQ0MSwiZXhwIjoxNzU5NDgyMjQxfQ.HkNyjydrZTAu1zEQMEWwwVaC-lT2mWM6d7d-PH7PaNk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/68d5ac0ffd9ae72d5ffebc3b/likes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"68d5ac0ffd9ae72d5ffebc3b",
+						"likes"
+					]
+				},
+				"description": "### **GET /api/v1/user/:id/likes**\n\n#### **Description**\n\nRetrieves the list of posts liked by a specific user. Requires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/user/:id/likes\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | string | Required. ID of the user whose likes are being retrieved. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/user/67890/likes\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"userId\": \"67890\",\n  \"username\": \"harry.p2\",\n  \"likesCount\": 3,\n  \"likedPosts\": [\n    {\n      \"postId\": \"12345\",\n      \"title\": \"My First Post\",\n      \"content\": \"This is an example post content...\",\n      \"createdAt\": \"2025-09-30T10:00:00Z\"\n    },\n    {\n      \"postId\": \"67890\",\n      \"title\": \"Another Post\",\n      \"content\": \"Another example content...\",\n      \"createdAt\": \"2025-09-29T08:30:00Z\"\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User does not have permission to view likes. |\n| 404 | `\"User not found\"` | No user exists with the given `id`. |\n| 500 | `\"Error retrieving likes\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getUserProfile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/68d509bfda95b430f163c113",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"68d509bfda95b430f163c113"
+					]
+				},
+				"description": "### **GET /api/v1/user/:id**\n\n#### **Description**\n\nRetrieves the profile information of a specific user by their ID.\n\n---\n\n#### **URL**\n\n```\n/api/v1/user/:id\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | string | Required. ID of the user whose profile is being retrieved. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/user/67890\nContent-Type: application/json\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"userId\": \"67890\",\n  \"username\": \"harry.p2\",\n  \"email\": \"harry@example.com\",\n  \"fullName\": \"Harry Potter\",\n  \"avatarUrl\": \"http://example.com/avatar.jpg\",\n  \"createdAt\": \"2025-09-01T12:00:00Z\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 404 | `\"User not found\"` | No user exists with the given `id`. |\n| 500 | `\"Error retrieving user\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "findUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						""
+					]
+				},
+				"description": "### **GET /api/v1/user**\n\n#### **Description**\n\nRetrieves a list of all users. Supports optional query parameters to filter results.\n\n---\n\n#### **URL**\n\n```\n/api/v1/user\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **Query Parameters** (optional)\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `username` | string | Filter users by username (partial or full match). |\n| `email` | string | Filter users by email. |\n| `limit` | number | Limit the number of returned users. |\n| `offset` | number | Skip a number of users (for pagination). |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/user?username=harry.p2\nContent-Type: application/json\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n[\n  {\n    \"userId\": \"67890\",\n    \"username\": \"harry.p2\",\n    \"email\": \"harry@example.com\",\n    \"fullName\": \"Harry Potter\",\n    \"createdAt\": \"2025-09-01T12:00:00Z\"\n  },\n  {\n    \"userId\": \"67900\",\n    \"username\": \"hermione.g\",\n    \"email\": \"hermione@example.com\",\n    \"fullName\": \"Hermione Granger\",\n    \"createdAt\": \"2025-09-05T14:00:00Z\"\n  }\n]\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 404 | `\"No users found\"` | No users matched the search criteria. |\n| 500 | `\"Error retrieving users\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"No users found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "updateProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1ODkyNDg0NiwiZXhwIjoxNzU5NTI5NjQ2fQ.Mqj8gY53HVdzLa4v2n3AKfwYinDNQtunIIEQxl8--Ys",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Luna2\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/68d500597df5b3629a1e9c6e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"68d500597df5b3629a1e9c6e"
+					]
+				},
+				"description": "### **PUT /api/v1/user/:id**\n\n#### **Description**\n\nUpdates the profile information of a specific user by their ID. Requires authentication.  \n  \nOnly the owner of the profile (or an authorized admin, if implemented) can update the data.\n\n---\n\n#### **URL**\n\n```\n/api/v1/user/:id\n\n ```\n\n---\n\n#### **Method**\n\n```\nPUT\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | string | Required. ID of the user whose profile is being updated. |\n\n---\n\n#### **Body Parameters** (JSON)\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `username` | string | Optional | New username of the user. |\n| `email` | string | Optional | New email address. |\n| `fullName` | string | Optional | New full name. |\n| `avatarUrl` | string | Optional | URL to the new avatar image. |\n| `password` | string | Optional | New password (will be hashed). |\n\n---\n\n#### **Request Example**\n\n```\nPUT http://localhost:3001/api/v1/user/67890\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n**Body:**\n\n```\n{\n  \"username\": \"harry.p2\",\n  \"email\": \"harry_new@example.com\",\n  \"fullName\": \"Harry James Potter\",\n  \"avatarUrl\": \"http://example.com/new-avatar.jpg\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"User profile updated successfully\",\n  \"user\": {\n    \"userId\": \"67890\",\n    \"username\": \"harry.p2\",\n    \"email\": \"harry_new@example.com\",\n    \"fullName\": \"Harry James Potter\",\n    \"avatarUrl\": \"http://example.com/new-avatar.jpg\",\n    \"updatedAt\": \"2025-09-30T12:45:00Z\"\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Required data was not provided\"` | Missing or invalid request body fields. |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User is not allowed to update this profile. |\n| 404 | `\"User not found\"` | No user exists with the given `id`. |\n| 500 | `\"Error updating profile\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "updateProfilePhoto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1ODkyNDg0NiwiZXhwIjoxNzU5NTI5NjQ2fQ.Mqj8gY53HVdzLa4v2n3AKfwYinDNQtunIIEQxl8--Ys",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profile",
+							"type": "file",
+							"src": "/Users/olya/Desktop/Renewalvw.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/68d500597df5b3629a1e9c6e/upload-photo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"68d500597df5b3629a1e9c6e",
+						"upload-photo"
+					]
+				},
+				"description": "### **PUT /api/v1/user/:id/upload-photo**\n\n#### **Description**\n\nUploads or updates the profile photo of a specific user by their ID. Requires authentication.  \n  \nThe image file must be sent as `multipart/form-data`.\n\n---\n\n#### **URL**\n\n```\n/api/v1/user/:id/upload-photo\n\n ```\n\n---\n\n#### **Method**\n\n```\nPUT\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n| `Content-Type` | `multipart/form-data` | Required. Must be set when uploading files. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | string | Required. ID of the user uploading the photo. |\n\n---\n\n#### **Body Parameters** (Form Data)\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `profile` | file | Yes | The profile photo file to be uploaded. |\n\n---\n\n#### **Request Example**\n\n```\nPUT http://localhost:3001/api/v1/user/67890/upload-photo\nAuthorization: Bearer <your-token>\nContent-Type: multipart/form-data\n\n ```\n\n**Form-Data Body:**\n\n| Key | Type | Value (Example) |\n| --- | --- | --- |\n| `profile` | File | `avatar.png` (choose file) |\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Profile photo uploaded successfully\",\n  \"user\": {\n    \"userId\": \"67890\",\n    \"username\": \"harry.p2\",\n    \"avatarUrl\": \"http://localhost:3001/uploads/profile/avatar.png\",\n    \"updatedAt\": \"2025-09-30T12:55:00Z\"\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"No file uploaded\"` | Request did not include a file in the `profile` field. |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 403 | `\"Forbidden\"` | User is not allowed to upload a photo for this ID. |\n| 404 | `\"User not found\"` | No user exists with the given `id`. |\n| 500 | `\"Error uploading profile photo\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"No file uploaded\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/user/68d5ad8ffd9ae72d5ffebc4b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"68d5ad8ffd9ae72d5ffebc4b"
+					]
+				},
+				"description": "### **DELETE /api/v1/users/:id**\n\n#### **Description**\n\nDeletes a user by their unique ID. This action is irreversible.  \n  \nAuthentication is required — only authorized users (e.g., admins or the account owner) can delete a user.\n\n---\n\n#### **URL**\n\n```\n/api/v1/users/:id\n\n ```\n\n---\n\n#### **Method**\n\n```\nDELETE\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `id` | string | Yes | The unique ID of the user to delete. |\n\n---\n\n#### **Request Example**\n\n```\nDELETE http://localhost:3001/api/v1/users/67890\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"User deleted successfully\",\n  \"userId\": \"67890\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Authentication token is missing or invalid. |\n| 403 | `\"Forbidden\"` | User does not have permission to delete this account. |\n| 404 | `\"User not found\"` | No user exists with the given `id`. |\n| 500 | `\"Error deleting user\"` | Internal server error during deletion. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "createNewComment",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1ODk4NDg5NywiZXhwIjoxNzU5NTg5Njk3fQ.1k4ftOtsCkAW4_u40h9Veu3liKgjwlK2Sl-bcS5vyi8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment_text\": \"Great!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/comments/68d6456d9cca2e7c3fa6d1b6/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"comments",
+						"68d6456d9cca2e7c3fa6d1b6",
+						"comments"
+					]
+				},
+				"description": "### **POST /api/v1/comments/:postId/comments**\n\n#### **Description**\n\nAdds a new comment to a specific post by its ID.  \n  \nAuthentication is required — only logged-in users can add comments.\n\n---\n\n#### **URL**\n\n```\n/api/v1/comments/:postId/comments\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n| `Content-Type` | `application/json` | Required. The request body must be JSON formatted. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `postId` | string | Yes | The ID of the post to comment on. |\n\n---\n\n#### **Body Parameters (JSON)**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `content` | string | Yes | The text content of the comment. |\n\n---\n\n#### **Request Example**\n\n```\nPOST http://localhost:3001/api/v1/comments/12345/comments\nAuthorization: Bearer <your-token>\nContent-Type: application/json\n\n ```\n\n**Body:**\n\n```\n{\n  \"content\": \"This is my first comment!\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `201 Created`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Comment added successfully\",\n  \"comment\": {\n    \"id\": \"98765\",\n    \"postId\": \"12345\",\n    \"userId\": \"67890\",\n    \"content\": \"This is my first comment!\",\n    \"createdAt\": \"2025-09-30T15:45:00Z\"\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Content is required\"` | Comment text was not provided. |\n| 401 | `\"Unauthorized\"` | Authentication token is missing or invalid. |\n| 404 | `\"Post not found\"` | No post exists with the given `postId`. |\n| 500 | `\"Error creating comment\"` | Internal server error during comment creation. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteComment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1ODk4MDg3NCwiZXhwIjoxNzU5NTg1Njc0fQ.PwU_Vfi-kKW5vkRo0J0bYkwcU9WTHEMEkKQspA18D-8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment_text\": \"Good post\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/comments/68d8003782aedb0f3460ee0c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"comments",
+						"68d8003782aedb0f3460ee0c"
+					]
+				},
+				"description": "### **DELETE /api/v1/comments/:commentId**\n\n#### **Description**\n\nDeletes a specific comment by its ID.  \n  \nAuthentication is required — only the author of the comment or an admin can delete it.\n\n---\n\n#### **URL**\n\n```\n/api/v1/comments/:commentId\n\n ```\n\n---\n\n#### **Method**\n\n```\nDELETE\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `commentId` | string | Yes | The unique ID of the comment. |\n\n---\n\n#### **Request Example**\n\n```\nDELETE http://localhost:3001/api/v1/comments/98765\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Comment deleted successfully\",\n  \"commentId\": \"98765\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Authentication token is missing or invalid. |\n| 403 | `\"Forbidden\"` | User is not allowed to delete this comment. |\n| 404 | `\"Comment not found\"` | No comment exists with the given `commentId`. |\n| 500 | `\"Error deleting comment\"` | Internal server error during deletion. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Comment not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "allCommentsToPost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1ODk4NDg5NywiZXhwIjoxNzU5NTg5Njk3fQ.1k4ftOtsCkAW4_u40h9Veu3liKgjwlK2Sl-bcS5vyi8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/comments/68d6456d9cca2e7c3fa6d1b6/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"comments",
+						"68d6456d9cca2e7c3fa6d1b6",
+						"comments"
+					]
+				},
+				"description": "### **GET /api/v1/comments/:postId/comments**\n\n#### **Description**\n\nRetrieves all comments for a specific post by its ID.  \n  \nAuthentication is required — only logged-in users can view the comments.\n\n---\n\n#### **URL**\n\n```\n/api/v1/comments/:postId/comments\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `postId` | string | Yes | The unique ID of the post to fetch comments for. |\n\n---\n\n#### **Request Example**\n\n```\nGET http://localhost:3001/api/v1/comments/12345/comments\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"postId\": \"12345\",\n  \"comments\": [\n    {\n      \"id\": \"98765\",\n      \"userId\": \"67890\",\n      \"username\": \"harry.p2\",\n      \"content\": \"This is a great post!\",\n      \"createdAt\": \"2025-09-30T15:50:00Z\"\n    },\n    {\n      \"id\": \"98766\",\n      \"userId\": \"67891\",\n      \"username\": \"sarah.k\",\n      \"content\": \"Thanks for sharing!\",\n      \"createdAt\": \"2025-09-30T15:55:00Z\"\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Authentication token is missing or invalid. |\n| 404 | `\"Post not found\"` | No post exists with the given `postId`. |\n| 500 | `\"Error fetching comments\"` | Internal server error while retrieving comments. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Post not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "likeAndUnlikeOfComment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1ODk4NDg5NywiZXhwIjoxNzU5NTg5Njk3fQ.1k4ftOtsCkAW4_u40h9Veu3liKgjwlK2Sl-bcS5vyi8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/comments/like/68d8001182aedb0f3460ee02",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"comments",
+						"like",
+						"68d8001182aedb0f3460ee02"
+					]
+				},
+				"description": "### **POST /api/v1/comments/like/:commentId**\n\n#### **Description**\n\nToggles a like on a specific comment by its ID.\n\n- If the comment is already liked by the user, this request will **remove** the like (unlike).\n    \n- If the comment is not yet liked, this request will **add** a like.  \n      \n    Authentication is required.\n    \n\n---\n\n#### **URL**\n\n```\n/api/v1/comments/like/:commentId\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. Authentication token of the logged-in user. |\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `commentId` | string | Yes | The unique ID of the comment. |\n\n---\n\n#### **Request Example**\n\n```\nPOST http://localhost:3001/api/v1/comments/like/98765\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example (like added):**\n\n```\n{\n  \"message\": \"Comment liked successfully\",\n  \"commentId\": \"98765\",\n  \"liked\": true,\n  \"likesCount\": 5\n}\n\n ```\n\n**Content Example (like removed):**\n\n```\n{\n  \"message\": \"Comment unliked successfully\",\n  \"commentId\": \"98765\",\n  \"liked\": false,\n  \"likesCount\": 4\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Authentication token is missing or invalid. |\n| 404 | `\"Comment not found\"` | No comment exists with the given `commentId`. |\n| 500 | `\"Error liking comment\"` | Internal server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Comment not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "searchUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/search/users?query=a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"search",
+						"users"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "a"
+						}
+					]
+				},
+				"description": "### **GET /api/v1/users**\n\n#### **Description**\n\nSearches for users in the system.  \n  \nThis endpoint can return a full list of users or filter them by query parameters (e.g., username, email).\n\n---\n\n#### **URL**\n\n```\n/api/v1/users\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Optional. Defaults to JSON. |\n\n_(Add_ `_Authorization: Bearer_` _if your route requires authentication — depends on middleware.)_\n\n---\n\n#### **Query Parameters (Optional)**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `username` | string | Filter users by username (e.g., `harry.p2`). |\n| `email` | string | Filter users by email. |\n| `limit` | number | Limit the number of returned results. |\n| `page` | number | Page number for pagination. |\n\n---\n\n#### **Request Examples**\n\n**1\\. Get all users**\n\n```\nGET http://localhost:3001/api/v1/users\n\n ```\n\n**2\\. Search users by username**\n\n```\nGET http://localhost:3001/api/v1/users?username=harry.p2\n\n ```\n\n**3\\. Search users with pagination**\n\n```\nGET http://localhost:3001/api/v1/users?limit=10&page=2\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"users\": [\n    {\n      \"id\": \"67890\",\n      \"username\": \"harry.p2\",\n      \"email\": \"harry.p2@example.com\",\n      \"createdAt\": \"2025-09-20T14:30:00Z\"\n    },\n    {\n      \"id\": \"67891\",\n      \"username\": \"sarah.k\",\n      \"email\": \"sarah.k@example.com\",\n      \"createdAt\": \"2025-09-21T10:15:00Z\"\n    }\n  ],\n  \"total\": 2,\n  \"page\": 1,\n  \"limit\": 10\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Invalid query parameters\"` | Query params are in the wrong format. |\n| 404 | `\"No users found\"` | No users match the given search criteria. |\n| 500 | `\"Error searching users\"` | Internal server error during search. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"No users found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "searchPost",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/search/posts?query=hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"search",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "hello"
+						}
+					]
+				},
+				"description": "### **GET /api/v1/search/posts**\n\n#### **Description**\n\nSearches for posts that contain the given query string in their content.  \n  \nUseful for implementing search functionality in the application.\n\n---\n\n#### **URL**\n\n```\n/api/v1/search/posts?query=<searchTerm>\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Optional. Defaults to JSON. |\n\n_(Add_ `_Authorization: Bearer_` _if your search is restricted to authenticated users — depends on middleware.)_\n\n---\n\n#### **Query Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `query` | string | Yes | The keyword or phrase to search in posts. |\n| `limit` | number | No | Limit the number of returned results. |\n| `page` | number | No | Page number for pagination. |\n\n---\n\n#### **Request Examples**\n\n**1\\. Search posts by keyword**\n\n```\nGET http://localhost:3001/api/v1/search/posts?query=travel\n\n ```\n\n**2\\. Search posts with pagination**\n\n```\nGET http://localhost:3001/api/v1/search/posts?query=food&limit=5&page=2\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"query\": \"travel\",\n  \"results\": [\n    {\n      \"id\": \"12345\",\n      \"userId\": \"67890\",\n      \"username\": \"harry.p2\",\n      \"content\": \"I love to travel around the world!\",\n      \"createdAt\": \"2025-09-30T12:30:00Z\"\n    },\n    {\n      \"id\": \"12346\",\n      \"userId\": \"67891\",\n      \"username\": \"sarah.k\",\n      \"content\": \"Traveling opens your mind and soul.\",\n      \"createdAt\": \"2025-09-30T13:00:00Z\"\n    }\n  ],\n  \"total\": 2,\n  \"page\": 1,\n  \"limit\": 10\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Query parameter required\"` | The `query` parameter was not provided. |\n| 404 | `\"No posts found\"` | No posts matched the search query. |\n| 500 | `\"Error searching posts\"` | Internal server error while searching posts. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"No posts found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "createNotification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1OTAxMTI4NywiZXhwIjoxNzU5NjE2MDg3fQ.atWNxc6ErN8uqqA8bu4V8dE_k6fueZOhNWvxzZxmsmk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"68d500597df5b3629a1e9c6e\",\n  \"type\": \"like\",\n  \"text_content\": \"Have a good day!\",\n  \"sender_id\": \"68d5ac0ffd9ae72d5ffebc3b\",\n  \"is_read\": false\n}\n\n\n  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/notifications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"notifications"
+					]
+				},
+				"description": "### **POST /api/v1/notifications**\n\n#### **Description**\n\nCreates a new notification for a user.  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/notifications\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `title` | string | Yes | Title of the notification. |\n| `message` | string | Yes | Message content of the notification. |\n| `recipientId` | string | Yes | ID of the user who will receive the notification. |\n| `type` | string | No | Type/category of the notification (optional). |\n\n**Example JSON Body:**\n\n```\n{\n  \"title\": \"New Message\",\n  \"message\": \"You have a new message from John.\",\n  \"recipientId\": \"64f2a3c8b1234a0012345678\",\n  \"type\": \"message\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `201 Created`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Notification created successfully\",\n  \"notification\": {\n    \"id\": \"654321\",\n    \"title\": \"New Message\",\n    \"message\": \"You have a new message from John.\",\n    \"recipientId\": \"64f2a3c8b1234a0012345678\",\n    \"type\": \"message\",\n    \"createdAt\": \"2025-09-30T14:45:00Z\"\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Required data was not provided\"` | Missing required fields in request body. |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"Recipient not found\"` | Provided `recipientId` does not exist. |\n| 500 | `\"Error creating notification\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Required data was not provided\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "allNotificationsOfUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "### **GET /api/v1/notifications/:userId**\n\n#### **Description**\n\nRetrieves all notifications for a specific user.  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/notifications/:userId\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `userId` | string | Yes | ID of the user whose notifications will be retrieved. |\n\n**Example URL:**\n\n```\nGET http://localhost:3001/api/v1/notifications/64f2a3c8b1234a0012345678\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Notifications retrieved successfully\",\n  \"notifications\": [\n    {\n      \"id\": \"654321\",\n      \"title\": \"New Message\",\n      \"message\": \"You have a new message from John.\",\n      \"recipientId\": \"64f2a3c8b1234a0012345678\",\n      \"type\": \"message\",\n      \"createdAt\": \"2025-09-30T14:45:00Z\",\n      \"isRead\": false\n    },\n    {\n      \"id\": \"654322\",\n      \"title\": \"New Comment\",\n      \"message\": \"Your post has a new comment.\",\n      \"recipientId\": \"64f2a3c8b1234a0012345678\",\n      \"type\": \"comment\",\n      \"createdAt\": \"2025-09-30T15:00:00Z\",\n      \"isRead\": true\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"User not found\"` | No user found with the given `userId`. |\n| 500 | `\"Error retrieving notifications\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "updateStatusNotification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1OTAxNDQ1NiwiZXhwIjoxNzU5NjE5MjU2fQ.04Nuj7p5MyPIPG7PFED0LdVQJpZJZIII8iVobbqQf9k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"is_read\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/notifications/68d864e1c782f9f5eca59147",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"notifications",
+						"68d864e1c782f9f5eca59147"
+					]
+				},
+				"description": "### **PUT /api/v1/notifications/:notificationId**\n\n#### **Description**\n\nUpdates the status of a notification (mark as read or unread).  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/notifications/:notificationId\n\n ```\n\n---\n\n#### **Method**\n\n```\nPUT\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `notificationId` | string | Yes | ID of the notification to update. |\n\n**Example URL:**\n\n```\nPUT http://localhost:3001/api/v1/notifications/654321\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n| `Content-Type` | `application/json` | Required. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `isRead` | boolean | Yes | New status of the notification (`true` for read, `false` for unread). |\n\n**Example JSON Body:**\n\n```\n{\n  \"isRead\": true\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Notification status updated successfully\",\n  \"notification\": {\n    \"id\": \"654321\",\n    \"title\": \"New Message\",\n    \"message\": \"You have a new message from John.\",\n    \"recipientId\": \"64f2a3c8b1234a0012345678\",\n    \"type\": \"message\",\n    \"createdAt\": \"2025-09-30T14:45:00Z\",\n    \"isRead\": true\n  }\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Required data was not provided\"` | Missing `isRead` field in request body. |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"Notification not found\"` | No notification found with the given ID. |\n| 500 | `\"Error updating notification status\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Notification not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteNotification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDVhYzBmZmQ5YWU3MmQ1ZmZlYmMzYiIsImlhdCI6MTc1OTAxNDY0NywiZXhwIjoxNzU5NjE5NDQ3fQ.GOllSHmaBOi7qpHq9wQc_1OPT9R4kdQt24WPLChmdoY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/notifications/68d864e1c782f9f5eca59147",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"notifications",
+						"68d864e1c782f9f5eca59147"
+					]
+				},
+				"description": "### **DELETE /api/v1/notifications/:notificationId**\n\n#### **Description**\n\nDeletes a notification by its ID.  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/notifications/:notificationId\n\n ```\n\n---\n\n#### **Method**\n\n```\nDELETE\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `notificationId` | string | Yes | ID of the notification to delete. |\n\n**Example URL:**\n\n```\nDELETE http://localhost:3001/api/v1/notifications/654321\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Request Body**\n\nNo request body is required for this endpoint.\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Notification deleted successfully\",\n  \"notificationId\": \"654321\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"Notification not found\"` | No notification found with the given ID. |\n| 500 | `\"Error deleting notification\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Notification not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllFollowers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1OTA1MzA5MCwiZXhwIjoxNzU5NjU3ODkwfQ.NpRoAge9JY2bVoLZhZuW9YREBV41tkPTdkxzMHAQ5KM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/follow/68d500597df5b3629a1e9c6e/followers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"follow",
+						"68d500597df5b3629a1e9c6e",
+						"followers"
+					]
+				},
+				"description": "### **GET /api/v1/follow/:userId/followers**\n\n#### **Description**\n\nRetrieves the list of followers for a specific user.  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/follow/:userId/followers\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `userId` | string | Yes | ID of the user whose followers to retrieve. |\n\n**Example URL:**\n\n```\nGET http://localhost:3001/api/v1/follow/123456/followers\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Request Body**\n\nNo request body is required for this endpoint.\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"followers\": [\n    {\n      \"id\": \"7891011\",\n      \"username\": \"john_doe\",\n      \"profilePhoto\": \"https://example.com/photos/john.jpg\"\n    },\n    {\n      \"id\": \"7891012\",\n      \"username\": \"jane_doe\",\n      \"profilePhoto\": \"https://example.com/photos/jane.jpg\"\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"User not found\"` | No user found with the given ID. |\n| 500 | `\"Error retrieving followers\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "postFollow",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1OTA1MzMzMiwiZXhwIjoxNzU5NjU4MTMyfQ.C5np0qI2ofxkCXt-ibwS4--yJcD9KkZv33rrTwu1mwQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/follow/68d500597df5b3629a1e9c6e/follow/68d5ac0ffd9ae72d5ffebc3b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"follow",
+						"68d500597df5b3629a1e9c6e",
+						"follow",
+						"68d5ac0ffd9ae72d5ffebc3b"
+					]
+				},
+				"description": "### **POST /api/v1/follow/:userId/follow/:targetUserId**\n\n#### **Description**\n\nAllows a user to follow or unfollow another user.  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/follow/:userId/follow/:targetUserId\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `userId` | string | Yes | ID of the user performing the follow/unfollow action. |\n| `targetUserId` | string | Yes | ID of the user to be followed or unfollowed. |\n\n**Example URL:**\n\n```\nPOST http://localhost:3001/api/v1/follow/123456/follow/7891011\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Request Body**\n\nNo request body is required for this endpoint. All data is passed through URL parameters.\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"You are now following this user.\"\n}\n\n ```\n\n_or_\n\n```\n{\n  \"message\": \"You have unfollowed this user.\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"User not found\"` | No user found with the given ID. |\n| 400 | `\"Cannot follow yourself\"` | The user is trying to follow their own account. |\n| 500 | `\"Error processing follow request\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "getFollowing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1OTA1MzUzMiwiZXhwIjoxNzU5NjU4MzMyfQ.v9G35c09KugwIlA4AwoCu4m4klf33m2qjrx56fOzTnE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/follow/68d500597df5b3629a1e9c6e/following",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"follow",
+						"68d500597df5b3629a1e9c6e",
+						"following"
+					]
+				},
+				"description": "### **GET /api/v1/follow/:userId/following**\n\n#### **Description**\n\nRetrieves the list of users that a specific user is following.  \n  \nRequires authentication.\n\n---\n\n#### **URL**\n\n```\n/api/v1/follow/:userId/following\n\n ```\n\n---\n\n#### **Method**\n\n```\nGET\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `userId` | string | Yes | ID of the user whose following list is requested. |\n\n**Example URL:**\n\n```\nGET http://localhost:3001/api/v1/follow/123456/following\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Request Body**\n\nNo request body is required for this endpoint.\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"following\": [\n    {\n      \"id\": \"7891011\",\n      \"username\": \"jane.doe\",\n      \"fullName\": \"Jane Doe\",\n      \"profilePhoto\": \"https://example.com/profile/jane.jpg\"\n    },\n    {\n      \"id\": \"12131415\",\n      \"username\": \"john.smith\",\n      \"fullName\": \"John Smith\",\n      \"profilePhoto\": \"https://example.com/profile/john.jpg\"\n    }\n  ]\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"User not found\"` | No user found with the given ID. |\n| 500 | `\"Error retrieving following list\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteFollow",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1OTA1MzY5MCwiZXhwIjoxNzU5NjU4NDkwfQ.W1RChEZEPqS4xsW_WDSsZYLVLeUrRia15_6s2HoC8zs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/follow/68d500597df5b3629a1e9c6e/unfollow/68d5ac54fd9ae72d5ffebc3e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"follow",
+						"68d500597df5b3629a1e9c6e",
+						"unfollow",
+						"68d5ac54fd9ae72d5ffebc3e"
+					]
+				},
+				"description": "### **DELETE /api/v1/follow/:userId/unfollow/:targetUserId**\n\n#### **Description**\n\nUnfollows a specific user.  \n  \nRequires authentication.  \n  \nThe authenticated user (`userId`) will stop following the target user (`targetUserId`).\n\n---\n\n#### **URL**\n\n```\n/api/v1/follow/:userId/unfollow/:targetUserId\n\n ```\n\n---\n\n#### **Method**\n\n```\nDELETE\n\n ```\n\n---\n\n#### **URL Parameters**\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `userId` | string | Yes | ID of the user who wants to unfollow another user. |\n| `targetUserId` | string | Yes | ID of the user who will be unfollowed. |\n\n**Example URL:**\n\n```\nDELETE http://localhost:3001/api/v1/follow/123456/unfollow/7891011\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Authorization` | `Bearer` | Required. User authentication token. |\n\n---\n\n#### **Request Body**\n\nNo request body is required for this endpoint.\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Successfully unfollowed the user\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 404 | `\"User not found\"` | Either the user or target user does not exist. |\n| 400 | `\"You are not following this user\"` | The user was not following the target user. |\n| 500 | `\"Error unfollowing user\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"You are not following this user\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"luna.sky@example.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				},
+				"description": "### **POST /api/v1/auth/logout**\n\n#### **Description**\n\nLogs out the currently authenticated user by invalidating their session or token.\n\n---\n\n#### **URL**\n\n```\n/api/v1/auth/logout\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n| `Authorization` | `Bearer` | Required. The token of the logged-in user. |\n\n---\n\n#### **Request Body**\n\nThis endpoint does not require any body parameters.\n\n**Example Request Body:**\n\n```\n{}\n\n ```\n\n---\n\n#### **Request Example**\n\n```\nPOST http://localhost:3001/api/v1/auth/logout\nContent-Type: application/json\nAuthorization: Bearer <your-token>\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"User logged out successfully\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 401 | `\"Unauthorized\"` | Missing or invalid authentication token. |\n| 500 | `\"Error logging out\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "checkUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"luna.sky@example.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/auth/check-user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"check-user"
+					]
+				},
+				"description": "### **POST /api/v1/auth/check-user**\n\n#### **Description**\n\nChecks if a user exists in the system by their email.  \n  \nUseful for validating email availability before registration or login.\n\n---\n\n#### **URL**\n\n```\n/api/v1/auth/check-user\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `email` | string | Yes | The email address of the user to check. |\n\n**Example Request Body:**\n\n```\n{\n  \"email\": \"user@example.com\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example (User Exists):**\n\n```\n{\n  \"exists\": true,\n  \"message\": \"User exists\"\n}\n\n ```\n\n**Content Example (User Does Not Exist):**\n\n```\n{\n  \"exists\": false,\n  \"message\": \"User not found\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Email is required\"` | The email field is missing. |\n| 500 | `\"Error checking user\"` | Internal server error. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"Email is required\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "updatePassword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZDUwMDU5N2RmNWIzNjI5YTFlOWM2ZSIsImlhdCI6MTc1OTIyNTkyNywiZXhwIjoxNzU5ODMwNzI3fQ.812YEy9xfMTb3rj0iIE5lBriQLdoYkJ90AKcZtXzVdk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"luna.sky@example.com\",\n  \"newPassword\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/v1/auth/update-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"update-password"
+					]
+				},
+				"description": "### **POST /api/v1/auth/update-password**\n\n#### **Description**\n\nUpdates a user's password. The request must include the user's email and the new password.\n\n---\n\n#### **URL**\n\n```\n/api/v1/auth/update-password\n\n ```\n\n---\n\n#### **Method**\n\n```\nPOST\n\n ```\n\n---\n\n#### **Headers**\n\n| Key | Value | Description |\n| --- | --- | --- |\n| `Content-Type` | `application/json` | Required. Specifies JSON format. |\n\n---\n\n#### **Request Body**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `email` | string | Required. Email address of the user. |\n| `newPassword` | string | Required. New password to be set for the user. |\n\n**Example Request Body:**\n\n```\n{\n  \"email\": \"user@example.com\",\n  \"newPassword\": \"newStrongPassword123\"\n}\n\n ```\n\n---\n\n#### **Request Example**\n\n```\nPOST http://localhost:3001/api/v1/auth/update-password\nContent-Type: application/json\n{\n  \"email\": \"user@example.com\",\n  \"newPassword\": \"newStrongPassword123\"\n}\n\n ```\n\n---\n\n#### **Success Response**\n\n**Status Code:** `200 OK`  \n**Content Example:**\n\n```\n{\n  \"message\": \"Password has been updated successfully\"\n}\n\n ```\n\n---\n\n#### **Error Responses**\n\n| Status Code | Error Message | Description |\n| --- | --- | --- |\n| 400 | `\"Required data was not provided\"` | Missing `email` or `newPassword` in the request body. |\n| 404 | `\"User not found\"` | No account found with the provided email. |\n| 500 | `\"Error updating password\"` | Server error while processing the request. |\n\n**Example Error Response:**\n\n```\n{\n  \"message\": \"User not found\"\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
