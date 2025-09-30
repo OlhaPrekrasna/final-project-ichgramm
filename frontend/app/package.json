@@ -17,7 +17,7 @@
     "@rollup/rollup-linux-x64-gnu": "*"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   }
