@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:24
 
 EXPOSE 80
 
@@ -7,4 +7,6 @@ WORKDIR /app
 
 RUN npm install
 
-CMD [ "npm", "run", "start" ]
+# CMD [ "npm", "run", "start" ]
+# CMD [ "sleep", "3600" ]
+CMD [ "npm", "run", "dev" ]
