@@ -7,7 +7,7 @@ import s from './signUpForm.module.css';
 import logo from '../../../assets/logo-ichgram.svg';
 
 const SignUpForm = () => {
-  // const { t } = useTranslation(); // i18n перевод
+  
   const navigate = useNavigate();
 
   const [userObject, setUserObject] = useState({
