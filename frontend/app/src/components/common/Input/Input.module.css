@@ -1,0 +1,52 @@
+.inputContainer {
+    position: relative;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.input {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #dbdbdb !important;
+    border-radius: 3px;
+    outline: none;
+    padding: 0 8px;
+    font-size: 12px;
+    background-color: #fafafa !important;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.input::placeholder {
+    color: #8e8e8e;
+    font-size: 12px;
+}
+
+.input:focus {
+    border-color: #a8a8a8 !important;
+    background-color: white !important;
+}
+
+.inputContainer.error .input {
+    border-color: #dc3545 !important;
+}
+
+.icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    z-index: 1;
+}
+
+.inputContainer.hasIcon .input {
+    padding-left: 30px;
+}
+
+.errorMessage {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+    text-align: left;
+}

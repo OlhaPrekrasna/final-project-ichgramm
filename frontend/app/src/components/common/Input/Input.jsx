@@ -13,10 +13,15 @@ function Input({
   showError = true,
 }) {
   const handleInputChange = (e) => {
-    if (onChange) onChange(e.target.value);
+    if (onChange) onChange(e);
   };
 
-  const inputClass = [s.inputContainer, errorMessage ? s.error : '', className]
+  const inputClass = [
+    s.inputContainer, 
+    errorMessage ? s.error : '', 
+    icon ? s.hasIcon : '',
+    className
+  ]
     .filter(Boolean)
     .join(' ');
 
