@@ -1,11 +1,11 @@
-import { signUpForm } from "../../components/ui/SignUpForm/SignUpForm.jsx"
-import s from "./registerPage.module.css"
+import SignUpForm from "../../components/ui/signUpForm/signUpForm.jsx"
+import s from "./signUpPage.module.css"
 
 export const RegisterPage = () => {
 
     return (
         <div className={s.registerPage}>
-            <RegisterForm />
+            <SignUpForm />
         </div>
     )
 }
