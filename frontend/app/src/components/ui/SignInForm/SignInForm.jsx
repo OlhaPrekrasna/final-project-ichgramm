@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import { $api } from '../../../api/api';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
-import s from './signUpForm.module.css';
+// import s from './signInForm.module.css';
+
 import logo from '../../../assets/logo-ichgram.svg';
 
-import { setUser } from '../../redux/slices/authSlice';
+import { setUser } from '../../../redux/slices/authSlice';
 
-import './SignInForm.css';
+import './SignInForm.module.css';
 
 const SignInForm = () => {
-  const { t } = useTranslation();
+  //   const { t } = useTranslation();
+  const t = (t) => {
+    return t;
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -102,7 +105,7 @@ const SignInForm = () => {
     <div className="SignInFormBox">
       <form className="SignInForm" onSubmit={handleSubmit}>
         <img src={logo} alt="logo" />
-        <CustomInput
+        <Input
           placeholder={t('SignInForm.placeholderEmail')}
           value={userObject.email}
           onChange={handleInputChange('email')}
