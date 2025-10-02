@@ -1,5 +1,5 @@
 /* Roboto */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
   --color-main: #ffffff;
@@ -213,7 +213,6 @@ html,
 
 body {
   min-height: 100%;
-
   line-height: 1.5;
 }
 
@@ -229,8 +228,89 @@ svg * {
   transition-property: fill, stroke;
 }
 
-* {
+/* БАЗОВЫЕ СТИЛИ ДЛЯ ИНПУТОВ И КНОПОК */
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  outline: none;
+  padding: 0 8px;
+  font-size: 12px;
+  background-color: #fafafa;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  transition: border-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+input[type='text']::placeholder,
+input[type='email']::placeholder,
+input[type='password']::placeholder {
+  color: #8e8e8e;
+  font-size: 12px;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus {
+  border-color: #a8a8a8;
+  background-color: white;
+}
+
+/* Базовые стили для кнопок */
+button {
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  padding: 7px 16px;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.signInForm input[type='text'],
+.signInForm input[type='email'],
+.signInForm input[type='password'] {
+  width: 268px !important;
+  height: 38px !important;
+}
+
+.signInForm button[type='submit'] {
+  width: 268px !important;
+  height: 32px !important;
+  background-color: #0095f6 !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.signInForm button[type='submit']:disabled {
+  background-color: rgba(0, 149, 246, 0.3) !important;
+}
+
+/* для формы регистрации */
+.signUpForm input[type='text'],
+.signUpForm input[type='email'],
+.signUpForm input[type='password'] {
+  width: 268px !important;
+  height: 38px !important;
+}
+
+.signUpForm button[type='submit'] {
+  width: 268px !important;
+  height: 32px !important;
+  background-color: #0095f6 !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.signUpForm button[type='submit']:disabled {
+  background-color: rgba(0, 149, 246, 0.3) !important;
 }

@@ -5,19 +5,12 @@ import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import { $api } from '../../../api/api';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
-// import s from './signInForm.module.css';
-
+import s from './SignInForm.module.css';
 import logo from '../../../assets/logo-ichgram.svg';
-
+import phones from '../../../assets/phones.svg';
 import { setUser } from '../../../redux/slices/authSlice';
 
-import './SignInForm.module.css';
-
 const SignInForm = () => {
-  //   const { t } = useTranslation();
-  const t = (t) => {
-    return t;
-  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,21 +23,13 @@ const SignInForm = () => {
   const [authError, setAuthError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  // обработчик изменения полей
-  const handleInputChange = (field) => (value) => {
+  const handleInputChange = (field) => (event) => {
     setUserObject((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: event.target.value,
     }));
   };
 
-  // валидация email
-  const validateEmail = (email) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  };
-
-  // обработка отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,11 +37,7 @@ const SignInForm = () => {
 
     if (userObject.email === '') {
       setShowEmailError(true);
-      setEmailErrorMessage(t('SignInForm.emailRequired'));
-      hasError = true;
-    } else if (!validateEmail(userObject.email)) {
-      setShowEmailError(true);
-      setEmailErrorMessage(t('SignInForm.emailInvalidFormat'));
+      setEmailErrorMessage('Username or email is required');
       hasError = true;
     } else {
       setShowEmailError(false);
@@ -65,11 +46,7 @@ const SignInForm = () => {
 
     if (userObject.password === '') {
       setShowPasswordError(true);
-      setPasswordErrorMessage(t('SignInForm.passwordRequired'));
-      hasError = true;
-    } else if (userObject.password.length < 4) {
-      setShowPasswordError(true);
-      setPasswordErrorMessage(t('SignInForm.passwordValidation'));
+      setPasswordErrorMessage('Password is required');
       hasError = true;
     } else {
       setShowPasswordError(false);
@@ -90,11 +67,11 @@ const SignInForm = () => {
           localStorage.setItem('user', JSON.stringify(user));
           navigate('/home');
         } else {
-          setAuthError(t('SignInForm.invalidCredentials'));
+          setAuthError('Invalid credentials');
         }
       } catch (error) {
         console.error('Login error:', error);
-        setAuthError(t('SignInForm.invalidEmailOrPassword'));
+        setAuthError('Invalid username/email or password');
       } finally {
         setIsSubmitting(false);
       }
@@ -102,79 +79,81 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="SignInFormBox">
-      <form className="SignInForm" onSubmit={handleSubmit}>
-        <img src={logo} alt="logo" />
-        <Input
-          placeholder={t('SignInForm.placeholderEmail')}
-          value={userObject.email}
-          onChange={handleInputChange('email')}
-          type="email"
-          style={{
-            paddingLeft: '8px',
-            backgroundColor: 'var(--color-bg-light-grey)',
-            color: 'var(--color-text-grey)',
-          }}
-          showError={showEmailError}
-          errorMessage={emailErrorMessage}
-        />
-
-        <div className="passwordContainer">
-          <Input
-            placeholder={t('SignInForm.placeholderPassword')}
-            value={userObject.password}
-            onChange={handleInputChange('password')}
-            type={showPassword ? 'text' : 'password'}
-            style={{
-              paddingLeft: '8px',
-              backgroundColor: 'var(--color-bg-light-grey)',
-              color: 'var(--color-text-grey)',
-              margin: '7px 0 15px',
-            }}
-            showError={showPasswordError}
-            errorMessage={passwordErrorMessage}
-          />
-          <span
-            className="eyeIcon"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
-          </span>
+    <div className={s.pageContainer}>
+      <div className={s.contentWrapper}>
+        {/* Блок с телефонами */}
+        <div className={s.phonesSection}>
+          <img src={phones} alt="Phones" className={s.phonesImage} />
         </div>
 
-        <Button
-          text={t('SignInForm.loginButton')}
-          type="submit"
-          style={{ width: '268px', height: '32px' }}
-          disabled={isSubmitting}
-        />
+        {/* Блок с формой */}
+        <div className={s.formSection}>
+          <div className={s.formBox}>
+            <form className={s.signInForm} onSubmit={handleSubmit}>
+              <img src={logo} alt="logo" className={s.logo} />
+              <Input
+                placeholder="Username or email"
+                value={userObject.email}
+                onChange={handleInputChange('email')}
+                type="text"
+                errorMessage={showEmailError ? emailErrorMessage : ''}
+                style={{ width: '268px' }}
+              />
+              <div className={s.passwordContainer}>
+                <Input
+                  placeholder="Password"
+                  value={userObject.password}
+                  onChange={handleInputChange('password')}
+                  type={showPassword ? 'text' : 'password'}
+                  errorMessage={showPasswordError ? passwordErrorMessage : ''}
+                  style={{ width: '268px' }}
+                />
+                <span
+                  className={s.eyeIcon}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                </span>
+              </div>
+              <Button
+                text="Log in"
+                type="submit"
+                style={{
+                  width: '268px',
+                  height: '32px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  marginTop: '8px',
+                }}
+                disabled={isSubmitting}
+              />
+              {authError && <div className={s.errorMessage}>{authError}</div>}
+              <div className={s.lineBox}>
+                <div className={s.line}></div>
+                <p>OR</p>
+                <div className={s.line}></div>
+              </div>
+              <div className={s.forgotPasswordContainer}>
+                <Link to="/reset" className={s.forgotPasswordLink}>
+                  Forgot password?
+                </Link>
+              </div>
+            </form>
 
-        {authError && <div className="errorMessage">{authError}</div>}
-
-        <div className="lineBox">
-          <div className="line"></div>
-          <p>{t('SignInForm.or')}</p>
-          <div className="line"></div>
+            <div className={s.haveAccountBox}>
+              <p>
+                Don't have an account?{' '}
+                <Link to="/register" className={s.signUpLink}>
+                  Sign up
+                </Link>
+              </p>
+            </div>
+          </div>
         </div>
-
-        <Link to="/reset" className="forgotPasswordLink">
-          {t('SignInForm.forgotPassword')}
-        </Link>
-      </form>
-
-      <div className="haveAccountBox">
-        <p>
-          {t('SignInForm.haveAccount')}{' '}
-          <Link
-            to="/register"
-            style={{ color: 'var(--color-text-blue)', fontWeight: 600 }}
-          >
-            {t('SignInForm.sign')}
-          </Link>
-        </p>
       </div>
     </div>
   );
 };
 
 export default SignInForm;
+

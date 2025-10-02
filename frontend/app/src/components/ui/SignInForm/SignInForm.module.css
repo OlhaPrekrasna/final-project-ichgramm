@@ -1,83 +1,174 @@
-.loginFormBox {
+.pageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    min-height: 100vh;
+    background-color: #fafafa;
+    padding: 20px;
+}
+
+.contentWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 64px;
+    max-width: 935px;
+    width: 100%;
+}
+
+.phonesSection {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.phonesImage {
+    width: 380px;
+    height: 581px;
+    object-fit: cover;
+}
+
+.formSection {
+    flex: 0 0 auto;
+}
+
+.formBox {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signInForm {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-  }
-  
-  .passwordContainer {
+    border: 1px solid #dbdbdb;
+    border-radius: 1px;
+    padding: 40px 40px 30px 40px;
+    background-color: white;
+    gap: 6px;
+    width: 100%;
+}
+
+.logo {
+    margin-bottom: 30px;
+    width: 175px;
+}
+
+.passwordContainer {
     position: relative;
-  }
-  
-  .eyeIcon {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.eyeIcon {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 50px;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 14px;
-    color: var(--color-text-grey);
-  }
-  
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-    justify-content: center;
-    align-items: center;
-    border: var(--border);
-    border-radius: var(--border-radius-xxs);
-    padding: 30.5px 40px;
-  }
-  
-  .loginForm input {
-    width: 268px;
-    height: 38px;
-    border: var(--border);
-    border-radius: var(--border-radius-xs);
-    font-size: 12px;
-  }
-  
-  .lineBox {
+    font-size: 16px;
+    color: #8e8e8e;
+    z-index: 2;
+}
+
+.lineBox {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 22px 0 70px;
-  }
-  
-  .line {
-    width: 100%;
-    border-bottom: var(--border);
-  }
-  
-  .lineBox p {
+    margin: 18px 0;
+    padding: 0 40px;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+
+.lineBox p {
     font-size: 13px;
-    color: var(--color-text-grey);
+    font-weight: 600;
+    color: #737373;
     margin: 0 18px;
-  }
-  
-  .forgotPasswordLink {
-    justify-self: end;
-    color: var(--color-text-link);
+}
+
+.forgotPasswordContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.forgotPasswordLink {
+    color: #00376b;
     font-size: 12px;
-    line-height: 16px;
-  }
-  
-  .haveAccountBox {
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.forgotPasswordLink:hover {
+    text-decoration: underline;
+}
+
+.haveAccountBox {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 350px;
-    height: 70px;
-    border: var(--border);
-    border-radius: var(--border-radius-xxs);
-  }
-  
-  .errorMessage {
+    width: 100%;
+    height: 63px;
+    border: 1px solid #dbdbdb;
+    border-radius: 1px;
+    background-color: white;
+}
+
+.haveAccountBox p {
+    font-size: 14px;
+    margin: 0;
+    color: #262626;
+}
+
+.signUpLink {
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signUpLink:hover {
+    text-decoration: underline;
+}
+
+.errorMessage {
+    color: #ed4956;
+    font-size: 14px;
     margin: 10px 0;
-    font-size: 13px;
-    color: red;
     text-align: center;
-  }
-  
+    width: 268px;
+}
+
+@media (max-width: 875px) {
+    .contentWrapper {
+        flex-direction: column;
+        gap: 32px;
+    }
+    
+    .phonesSection {
+        justify-content: center;
+    }
+    
+    .phonesImage {
+        width: 300px;
+        height: auto;
+    }
+}
+
+
+
+

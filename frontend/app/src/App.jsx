@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { setUser } from './redux/slices/authSlice';
 import { getFollowingMe, getFollowMe } from './redux/slices/followSlice';
-import SignInPage from './components/ui/SignInForm/signInForm';
+import SignInPage from './components/ui/signInForm/signInForm';
 import SignUpPage from './components/ui/signUpForm/signUpForm';
 
 import './index.css';
