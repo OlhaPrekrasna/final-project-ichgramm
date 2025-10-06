@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaHeart } from 'react-icons/fa';
-import { fetchComments, likeComment } from '../../redux/slices/commentsSlice';
-import noPhoto from '../../assets/noPhoto.png';
+import { fetchComments, likeComment } from '../../../redux/slices/commentsSlice.js';
+import noPhoto from '../../../assets/noPhoto.png';
 import s from './CommentContent.module.css';
-import parseData from '../../helpers/parseData';
+import parseData from '../../../helpers/parseData.jsx';
 
 const CommentContent = ({ postId }) => {
   const dispatch = useDispatch();

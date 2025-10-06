@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment } from '../../redux/slices/commentsSlice';
-import noPhoto from '../../assets/noPhoto.png';
+import { addComment } from '../../../redux/slices/commentsSlice.js';
+import noPhoto from '../../../assets/noPhoto.png';
 import { FaEllipsisV } from 'react-icons/fa';
 import s from './postModal.module.css';
-import { $api } from '../../api/Api.jsx';
-import commbtn from '../../assets/comment_btn.svg';
-import heart from '../../assets/heart_btn.svg';
+import { $api } from '../../../api/Api.jsx';
+import commbtn from '../../../assets/comment_btn.svg';
+import heart from '../../../assets/heart_btn.svg';
 import CommentContent from '../commentContent/CommentContent';
 
 const EmojiPicker = ({ onSelectEmoji }) => {

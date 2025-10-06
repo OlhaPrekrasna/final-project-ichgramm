@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { $api } from '../../api/Api.jsx';
+import { $api } from '../../../api/Api.jsx';
 import PostHomePageModal from './PostHomePageModal';
 import styles from './PostHomePageModal.module.css';
 import PostItem from './PostItem';

@@ -1,12 +1,11 @@
 import s from './ProfileLink.module.css';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import noPhoto from '../../assets/noPhoto.png';
+import noPhoto from '../../../assets/noPhoto.png';
 
 const ProfileLink = () => {
   const user = useSelector((state) => state.auth.user);
-  const { t } = useTranslation();
+
 
   return (
     <nav className={s.profileLink}>

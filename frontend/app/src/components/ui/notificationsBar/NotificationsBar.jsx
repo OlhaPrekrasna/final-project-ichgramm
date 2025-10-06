@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { $api } from '../../api/Api.jsx';
+import { $api } from '../../../api/Api.jsx';
 import NotificationItem from './NotificationItem.jsx';
 import s from './notificationsBar.module.css';
 

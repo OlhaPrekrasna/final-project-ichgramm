@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { $api } from '../../api/Api.jsx';
+import { $api } from '../../../api/Api.jsx';
 import Button from '../../common/Button/Button.jsx';
 import Input from '../../common/Input/Input.jsx';
-import trouble from '../../assets/trouble_logging _in.svg';
+import trouble from '../../../assets/trouble_logging_in.svg';
 import s from './resetForm.module.css';
 
 const ResetForm = () => {

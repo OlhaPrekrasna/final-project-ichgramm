@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button/Button.jsx';
 import Follows from '../../ui/follows/Follows.jsx';
-import { getUserById } from '../../redux/slices/userSlice.jsx';
+import { getUserById } from '../../../redux/slices/userSlice.js';
 import { $api } from '../../api/Api.jsx';
 import noPhoto from '../../assets/noPhoto.png';
 import web from '../../assets/web.svg';

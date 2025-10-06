@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosts } from '../../redux/slices/postsSlice';
+import { getAllPosts } from '../../../redux/slices/postsSlice.js';
 import PostModal from './PostModal';
 import s from './ImageGallery.module.css';
 

@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button/Button.jsx';
 import Follows from '../../ui/follows/Follows.jsx';
-import { logout } from '../../redux/slices/authSlice.js';
-import noPhoto from '../../assets/noPhoto.png';
-import s from './currentUserProfile.module.css';
-import web from '../../assets/web.svg';
+import { logout } from '../../../redux/slices/authSlice.js';
+import noPhoto from '../../../assets/noPhoto.png';
+import s from './ProfileCurrentUser.module.css';
+import web from '../../../assets/web.svg';
 
 const CurrentUserProfile = () => {
   const { t } = useTranslation();

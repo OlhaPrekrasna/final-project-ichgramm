@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getOtherUserPosts } from '../../redux/slices/postsSlice.js';
+import { getOtherUserPosts } from '../../../redux/slices/postsSlice.js';
 import PostModal from '../imageGallery/PostModal.jsx';
-import s from './postsListOther.module.css';
+import s from './PostListOther.module.css';
 
 const PostsListOther = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const PostsListOther = () => {
     setUpdateTrigger((prev) => prev + 1);
   };
 
-  if (loading) return <div className={s.loading}>Загрузка...</div>;
+  if (loading) return <div className={s.loading}>Loading...</div>;
   if (error) return <div className={s.error}>{error}</div>;
 
   return (

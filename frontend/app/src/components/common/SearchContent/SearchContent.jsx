@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../redux/slices/userSlice';
-import CustomInput from '../customInput/CustomInput';
-import { useTranslation } from 'react-i18next';
+import { getAllUsers } from '../../../redux/slices/userSlice.js';
+import Input from '../Input/Input.jsx';
 import { useNavigate } from 'react-router-dom';
 import s from './SearchContent.module.css';
 
 function SearchContent() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [searchPerson, setSearchPerson] = useState('');
   const users = useSelector((state) => state.user.user || []);
@@ -32,7 +30,7 @@ function SearchContent() {
     <div className={s.searchContent}>
       <h3 className={s.title}>{t('searchContent.search')}</h3>
       <div className={s.inputContainer}>
-        <CustomInput
+        <Input
           type="text"
           placeholder={t('searchContent.placeholder')}
           value={searchPerson}

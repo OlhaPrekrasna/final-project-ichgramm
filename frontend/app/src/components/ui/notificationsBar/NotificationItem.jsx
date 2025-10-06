@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import s from '../notificationsBar.module.css';
+import s from './NotificationsBar.module.css';
 import { getUserByIdApi } from '../../../api/UserApi.jsx';
 import { $api } from '../../../api/Api.jsx';
 import parseData from '../../../helpers/parseData';

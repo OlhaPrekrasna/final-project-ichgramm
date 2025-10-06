@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUsersWithChats } from '../../redux/slices/userSlice';
+import { getUsersWithChats } from '../../../redux/slices/userSlice.js';
 import s from './chatUsersList.module.css';
 import parseData from '../../helpers/parseData';
 

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegComment } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import Button from '../../common/Button/Button.jsx';
-import { $api } from '../../api/Api.jsx';
-import avaImage from '../../assets/noPhoto.png';
-import parseData from '../../helpers/parseData';
+import { $api } from '../../../api/Api.jsx';
+import avaImage from '../../../assets/noPhoto.png';
+import parseData from '../../../helpers/parseData.jsx';
 import styles from './PostItem.module.css';
 
 const PostItem = ({

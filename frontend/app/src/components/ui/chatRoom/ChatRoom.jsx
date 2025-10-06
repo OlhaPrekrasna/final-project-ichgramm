@@ -4,11 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import Button from '../../common/Button/Button.jsx';
-import messages from '../../assets/messages.svg';
+import messages from '../../../assets/messages.svg';
 import {
   changeTimeInLastMessage,
   getUserById,
-} from '../../redux/slices/userSlice';
+} from '../../../redux/slices/userSlice.js';
 import s from './ChatRoom.module.css';
 
 const socketURL = 'http://localhost:5005';

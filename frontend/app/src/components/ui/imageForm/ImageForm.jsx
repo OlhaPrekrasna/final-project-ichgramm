@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './ImageForm.module.css';
-import { $api } from '../../api/Api.jsx';
-import noPhoto from '../../assets/noPhoto.png';
+import { $api } from '../../../api/Api.jsx';
+import noPhoto from '../../../assets/noPhoto.png';
 
 const ImageForm = ({ closeModal }) => {
   const [file, setFile] = useState(null);

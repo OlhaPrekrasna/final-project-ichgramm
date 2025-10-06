@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '../../common/Button/Button.jsx';
-import { setUser } from '../../redux/slices/authSlice';
-import { $api } from '../../api/Api.jsx';
-import noPhoto from '../../assets/noPhoto.png';
+import { setUser } from '../../../redux/slices/authSlice.js';
+import { $api } from '../../../api/Api.jsx';
+import noPhoto from '../../../assets/noPhoto.png';
 import s from './editProfileForm.module.css';
 
 const EditProfileForm = () => {

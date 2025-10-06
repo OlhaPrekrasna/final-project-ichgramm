@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { $api } from '../../api/Api.jsx';
+import { $api } from '../../../api/Api.jsx';
 import s from './Follows.module.css';
 
 const Follows = ({ userId, setFollow, follow }) => {
