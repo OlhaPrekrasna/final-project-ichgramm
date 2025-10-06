@@ -59,17 +59,24 @@ const PostHomePageModal = ({ post, onClose }) => {
 
   const [newComment, setNewComment] = useState('');
   const [error, setError] = useState(null);
-  const [likesCount, setLikesCount] = useState(post.likes_count || 0);
-  const [commentsCount, setCommentsCount] = useState(post.comments_count || 0);
+  const [likesCount, setLikesCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
 
   useEffect(() => {
-    setLikesCount(post.likes_count || 0);
-    setCommentsCount(post.comments_count || 0);
+    if (post) {
+      setLikesCount(post.likes_count || 0);
+      setCommentsCount(post.comments_count || 0);
+    }
   }, [post]);
 
   const handleAddComment = async () => {
     if (!currentUser || !currentUser._id) {
-      setError(t('postModal.errorUserNotFound'));
+      setError('User not found');
+      return;
+    }
+
+    if (!post || !post._id) {
+      setError('Post not found');
       return;
     }
 
@@ -84,13 +91,18 @@ const PostHomePageModal = ({ post, onClose }) => {
       setNewComment('');
       setCommentsCount((prev) => prev + 1);
     } catch (err) {
-      setError(t('postModal.errorAddComment'));
+      setError('Error adding comment');
     }
   };
 
   const handleLikePost = async () => {
     if (!currentUser || !currentUser._id) {
-      setError(t('postModal.errorUserNotFound'));
+      setError('User not found');
+      return;
+    }
+
+    if (!post || !post._id) {
+      setError('Post not found');
       return;
     }
 
@@ -98,13 +110,15 @@ const PostHomePageModal = ({ post, onClose }) => {
       await $api.post(`/post/${post._id}/like`, { userId: currentUser._id });
       setLikesCount((prev) => prev + 1);
     } catch (err) {
-      console.error('Error while liking post:', err);
+      console.error('Error liking post:', err);
     }
   };
 
   const handleSelectEmoji = (emoji) => {
     setNewComment((prev) => prev + emoji);
   };
+
+  if (!post) return null; // защита от undefined
 
   return (
     <div className={s.modalOverlay} onClick={onClose}>
@@ -144,10 +158,10 @@ const PostHomePageModal = ({ post, onClose }) => {
             <div className={s.notifBox}>
               <div className={s.modalContent_rightside_notifications}>
                 <span>
-                  <img src={commbtn} alt="" /> {commentsCount}
+                  <img src={commbtn} alt="comments" /> {commentsCount}
                 </span>
                 <span>
-                  <img src={heart} alt="" onClick={handleLikePost} />{' '}
+                  <img src={heart} alt="likes" onClick={handleLikePost} />{' '}
                   {likesCount} Likes
                 </span>
               </div>
@@ -161,7 +175,7 @@ const PostHomePageModal = ({ post, onClose }) => {
                 type="text"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
-                placeholder={t('postModal.addComment')}
+                placeholder="Add a comment..."
                 className={s.commentInput}
               />
               <button
@@ -169,7 +183,7 @@ const PostHomePageModal = ({ post, onClose }) => {
                 disabled={!newComment.trim()}
                 className={s.commentButton}
               >
-                {t('postModal.submit')}
+                Send
               </button>
             </div>
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom'; // добавил Navigate
 import { setUser } from './redux/slices/authSlice.js';
 import { getFollowingMe, getFollowMe } from './redux/slices/followSlice.js';
 import SignInPage from './components/ui/signInForm/signInForm';
@@ -19,7 +19,7 @@ import ProfilePage from './pages/profilePage/ProfilePage.jsx';
 import ResetPage from './pages/resetPage/ResetPage.jsx';
 import dark from './assets/dark_mode.svg';
 import light from './assets/light_mode.svg';
-import { ThemeProvider, useTheme } from './helpers/ThemeContext.jsx';
+import { ThemeProvider } from './helpers/ThemeContext.jsx';
 import './index.css';
 
 const App = () => {
@@ -53,73 +53,24 @@ const App = () => {
   return (
     <ThemeProvider>
       <div className="globalContainer">
-        <Router>
-          <Routes>
-            <Route path="/signin" element={<SignInPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/reset" element={<ResetPage />} />
-            <Route path="/upload" element={<ImageForm />} />
-
-            {/* Приватные маршруты */}
-            <Route element={<PrivateRoutesUsers />} />
-            <Route
-              path="/home"
-              element={
-                <Layout>
-                  <HomePage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/explore"
-              element={
-                <Layout>
-                  <ExplorePage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/messages"
-              element={
-                <Layout>
-                  <MessagesPage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/create"
-              element={
-                <Layout>
-                  <CreatePage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <Layout>
-                  <ProfilePage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/profile/edit"
-              element={
-                <Layout>
-                  <EditProfilePage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/profile/:userId"
-              element={
-                <Layout>
-                  <OtherProfilePage />
-                </Layout>
-              }
-            />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/reset" element={<ResetPage />} />
+          <Route path="/upload" element={<ImageForm />} />
+          {/* Приватные маршруты */}
+          <Route element={<PrivateRoutesUsers />}>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/messages" element={<ChatPage />} />
+            <Route path="/create" element={<CreateNewPostPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/edit" element={<UpdateProfilePage />} />
+            <Route path="/profile/:userId" element={<AnotherProfilePage />} />
+          </Route>
+        </Routes>
+        <Footer />
       </div>
     </ThemeProvider>
   );

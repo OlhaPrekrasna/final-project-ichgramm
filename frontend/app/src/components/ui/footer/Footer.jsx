@@ -6,12 +6,12 @@ const Footer = () => {
   return (
     <footer className={s.footer}>
       <div className={s.footer_top}>
-        <Link to="/home">{t('footer.home')}</Link>
-        <Link to="/search">{t('footer.search')}</Link>
-        <Link to="/explore">{t('footer.explore')}</Link>
-        <Link to="/messages">{t('footer.messages')}</Link>
-        <Link to="/notifications">{t('footer.notifications')}</Link>
-        <Link to="/create">{t('footer.create')}</Link>
+        <Link to="/home">Home</Link>
+        <Link to="/search">Search</Link>
+        <Link to="/explore">Explore</Link>
+        <Link to="/messages">Messages</Link>
+        <Link to="/notifications">Notifications</Link>
+        <Link to="/create">Create</Link>
       </div>
 
       <div className={s.footer_bottom}>
