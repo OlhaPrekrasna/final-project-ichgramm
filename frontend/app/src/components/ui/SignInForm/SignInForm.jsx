@@ -58,7 +58,7 @@ const SignInForm = () => {
       setAuthError('');
 
       try {
-        const response = await $api.post('/auth/login', userObject);
+        const response = await $api.post('/auth/signin', userObject);
         const { token, user } = response.data;
 
         if (token) {
@@ -81,12 +81,11 @@ const SignInForm = () => {
   return (
     <div className={s.pageContainer}>
       <div className={s.contentWrapper}>
-        {/* Блок с телефонами */}
+
         <div className={s.phonesSection}>
           <img src={phones} alt="Phones" className={s.phonesImage} />
         </div>
 
-        {/* Блок с формой */}
         <div className={s.formSection}>
           <div className={s.formBox}>
             <form className={s.signInForm} onSubmit={handleSubmit}>

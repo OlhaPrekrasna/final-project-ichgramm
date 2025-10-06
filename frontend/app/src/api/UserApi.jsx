@@ -1,4 +1,4 @@
-import { $api } from "./Api.jsx";
+import { $api } from './Api.jsx';
 
 // Функция для получения пользователя по ID
 export const getUserByIdApi = async (userId) => {
@@ -11,9 +11,9 @@ export const getUserByIdApi = async (userId) => {
   } catch (e) {
     // Если запрос не удался (например, сервер недоступен или вернул ошибку),
     // выводим ошибку в консоль для разработчика
-    console.error("Ошибка API:", e);
+    console.error('Ошибка API:', e);
 
     // Пробрасываем понятное сообщение для UI
-    throw new Error("Ошибка при получении пользователя");
+    throw new Error('Ошибка при получении пользователя');
   }
 };

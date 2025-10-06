@@ -34,7 +34,7 @@ const SignUpForm = () => {
     setError({ email: '', username: '', general: '' });
 
     try {
-      const response = await $api.post('/auth/register', userObject);
+      const response = await $api.post('/auth/signup', userObject);
 
       if (response.status === 201) {
         navigate('/');
@@ -82,9 +82,17 @@ const SignUpForm = () => {
         />
 
         <Input
-          placeholder="Full Name"
-          value={userObject.full_name}
-          onChange={handleInputChange('full_name')}
+          placeholder="First Name"
+          value={userObject.first_name}
+          onChange={handleInputChange('first_name')}
+          type="text"
+          style={{ width: '268px' }}
+        />
+
+        <Input
+          placeholder="Last Name"
+          value={userObject.last_name}
+          onChange={handleInputChange('last_name')}
           type="text"
           style={{ width: '268px' }}
         />
