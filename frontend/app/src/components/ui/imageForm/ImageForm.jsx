@@ -43,7 +43,7 @@ const ImageForm = ({ closeModal }) => {
     setStatusVisible(true);
 
     try {
-      const response = await $api.post('/post', formData);
+      const response = await $api.post('/posts', formData);
       setUploadStatus('Posted successfully!');
       setStatusVisible(true);
 

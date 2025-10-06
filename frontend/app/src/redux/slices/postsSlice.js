@@ -9,7 +9,7 @@ const initialState = {
 
 // Получить все посты (включая приватные)
 export const getAllPosts = createAsyncThunk('posts/getAllPosts', async () => {
-  const response = await $api.get('/post/all');
+  const response = await $api.get('/posts/all');
   return response.data;
 });
 
@@ -17,7 +17,7 @@ export const getAllPosts = createAsyncThunk('posts/getAllPosts', async () => {
 export const getAllPublicPosts = createAsyncThunk(
   'posts/getAllPublicPosts',
   async () => {
-    const response = await $api.get('/post/all/public');
+    const response = await $api.get('/posts');
     return response.data;
   }
 );
@@ -26,7 +26,7 @@ export const getAllPublicPosts = createAsyncThunk(
 export const getOtherUserPosts = createAsyncThunk(
   'posts/getOtherUserPosts',
   async (user_id) => {
-    const response = await $api.get(`/post/${user_id}`);
+    const response = await $api.get(`/posts/${user_id}`);
     return response.data;
   }
 );
@@ -35,7 +35,7 @@ export const getOtherUserPosts = createAsyncThunk(
 export const likePost = createAsyncThunk(
   'posts/likePost',
   async ({ postId, userId }) => {
-    const response = await $api.post(`/post/${postId}/like`, { userId });
+    const response = await $api.post(`/posts/${postId}/like`, { userId });
     return { postId, likes_count: response.data.likes_count };
   }
 );
@@ -44,7 +44,7 @@ export const likePost = createAsyncThunk(
 export const updatePost = createAsyncThunk(
   'posts/updatePost',
   async ({ postId, updatedData }) => {
-    const response = await $api.put(`/post/${postId}`, updatedData, {
+    const response = await $api.put(`/posts/${postId}`, updatedData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

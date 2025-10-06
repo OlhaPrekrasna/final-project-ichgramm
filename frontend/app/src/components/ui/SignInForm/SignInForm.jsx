@@ -8,6 +8,7 @@ import Button from '../../common/Button/Button';
 import s from './SignInForm.module.css';
 import logo from '../../../assets/logo-ichgram.svg';
 import phones from '../../../assets/phones.svg';
+import logoutIcon from '../../../assets/logout.svg';
 import { setUser } from '../../../redux/slices/authSlice.js';
 
 const SignInForm = () => {
@@ -78,10 +79,16 @@ const SignInForm = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    dispatch(setUser({ token: null, user: null }));
+    navigate('/signin');
+  };
+
   return (
     <div className={s.pageContainer}>
       <div className={s.contentWrapper}>
-
         <div className={s.phonesSection}>
           <img src={phones} alt="Phones" className={s.phonesImage} />
         </div>
@@ -142,10 +149,17 @@ const SignInForm = () => {
             <div className={s.haveAccountBox}>
               <p>
                 Don't have an account?{' '}
-                <Link to="/register" className={s.signUpLink}>
+                <Link to="/signup" className={s.signUpLink}>
                   Sign up
                 </Link>
               </p>
+            </div>
+
+            <div className={s.logoutBox}>
+              <button className={s.logoutButton} onClick={handleLogout}>
+                <img src={logoutIcon} alt="Logout" className={s.logoutIcon} />
+                Logout
+              </button>
             </div>
           </div>
         </div>

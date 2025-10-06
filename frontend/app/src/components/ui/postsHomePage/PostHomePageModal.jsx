@@ -107,7 +107,7 @@ const PostHomePageModal = ({ post, onClose }) => {
     }
 
     try {
-      await $api.post(`/post/${post._id}/like`, { userId: currentUser._id });
+      await $api.post(`/posts/${post._id}/like`, { userId: currentUser._id });
       setLikesCount((prev) => prev + 1);
     } catch (err) {
       console.error('Error liking post:', err);

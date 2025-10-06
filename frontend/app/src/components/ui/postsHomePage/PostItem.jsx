@@ -25,10 +25,10 @@ const PostItem = ({
 
   const [isFollowing, setIsFollowing] = useState(null);
 
-  if (!currentUser) {
-    console.error('Current user not found');
-    return null;
-  }
+  // if (!currentUser) {
+  // console.error('Current user not found');
+  // return null;
+  // }
 
   if (userId === _id) {
     return null;
@@ -36,6 +36,10 @@ const PostItem = ({
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
+      if (!_id) {
+        return;
+      }
+
       try {
         const response = await $api.get(`/likes/user/${_id}`);
         const userLikes = response.data;
@@ -57,6 +61,10 @@ const PostItem = ({
   }, [_id, userId, listFollowing]);
 
   const handleLike = async () => {
+    if (!_id) {
+      return;
+    }
+
     try {
       if (isLiked) {
         await $api.delete(`/likes/${item._id}/${_id}`);

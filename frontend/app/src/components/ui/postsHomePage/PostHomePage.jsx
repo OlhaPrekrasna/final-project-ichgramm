@@ -25,7 +25,7 @@ class PostHomePage extends React.Component {
   getAllPosts = async () => {
     try {
       const userId = localStorage.getItem('userId'); // id текущего пользователя
-      const response = await $api.get('/post/all/public');
+      const response = await $api.get('/posts');
       const allPosts = response.data;
 
       const filteredPosts = allPosts.filter((post) => post.user_id !== userId);
@@ -81,7 +81,11 @@ class PostHomePage extends React.Component {
   };
 
   handleCheckMyFollowing = async () => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage.getItem('user') || null);
+
+    if (user === null) {
+      return;
+    }
 
     try {
       const response = await $api.get(`/follow/${user._id}/following`);
@@ -124,20 +128,24 @@ class PostHomePage extends React.Component {
 
     return (
       <div>
-        <ul className={styles.postsContainer}>
-          {posts.map((post) => (
-            <PostItem
-              key={post._id}
-              item={post}
-              likesCount={likesCounts[post._id] || 0}
-              setLikesCount={this.handleLikesCountChange}
-              listFollowing={followingList}
-              handleRemoveSomeFollow={this.handleRemoveSomeFollow}
-              handleAddSomeFollow={this.handleAddSomeFollow}
-              onClick={() => this.openModal(post)}
-            />
-          ))}
-        </ul>
+        {!posts ? (
+          <div>Oops, no posts were found!</div>
+        ) : (
+          <ul className={styles.postsContainer}>
+            {posts.map((post) => (
+              <PostItem
+                key={post._id}
+                item={post}
+                likesCount={likesCounts[post._id] || 0}
+                setLikesCount={this.handleLikesCountChange}
+                listFollowing={followingList}
+                handleRemoveSomeFollow={this.handleRemoveSomeFollow}
+                handleAddSomeFollow={this.handleAddSomeFollow}
+                onClick={() => this.openModal(post)}
+              />
+            ))}
+          </ul>
+        )}
 
         {selectedPost && (
           <PostHomePageModal post={selectedPost} onClose={this.closeModal} />
@@ -147,4 +155,4 @@ class PostHomePage extends React.Component {
   }
 }
 
-export default PostHomePageModal;
+export default PostHomePage;

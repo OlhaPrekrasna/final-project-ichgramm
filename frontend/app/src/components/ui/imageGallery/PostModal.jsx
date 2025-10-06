@@ -100,7 +100,7 @@ const PostModal = ({ post, onClose, onUpdatePosts }) => {
     }
 
     try {
-      await $api.post(`/post/${post._id}/like`, { userId: currentUser._id });
+      await $api.post(`/posts/${post._id}/like`, { userId: currentUser._id });
       setLikesCount((prev) => prev + 1);
     } catch (err) {
       console.error('Error while liking a post:', err);
@@ -114,7 +114,7 @@ const PostModal = ({ post, onClose, onUpdatePosts }) => {
 
   const handleDeletePost = async () => {
     try {
-      await $api.delete(`/post/${post._id}`);
+      await $api.delete(`/posts/${post._id}`);
       onUpdatePosts();
       onClose();
     } catch (error) {
@@ -124,7 +124,7 @@ const PostModal = ({ post, onClose, onUpdatePosts }) => {
 
   const handleSaveEdit = async () => {
     try {
-      await $api.put(`/post/${post._id}`, {
+      await $api.put(`/posts/${post._id}`, {
         caption: editedCaption,
         image_url: editedImage,
       });
@@ -199,7 +199,7 @@ const PostModal = ({ post, onClose, onUpdatePosts }) => {
                   className={s.actionButton}
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${window.location.origin}/post/${post._id}`
+                      `${window.location.origin}/posts/${post._id}`
                     );
                     alert('Link copied to clipboard!');
                   }}

@@ -44,7 +44,7 @@ router.post('/', authMiddleware, createPost);
 // );
 
 // Обновление поста
-// router.put('/post/:postId', authMiddleware, upload.single('image'), updatePost);
+// router.put('/posts/:postId', authMiddleware, upload.single('image'), updatePost);
 router.put('/:postId', authMiddleware, updatePost);
 
 // Удаление поста

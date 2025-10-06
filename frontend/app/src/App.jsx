@@ -54,6 +54,7 @@ const App = () => {
     <ThemeProvider>
       <div className="globalContainer">
         <Routes>
+          {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
@@ -62,7 +63,7 @@ const App = () => {
           {/* Приватные маршруты */}
           <Route element={<PrivateRoutesUsers />}>
             <Route path="/home" element={<HomePage />} />
-            <Route path="/explore" element={<ExplorePage />} />
+            {/* <Route path="/explore" element={<ExplorePage />} /> */}
             <Route path="/messages" element={<ChatPage />} />
             <Route path="/create" element={<CreateNewPostPage />} />
             <Route path="/profile" element={<ProfilePage />} />

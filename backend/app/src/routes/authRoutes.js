@@ -1,12 +1,12 @@
 import express from 'express';
 import {
   signup,
-  login,
+  signin,
   logout,
   updatePassword,
   forgotPassword,
   resetPassword,
-  checkUser,
+  checkUser
 } from '../controllers/authController.js';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ const router = express.Router();
 router.post('/signup', signup);
 
 // POST /api/v1/auth/signin -  login user
-router.post('/signin', login);
+router.post('/signin', signin);
 
 // POST /api/v1/auth/logout -  login user
 router.post('/logout', logout);
@@ -31,7 +31,6 @@ router.get('/reset-password', resetPassword);
 
 // POST /api/v1/auth/check-user
 router.post('/check-user', checkUser);
-
 
 export default router;
 
