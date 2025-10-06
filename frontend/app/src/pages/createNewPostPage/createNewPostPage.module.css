@@ -1,0 +1,120 @@
+.createNewPostPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-bg-white, #ffffff);
+  padding: 40px 20px;
+  gap: 30px;
+}
+
+.createNewPostTitle {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text-dark, #262626);
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1024px) {
+  .createNewPostPage {
+    padding: 30px 16px;
+    gap: 25px;
+  }
+
+  .createNewPostTitle {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .createNewPostPage {
+    padding: 20px 12px;
+    gap: 20px;
+    min-height: calc(100vh - 60px);
+  }
+
+  .createNewPostTitle {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .createNewPostPage {
+    padding: 16px 8px;
+    gap: 16px;
+  }
+
+  .createNewPostTitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 375px) {
+  .createNewPostPage {
+    padding: 12px 6px;
+    gap: 12px;
+  }
+
+  .createNewPostTitle {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .createNewPostPage {
+    background-color: var(--color-bg-dark, #000000);
+  }
+
+  .createNewPostTitle {
+    color: var(--color-text-light, #ffffff);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.createNewPostPage {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .createNewPostPage {
+    animation: none;
+  }
+}
+
+@media (min-height: 800px) {
+  .createNewPostPage {
+    padding: 60px 20px;
+    gap: 40px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .createNewPostPage {
+    padding: 80px 20px;
+    gap: 50px;
+  }
+}
+
+.createNewPostPage.loading {
+  justify-content: center;
+  align-items: center;
+}
+
+.createNewPostTitle:focus-visible {
+  outline: 2px solid var(--color-primary, #0095f6);
+  outline-offset: 4px;
+  border-radius: 4px;
+}

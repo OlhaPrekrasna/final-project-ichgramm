@@ -1,0 +1,83 @@
+.anotherProfilePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-bg-white, #ffffff);
+  padding: 20px;
+  max-width: 935px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+@media (max-width: 1024px) {
+  .anotherProfilePage {
+    padding: 16px;
+    max-width: 100%;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .anotherProfilePage {
+    padding: 12px;
+    gap: 24px;
+    min-height: calc(100vh - 60px);
+  }
+}
+
+@media (max-width: 568px) {
+  .anotherProfilePage {
+    padding: 8px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 375px) {
+  .anotherProfilePage {
+    padding: 6px;
+    gap: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .anotherProfilePage {
+    background-color: var(--color-bg-dark, #000000);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anotherProfilePage {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anotherProfilePage {
+    animation: none;
+  }
+}
+
+@media (min-height: 800px) {
+  .anotherProfilePage {
+    padding: 30px 20px;
+    gap: 50px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .anotherProfilePage {
+    padding: 40px 20px;
+    gap: 60px;
+  }
+}

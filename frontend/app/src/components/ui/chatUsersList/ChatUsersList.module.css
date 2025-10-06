@@ -1,0 +1,243 @@
+.chatUsersList {
+  width: 397px;
+  height: 85vh;
+  border-right: 1px solid #dbdbdb;
+  padding: 20px 10px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.title {
+  margin-left: 16px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #262626;
+  font-weight: 500;
+}
+
+.usersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.userItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.userItem:hover {
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userItem.active {
+  background-color: rgba(232, 231, 233, 0.37);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatarContainer {
+  flex-shrink: 0;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  border: 2px solid #f0f0f0;
+  object-fit: cover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #262626;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lastMessage {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #8e8e8e;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.messageDate {
+  font-size: 11px;
+  color: #c7c7c7;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: #8e8e8e;
+  font-size: 14px;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: #ed4956;
+  font-size: 14px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.noUsers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: #8e8e8e;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Адаптивные стили */
+@media (max-width: 1400px) {
+  .chatUsersList {
+    width: 350px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .chatUsersList {
+    width: 280px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 900px) {
+  .chatUsersList {
+    width: 240px;
+  }
+
+  .userItem {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatUsersList {
+    width: 200px;
+    height: 80vh;
+  }
+
+  .userItem {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 16px 8px;
+  }
+
+  .userInfo {
+    align-items: center;
+  }
+
+  .lastMessage {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 568px) {
+  .chatUsersList {
+    width: 150px;
+    padding: 15px 5px;
+  }
+
+  .title {
+    margin-left: 8px;
+    font-size: 14px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .username {
+    font-size: 13px;
+  }
+
+  .lastMessage {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .chatUsersList {
+    width: 130px;
+  }
+
+  .userItem {
+    padding: 12px 4px;
+  }
+}
+
+@media (max-width: 420px) {
+  .chatUsersList {
+    width: 115px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Стили для скроллбара */
+.chatUsersList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatUsersList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.chatUsersList::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.chatUsersList::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

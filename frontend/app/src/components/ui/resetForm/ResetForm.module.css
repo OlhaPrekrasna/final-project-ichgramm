@@ -1,0 +1,200 @@
+.resetFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--color-bg-light, #fafafa);
+}
+
+.resetFormBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resetForm {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  justify-content: center;
+  align-items: center;
+  border: var(--border, 1px solid #dbdbdb);
+  border-radius: var(--border-radius-xxs, 8px);
+  padding: 25px 40px 0;
+  background-color: var(--color-bg-white, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.title {
+  margin: 14px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-dark, #262626);
+  text-align: center;
+}
+
+.instruction {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: var(--color-text-grey, #8e8e8e);
+  margin-bottom: 10px;
+}
+
+.inputContainer {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.resetForm input {
+  width: 268px;
+  height: 38px;
+  border: var(--border, 1px solid #dbdbdb);
+  border-radius: var(--border-radius-xs, 4px);
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.errorMessage {
+  color: var(--color-error, #ed4956);
+  font-size: 12px;
+  text-align: center;
+  margin: 8px 0;
+  padding: 8px;
+  background-color: rgba(237, 73, 86, 0.1);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.buttonContainer {
+  margin: 16px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.lineBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 16px;
+}
+
+.line {
+  flex: 1;
+  border-bottom: var(--border, 1px solid #dbdbdb);
+}
+
+.orText {
+  font-size: 13px;
+  color: var(--color-text-grey, #8e8e8e);
+  margin: 0 18px;
+  font-weight: 500;
+}
+
+.createAccount {
+  color: var(--color-text-dark, #262626);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 16px;
+  transition: color 0.2s ease;
+}
+
+.createAccount:hover {
+  color: var(--color-primary, #0095f6);
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
+  background-color: var(--color-bg-light-grey, #fafafa);
+  border: var(--border, 1px solid #dbdbdb);
+  border-radius: var(--border-radius-xxs, 8px);
+  margin: 20px 0;
+}
+
+.backLink {
+  color: var(--color-text-dark, #262626);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--color-primary, #0095f6);
+}
+
+/* Адаптивные стили */
+@media (max-width: 480px) {
+  .resetFormContainer {
+    padding: 10px;
+    background-color: var(--color-bg-white, #ffffff);
+  }
+
+  .resetForm {
+    width: 100%;
+    max-width: 350px;
+    border: none;
+    box-shadow: none;
+    padding: 20px 20px 0;
+  }
+
+  .back {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .resetForm {
+    padding: 15px 15px 0;
+  }
+
+  .resetForm input {
+    width: 100%;
+    max-width: 268px;
+  }
+
+  .buttonContainer {
+    width: 100%;
+  }
+
+  .customButton {
+    width: 100% !important;
+    max-width: 268px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resetForm {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.inputContainer {
+  animation: fadeIn 0.3s ease-out;
+}

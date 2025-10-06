@@ -1,0 +1,308 @@
+.searchContent {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  height: 100%;
+  background-color: var(--color-bg-white, #ffffff);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-dark, #262626);
+  margin: 0 0 16px 0;
+}
+
+.inputContainer {
+  margin: 0 0 25px 0;
+}
+
+.searchContent input {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--border-radius-s, 8px);
+  border: 1px solid var(--color-border, #dbdbdb);
+  font-size: 16px;
+  font-weight: 300;
+  background-color: var(--color-bg-dark-grey, #f0f0f0);
+  color: var(--color-text-dark, #262626);
+  transition: all 0.2s ease;
+}
+
+.searchContent input:focus {
+  outline: none;
+  border-color: var(--color-primary, #0095f6);
+  background-color: var(--color-bg-white, #ffffff);
+}
+
+.searchContent input::placeholder {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--color-text-grey, #8e8e8e);
+}
+
+.recentTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-dark, #262626);
+  margin: 0 0 18px 0;
+}
+
+.usersList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 8px;
+  cursor: pointer;
+  border-radius: var(--border-radius-s, 8px);
+  transition: background-color 0.2s ease;
+  gap: 12px;
+}
+
+.userItem:hover {
+  background-color: var(--color-bg-light-grey, #fafafa);
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border, #dbdbdb);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-dark, #262626);
+  line-height: 1.4;
+}
+
+.noResults {
+  text-align: center;
+  color: var(--color-text-grey, #8e8e8e);
+  font-size: 14px;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.searchContent {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Стили для скроллбара */
+.usersList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.usersList::-webkit-scrollbar-track {
+  background: var(--color-bg-light-grey, #fafafa);
+  border-radius: 3px;
+}
+
+.usersList::-webkit-scrollbar-thumb {
+  background: var(--color-text-grey, #c7c7c7);
+  border-radius: 3px;
+}
+
+.usersList::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-dark, #a8a8a8);
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1190px) {
+  .searchContent {
+    padding: 20px 16px;
+  }
+
+  .searchContent input {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchContent {
+    padding: 16px 12px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .inputContainer {
+    margin-bottom: 20px;
+  }
+
+  .searchContent input {
+    height: 36px;
+    font-size: 15px;
+    padding: 0 12px;
+  }
+
+  .recentTitle {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .userItem {
+    padding: 10px 6px;
+  }
+
+  .userAvatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .username {
+    font-size: 13px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 568px) {
+  .searchContent {
+    padding: 12px 8px;
+  }
+
+  .inputContainer {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-bg-white, #ffffff);
+    padding: 8px 0;
+    z-index: 10;
+    margin-bottom: 16px;
+  }
+
+  .searchContent input {
+    width: 100%;
+    position: static;
+    visibility: visible;
+    margin: 0;
+  }
+
+  .usersList {
+    position: static;
+    visibility: visible;
+    background-color: transparent;
+    width: 100%;
+    border-radius: 0;
+    padding: 0;
+    animation: none;
+  }
+
+  .title,
+  .recentTitle {
+    display: block;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 375px) {
+  .searchContent {
+    padding: 8px 6px;
+  }
+
+  .searchContent input {
+    height: 34px;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .userItem {
+    padding: 8px 4px;
+  }
+
+  .userAvatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .username {
+    font-size: 12px;
+  }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+  .searchContent {
+    background-color: var(--color-bg-dark, #000000);
+  }
+
+  .title,
+  .recentTitle,
+  .username {
+    color: var(--color-text-light, #ffffff);
+  }
+
+  .searchContent input {
+    background-color: var(--color-bg-dark-grey, #262626);
+    color: var(--color-text-light, #ffffff);
+    border-color: var(--color-border-dark, #363636);
+  }
+
+  .searchContent input:focus {
+    background-color: var(--color-bg-dark, #000000);
+  }
+
+  .searchContent input::placeholder {
+    color: var(--color-text-grey, #8e8e8e);
+  }
+
+  .userItem:hover {
+    background-color: var(--color-bg-dark-grey, #262626);
+  }
+
+  .userAvatar {
+    border-color: var(--color-border-dark, #363636);
+  }
+
+  .noResults {
+    color: var(--color-text-grey, #8e8e8e);
+  }
+}
+
+/* Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+  .searchContent {
+    animation: none;
+  }
+
+  .userItem {
+    transition: none;
+  }
+}
+
+/* Focus states для доступности */
+.userItem:focus-visible {
+  outline: 2px solid var(--color-primary, #0095f6);
+  outline-offset: 2px;
+}
+
+/* Поддержка высоких экранов */
+@media (min-height: 800px) {
+  .searchContent {
+    padding: 32px 20px;
+  }
+}

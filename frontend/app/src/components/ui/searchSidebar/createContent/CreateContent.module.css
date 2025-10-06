@@ -1,0 +1,365 @@
+.createContainer {
+  width: 913px;
+  height: 564px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background-color: var(--color-bg-white, #ffffff);
+  border: 1px solid var(--color-border, #dbdbdb);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.createHeader {
+  width: 100%;
+  height: 43px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--color-border, #dbdbdb);
+  background-color: var(--color-bg-white, #ffffff);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-dark, #262626);
+  margin: 0;
+}
+
+.shareButton {
+  background: none;
+  border: none;
+  color: var(--color-primary, #0095f6);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.shareButton:hover:not(:disabled) {
+  background-color: var(--color-bg-light-grey, #fafafa);
+}
+
+.shareButton:disabled {
+  color: var(--color-text-grey, #8e8e8e);
+  cursor: not-allowed;
+}
+
+.shareButton.sharing {
+  color: var(--color-text-grey, #8e8e8e);
+}
+
+.createBox {
+  display: flex;
+  height: calc(564px - 43px);
+}
+
+.createBoxLeft {
+  flex: 1;
+  border-right: 1px solid var(--color-border, #dbdbdb);
+  background-color: var(--color-bg-light-grey, #fafafa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadArea {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadPlaceholder {
+  text-align: center;
+  padding: 40px;
+}
+
+.uploadIcon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.uploadText {
+  font-size: 18px;
+  color: var(--color-text-dark, #262626);
+  margin: 0 0 20px 0;
+  font-weight: 300;
+}
+
+.selectButton {
+  background-color: var(--color-primary, #0095f6);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.selectButton:hover {
+  background-color: var(--color-primary-dark, #007acc);
+}
+
+.createBoxRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.createBoxRightDescription {
+  flex: 1;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border, #dbdbdb);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-bg-dark-grey, #e0e0e0);
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-dark, #262626);
+}
+
+.captionInput {
+  width: 100%;
+  border: none;
+  resize: none;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-dark, #262626);
+  background: transparent;
+  margin-bottom: 16px;
+}
+
+.captionInput:focus {
+  outline: none;
+}
+
+.captionInput::placeholder {
+  color: var(--color-text-grey, #8e8e8e);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.optionButton {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 0;
+  color: var(--color-text-dark, #262626);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.optionButton:hover {
+  color: var(--color-primary, #0095f6);
+}
+
+.createBoxRightBottom {
+  padding: 16px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 1024px) {
+  .createContainer {
+    width: 90%;
+    max-width: 913px;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .createBox {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .createBoxLeft {
+    height: 300px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border, #dbdbdb);
+  }
+
+  .createBoxRight {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .createContainer {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  .createHeader {
+    height: 50px;
+    padding: 0 12px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .shareButton {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .uploadText {
+    font-size: 16px;
+  }
+
+  .uploadIcon {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .createContainer {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .createBox {
+    height: calc(100vh - 43px);
+  }
+
+  .createBoxLeft {
+    height: 200px;
+  }
+
+  .uploadPlaceholder {
+    padding: 20px;
+  }
+
+  .uploadText {
+    font-size: 14px;
+  }
+
+  .selectButton {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .createBoxRightDescription {
+    padding: 12px;
+  }
+
+  .userInfo {
+    margin-bottom: 12px;
+  }
+
+  .captionInput {
+    font-size: 13px;
+  }
+
+  .optionButton {
+    font-size: 13px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.createContainer {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .createContainer {
+    background-color: var(--color-bg-dark, #000000);
+    border-color: var(--color-border-dark, #363636);
+  }
+
+  .createHeader {
+    background-color: var(--color-bg-dark, #000000);
+    border-bottom-color: var(--color-border-dark, #363636);
+  }
+
+  .title {
+    color: var(--color-text-light, #ffffff);
+  }
+
+  .createBoxLeft {
+    background-color: var(--color-bg-dark-grey, #262626);
+    border-right-color: var(--color-border-dark, #363636);
+  }
+
+  .uploadText {
+    color: var(--color-text-light, #ffffff);
+  }
+
+  .username {
+    color: var(--color-text-light, #ffffff);
+  }
+
+  .captionInput {
+    color: var(--color-text-light, #ffffff);
+    background: transparent;
+  }
+
+  .optionButton {
+    color: var(--color-text-light, #ffffff);
+  }
+
+  .avatar {
+    background-color: var(--color-bg-light-grey, #363636);
+  }
+}
+
+.uploadArea.dragover {
+  background-color: var(--color-primary-light, rgba(0, 149, 246, 0.1));
+  border: 2px dashed var(--color-primary, #0095f6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .createContainer {
+    animation: none;
+  }
+
+  .shareButton {
+    transition: none;
+  }
+
+  .selectButton {
+    transition: none;
+  }
+
+  .optionButton {
+    transition: none;
+  }
+}

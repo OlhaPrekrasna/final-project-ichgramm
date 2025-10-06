@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
-import { $api } from '../../../api/api';
+import { $api } from '../../../api/Api.jsx';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import s from './SignInForm.module.css';
 import logo from '../../../assets/logo-ichgram.svg';
 import phones from '../../../assets/phones.svg';
-import { setUser } from '../../../redux/slices/authSlice';
+import { setUser } from '../../../redux/slices/authSlice.js';
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -156,4 +156,3 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
-

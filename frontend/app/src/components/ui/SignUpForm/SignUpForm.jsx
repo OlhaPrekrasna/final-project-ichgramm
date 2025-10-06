@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { $api } from '../../../api/api';
+import { $api } from '../../../api/Api.jsx';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import s from './signUpForm.module.css';
@@ -158,4 +158,3 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
-

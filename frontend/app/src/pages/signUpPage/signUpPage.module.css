@@ -1,0 +1,101 @@
+.signUpPage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 81px;
+  min-height: calc(100vh - 81px);
+  background-color: var(--color-bg-white, #ffffff);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signUpPage {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@media (max-width: 1024px) {
+  .signUpPage {
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
+    gap: 24px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .signUpPage {
+    margin-top: 40px;
+    min-height: calc(100vh - 40px);
+    gap: 16px;
+    padding: 12px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 568px) {
+  .signUpPage {
+    margin-top: 30px;
+    min-height: calc(100vh - 30px);
+    gap: 12px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .signUpPage {
+    margin-top: 20px;
+    min-height: calc(100vh - 20px);
+    gap: 8px;
+    padding: 6px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .signUpPage {
+    background-color: var(--color-bg-dark, #000000);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signUpPage {
+    animation: none;
+  }
+}
+
+@media (min-height: 800px) {
+  .signUpPage {
+    margin-top: 120px;
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .signUpPage {
+    margin-top: 160px;
+    min-height: calc(100vh - 160px);
+    padding: 60px 20px;
+  }
+}
+
+.signUpPage.loading {
+  justify-content: center;
+  align-items: center;
+}
+
+.signUpPage:focus-visible {
+  outline: 2px solid var(--color-primary, #0095f6);
+  outline-offset: -2px;
+}

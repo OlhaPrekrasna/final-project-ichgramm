@@ -1,11 +1,13 @@
-import SignUpForm from "../../components/ui/signUpForm/signUpForm.jsx"
-import s from "./signUpPage.module.css"
+import React from 'react';
+import SignUpForm from "../../components/ui/signUpForm/signUpForm.jsx";
+import s from "./SignUpPage.module.css";
 
-export const RegisterPage = () => {
-
+const SignUpPage = () => {
     return (
-        <div className={s.registerPage}>
+        <div className={s.signUpPage}>
             <SignUpForm />
         </div>
-    )
-}
+    );
+};
+
+export default SignUpPage;

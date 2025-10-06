@@ -1,0 +1,138 @@
+.signInPage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 85.92px;
+  min-height: calc(100vh - 85.92px);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.phonesImage {
+  max-width: 380px;
+  height: auto;
+  animation: phoneMove 5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.signInFormBox {
+  margin-top: 7.58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes phoneMove {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(0) rotate(1deg);
+  }
+  80% {
+    transform: translateY(8px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .signInPage {
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .phonesImage {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .signInPage {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+    padding: 16px;
+    min-height: calc(100vh - 40px);
+  }
+
+  .phonesImage {
+    display: none;
+  }
+
+  .signInFormBox {
+    width: 100%;
+    max-width: 400px;
+    padding: 0;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signInPage {
+    margin-top: 20px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .signInFormBox {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 375px) {
+  .signInPage {
+    margin-top: 16px;
+    padding: 8px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .signInPage {
+    background-color: var(--color-bg-dark, #000000);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phonesImage {
+    animation: none;
+  }
+}
+
+@media (min-height: 800px) {
+  .signInPage {
+    margin-top: 120px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .signInPage {
+    margin-top: 160px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signInPage {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signInPage {
+    animation: none;
+  }
+}

@@ -1,0 +1,110 @@
+.resetPage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 81px;
+  min-height: calc(100vh - 81px);
+  background-color: var(--color-bg-white, #ffffff);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resetPage {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .resetPage {
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
+    gap: 24px;
+    padding: 16px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .resetPage {
+    margin-top: 40px;
+    min-height: calc(100vh - 40px);
+    gap: 16px;
+    padding: 12px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 568px) {
+  .resetPage {
+    margin-top: 30px;
+    min-height: calc(100vh - 30px);
+    gap: 12px;
+    padding: 8px;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 375px) {
+  .resetPage {
+    margin-top: 20px;
+    min-height: calc(100vh - 20px);
+    gap: 8px;
+    padding: 6px;
+  }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+  .resetPage {
+    background-color: var(--color-bg-dark, #000000);
+  }
+}
+
+/* Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+  .resetPage {
+    animation: none;
+  }
+}
+
+/* Поддержка высоких экранов */
+@media (min-height: 800px) {
+  .resetPage {
+    margin-top: 120px;
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .resetPage {
+    margin-top: 160px;
+    min-height: calc(100vh - 160px);
+    padding: 60px 20px;
+  }
+}
+
+/* Состояние загрузки */
+.resetPage.loading {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Фокус состояния для доступности */
+.resetPage:focus-visible {
+  outline: 2px solid var(--color-primary, #0095f6);
+  outline-offset: -2px;
+}
