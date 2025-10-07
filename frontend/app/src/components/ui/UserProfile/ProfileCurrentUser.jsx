@@ -10,7 +10,6 @@ import s from './ProfileCurrentUser.module.css';
 import web from '../../../assets/web.svg';
 
 const CurrentUserProfile = () => {
-  const { t } = useTranslation();
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();

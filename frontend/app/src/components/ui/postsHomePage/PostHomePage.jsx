@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import PostItem from './PostItem.jsx';
 import { $api } from '../../../api/Api.jsx';
 import styles from './PostHomePage.module.css';
@@ -6,7 +7,11 @@ import styles from './PostHomePage.module.css';
 const PostHomePage = () => {
   const [posts, setPosts] = useState([]);
   const [likesCount, setLikesCount] = useState({});
+  const [userLikes, setUserLikes] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const currentUser = useSelector((state) => state.auth.user);
+  const { _id: currentUserId } = currentUser || {};
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -16,10 +21,18 @@ const PostHomePage = () => {
 
         // Инициализация количества лайков
         const likesObj = {};
-        res.data.forEach(post => {
-          likesObj[post._id] = post.likes_count || 0;
+        res.data.forEach((post) => {
+          likesObj[post._id] = post.count_of_likes || 0;
         });
         setLikesCount(likesObj);
+
+        // get all likes of the current user
+        if (currentUserId) {
+          const userLikesResp = await $api.get(`/user/${currentUserId}/likes`);
+          setUserLikes(userLikesResp.data);
+        } else {
+          setUserLikes([]);
+        }
       } catch (error) {
         console.error('Ошибка загрузки постов:', error);
       } finally {
@@ -31,7 +44,7 @@ const PostHomePage = () => {
   }, []);
 
   const handleSetLikesCount = (postId, count) => {
-    setLikesCount(prev => ({ ...prev, [postId]: count }));
+    setLikesCount((prev) => ({ ...prev, [postId]: count }));
   };
 
   if (loading) return <p>Загрузка постов...</p>;
@@ -39,12 +52,13 @@ const PostHomePage = () => {
 
   return (
     <div className={styles.postsGrid}>
-      {posts.map(post => (
+      {posts.map((post) => (
         <PostItem
           key={post._id}
           item={post}
           likesCount={likesCount[post._id] || 0}
           setLikesCount={handleSetLikesCount}
+          userLikes={userLikes}
         />
       ))}
     </div>
@@ -52,9 +66,6 @@ const PostHomePage = () => {
 };
 
 export default PostHomePage;
-
-
-
 
 // import React, { useEffect, useState } from 'react';
 // import PostItem from './PostItem.jsx';
@@ -111,7 +122,6 @@ export default PostHomePage;
 
 // export default PostHomePage;
 
-
 // import React from 'react';
 // import Menu from '../../ui/menu/Menu.jsx';
 // import PostItem from '../../ui/postsHomePage/PostItem.jsx';
@@ -146,13 +156,6 @@ export default PostHomePage;
 // };
 
 // export default PostHomePage;
-
-
-
-
-
-
-
 
 // import React from 'react';
 

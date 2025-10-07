@@ -16,6 +16,7 @@ const PostItem = ({
   listFollowing,
   handleAddSomeFollow,
   handleRemoveSomeFollow,
+  userLikes,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
@@ -29,10 +30,7 @@ const PostItem = ({
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
-      if (!_id) return;
       try {
-        const response = await $api.get(`/likes/user/${_id}`);
-        const userLikes = response.data;
         if (userLikes.includes(item._id)) {
           setIsLiked(true);
         }
@@ -168,14 +166,6 @@ const PostItem = ({
 };
 
 export default PostItem;
-
-
-
-
-
-
-
-
 
 // import React, { useState, useEffect } from 'react';
 // import { FaHeart, FaRegComment } from 'react-icons/fa';
