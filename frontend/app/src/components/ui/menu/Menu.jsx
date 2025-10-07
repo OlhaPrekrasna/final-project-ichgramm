@@ -60,6 +60,7 @@ const Menu = () => {
 
   return (
     <nav className={s.menubar}>
+      {/* Home */}
       <NavLink
         to="/home"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
@@ -67,11 +68,12 @@ const Menu = () => {
         {({ isActive }) => (
           <>
             <img src={isActive ? homeIconActive : homeIcon} alt="Home" />
-            <span>{t('menubar.home')}</span>
+            <span>Home</span>
           </>
         )}
       </NavLink>
 
+      {/* Search */}
       <NavLink
         to="/search"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
@@ -85,9 +87,10 @@ const Menu = () => {
           src={activeLink === 'search' ? searchIconActive : searchIcon}
           alt="Search"
         />
-        <span>{t('menubar.search')}</span>
+        <span>Search</span>
       </NavLink>
 
+      {/* Explore */}
       <NavLink
         to="/explore"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
@@ -98,11 +101,12 @@ const Menu = () => {
               src={isActive ? exploreIconActive : exploreIcon}
               alt="Explore"
             />
-            <span>{t('menubar.explore')}</span>
+            <span>Explore</span>
           </>
         )}
       </NavLink>
 
+      {/* Messages */}
       <NavLink
         to="/messages"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
@@ -113,11 +117,12 @@ const Menu = () => {
               src={isActive ? messagesIconActive : messagesIcon}
               alt="Messages"
             />
-            <span>{t('menubar.messages')}</span>
+            <span>Messages</span>
           </>
         )}
       </NavLink>
 
+      {/* Notifications */}
       <NavLink
         to="/notifications"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
@@ -135,9 +140,10 @@ const Menu = () => {
           }
           alt="Notifications"
         />
-        <span>{t('menubar.notifications')}</span>
+        <span>Notifications</span>
       </NavLink>
 
+      {/* Create */}
       <NavLink
         to="/create"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
@@ -151,9 +157,10 @@ const Menu = () => {
           src={activeLink === 'create' ? createIconActive : createIcon}
           alt="Create"
         />
-        <span>{t('menubar.create')}</span>
+        <span>Create</span>
       </NavLink>
 
+      {/* Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
