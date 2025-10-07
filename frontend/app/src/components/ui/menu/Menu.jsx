@@ -14,6 +14,7 @@ import notificationsIcon from '../../../assets/notifications.svg';
 import notificationsIconActive from '../../../assets/notifications-active.svg';
 import createIcon from '../../../assets/create.svg';
 import createIconActive from '../../../assets/create-active.svg';
+import logout from '../../../assets/logout.svg';
 
 import Modal from '../../common/Modal/Modal.jsx';
 import SearchContent from '../../common/SearchContent/SearchContent.jsx';
@@ -160,6 +161,27 @@ const Menu = () => {
         <span>Create</span>
       </NavLink>
 
+      {/* Logout */}
+      <NavLink
+        to="/logout"
+        className={({ isActive }) => (isActive ? s.activeLink : s.link)}
+        onClick={(e) => {
+          e.preventDefault();
+          openModal('logout');
+          handleLinkClick('logout');
+        }}
+      >
+        <img
+          src={
+            activeLink === 'logout'
+              ? logout
+              : logout
+          }
+          alt="Logout"
+        />
+        <span>Logout</span>
+      </NavLink>
+
       {/* Modal */}
       <Modal
         isOpen={isModalOpen}
@@ -172,3 +194,14 @@ const Menu = () => {
 };
 
 export default Menu;
+
+
+
+
+
+
+{/* <div className={st.logoutBox}>
+            <button className={st.logoutButton} onClick={handleLogout}>
+              <img src={logoutIcon} alt="Logout" className={st.logoutIcon} />
+            </button>
+          </div> */}
