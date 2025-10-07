@@ -5,7 +5,7 @@ import User from '../models/userModel.js';
 
 export const toggleLikePost = async (req, res) => {
   const { postId } = req.params;
-  const { _id: userId } = req.user;
+  const { userId } = req.user;
 
   try {
     const post = await Post.findById(postId);

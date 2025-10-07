@@ -20,13 +20,13 @@ const PostItem = ({
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
-  const { _id } = currentUser || {};
+  const { _id: currentUserId } = currentUser || {};
   const userId =
     typeof item.user_id === 'string' ? item.user_id : item.user_id?._id || '';
 
   const [isFollowing, setIsFollowing] = useState(null);
 
-  if (userId === _id) return null;
+  if (userId === currentUserId) return null;
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
@@ -39,22 +39,22 @@ const PostItem = ({
       }
     };
     fetchLikedStatus();
-  }, [item._id, _id]);
+  }, [item._id, currentUserId]);
 
   useEffect(() => {
     if (listFollowing && userId) {
       setIsFollowing(listFollowing.includes(userId));
     }
-  }, [_id, userId, listFollowing]);
+  }, [currentUserId, userId, listFollowing]);
 
   const handleLike = async () => {
-    if (!_id) return;
+    if (!currentUserId) return;
+
     try {
+      await $api.post(`/posts/${item._id}/likes`);
       if (isLiked) {
-        await $api.delete(`/likes/${item._id}/${_id}`);
         setLikesCount(item._id, likesCount - 1);
       } else {
-        await $api.post(`/likes/${item._id}/${_id}`);
         setLikesCount(item._id, likesCount + 1);
       }
       setIsLiked(!isLiked);
@@ -64,9 +64,11 @@ const PostItem = ({
   };
 
   const handleFollow = async () => {
-    if (!_id || !userId) return;
+    if (!currentUserId || !userId) return;
     try {
-      const response = await $api.post(`/follow/${_id}/follow/${userId}`);
+      const response = await $api.post(
+        `/follow/${currentUserId}/follow/${userId}`
+      );
       if (response.status === 201) {
         setIsFollowing(true);
       }
@@ -77,9 +79,11 @@ const PostItem = ({
   };
 
   const handleUnfollow = async () => {
-    if (!_id || !userId) return;
+    if (!currentUserId || !userId) return;
     try {
-      const response = await $api.delete(`/follow/${userId}/unfollow/${_id}`);
+      const response = await $api.delete(
+        `/follow/${userId}/unfollow/${currentUserId}`
+      );
       if (response.status === 200) {
         setIsFollowing(false);
       }
