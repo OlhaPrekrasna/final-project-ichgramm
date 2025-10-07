@@ -19,7 +19,6 @@ import ProfilePage from './pages/profilePage/ProfilePage.jsx';
 import ResetPage from './pages/resetPage/ResetPage.jsx';
 import dark from './assets/dark_mode.svg';
 import light from './assets/light_mode.svg';
-import { ThemeProvider } from './helpers/ThemeContext.jsx';
 import './index.css';
 
 const App = () => {
@@ -51,7 +50,6 @@ const App = () => {
   }, [dispatch, user]);
 
   return (
-    <ThemeProvider>
       <div className="globalContainer">
         <Routes>
           {/* <Route path="/" element={<HomePage />} /> */}
@@ -73,7 +71,6 @@ const App = () => {
         </Routes>
         <Footer />
       </div>
-    </ThemeProvider>
   );
 };
 

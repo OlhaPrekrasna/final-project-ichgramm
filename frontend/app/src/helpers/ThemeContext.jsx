@@ -1,25 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+// import React, { createContext, useContext, useState } from 'react';
 
-const ThemeContext = createContext();
+// const ThemeContext = createContext();
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+// export const ThemeProvider = ({ children }) => {
+//   const [theme, setTheme] = useState('light');
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+//   const toggleTheme = () => {
+//     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+//   };
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={`app ${theme}`}>{children}</div>
-    </ThemeContext.Provider>
-  );
-};
+//   return (
+//     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+//       <div className={`app ${theme}`}>{children}</div>
+//     </ThemeContext.Provider>
+//   );
+// };
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme должен использоваться внутри ThemeProvider');
-  }
-  return context;
-};
+// export const useTheme = () => {
+//   const context = useContext(ThemeContext);
+//   if (!context) {
+//     throw new Error('useTheme должен использоваться внутри ThemeProvider');
+//   }
+//   return context;
+// };
