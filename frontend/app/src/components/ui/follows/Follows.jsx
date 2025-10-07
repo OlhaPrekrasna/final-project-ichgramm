@@ -49,7 +49,7 @@ const Follows = ({ userId, setFollow, follow }) => {
       {!isLoading.followers && (
         <p className={s.followItem}>
           <span className={s.count}>{follow.followers}</span>{' '}
-          <span className={s.label}>{t('currentUserProfile.followers')}</span>
+          <span className={s.label}>currentUserProfile.followers</span>
         </p>
       )}
 
@@ -62,7 +62,7 @@ const Follows = ({ userId, setFollow, follow }) => {
       {!isLoading.following && (
         <p className={s.followItem}>
           <span className={s.count}>{follow.following}</span>{' '}
-          <span className={s.label}>{t('currentUserProfile.following')}</span>
+          <span className={s.label}>currentUserProfile.following</span>
         </p>
       )}
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button/Button.jsx';
 import Follows from '../../ui/follows/Follows.jsx';
-import { logout } from '../../../redux/slices/authSlice.js';
+// import { logout } from '../../../redux/slices/authSlice.js';
 import noPhoto from '../../../assets/noPhoto.png';
 import s from './ProfileCurrentUser.module.css';
 import web from '../../../assets/web.svg';
@@ -20,13 +20,13 @@ const CurrentUserProfile = () => {
   });
 
   if (!user) {
-    return <div>{t('currentUserProfile.error')}</div>;
+    return <div>currentUserProfile.error</div>;
   }
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/');
-  };
+  // const handleLogout = () => {
+  //   dispatch(logout());
+  //   navigate('/');
+  // };
 
   const handleEditProfile = () => {
     navigate('/profile/edit');
@@ -52,7 +52,7 @@ const CurrentUserProfile = () => {
           <p>{user.username}</p>
           <Button
             className={s.btn}
-            text={t('currentUserProfile.btnEdit')}
+            text="Edit profile"
             style={{
               fontWeight: 600,
               color: 'var(--color-text-dark)',
@@ -61,15 +61,15 @@ const CurrentUserProfile = () => {
             }}
             onClick={handleEditProfile}
           />
-          <Button
+          {/* <Button
             className={s.btn}
-            text={t('currentUserProfile.btnLogOut')}
+            text="currentUserProfile.btnLogOut"
             style={{
               width: '168.72px',
               fontWeight: 600,
             }}
             onClick={handleLogout}
-          />
+          /> */}
         </div>
 
         <div className={s.currentUserProfile_statistic}>
@@ -77,14 +77,14 @@ const CurrentUserProfile = () => {
             <span className={s.currentUserProfile_statisticCount}>
               {user.posts_count || 0}
             </span>{' '}
-            {t('currentUserProfile.posts')}
+            'currentUserProfile.posts'
           </p>
 
-          <Follows
+          {/* <Follows
             userId={user._id}
             follow={follow}
             setFollow={handleChangeFollow}
-          />
+          /> */}
         </div>
 
         {user.bio && (

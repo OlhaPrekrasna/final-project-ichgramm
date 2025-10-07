@@ -6,8 +6,12 @@ import s from './ImageGallery.module.css';
 
 const ImageGallery = () => {
   const dispatch = useDispatch();
-  const { posts, loading, error } = useSelector((state) => state.posts);
+  // const { posts, loading, error } = useSelector((state) => state.posts);
   const [selectedPost, setSelectedPost] = useState(null);
+
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     dispatch(getAllPosts());

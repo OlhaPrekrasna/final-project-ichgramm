@@ -9,7 +9,7 @@ const initialState = {
 
 // Получить все посты (включая приватные)
 export const getAllPosts = createAsyncThunk('posts/getAllPosts', async () => {
-  const response = await $api.get('/posts/all');
+  const response = await $api.get('/posts');
   return response.data;
 });
 
