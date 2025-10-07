@@ -132,7 +132,7 @@
 
 @media (prefers-color-scheme: dark) {
   .navigationSidebar {
-    background-color: var(--color-bg-dark, #000000);
+    /* background-color: var(--color-bg-dark, #000000); */
     border-right-color: var(--color-border-dark, #363636);
   }
 

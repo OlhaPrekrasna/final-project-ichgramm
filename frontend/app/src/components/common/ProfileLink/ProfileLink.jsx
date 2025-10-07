@@ -3,9 +3,22 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import noPhoto from '../../../assets/noPhoto.png';
 
+import { logout } from '../../../redux/slices/authSlice.js';
+import logoutIcon from '../../../assets/logout.svg';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 const ProfileLink = () => {
   const user = useSelector((state) => state.auth.user);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.auth.user);
+  // const token = useSelector((state) => state.auth.token);
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  };
 
   return (
     <nav className={s.profileLink}>
@@ -23,7 +36,20 @@ const ProfileLink = () => {
             }}
           />
         </div>
-        <span className={s.text}>{t('profileLink.profile')}</span>
+        <span className={s.text}>Profile</span>
+      </NavLink>
+
+      {/* Logout */}
+      <NavLink
+        to="/logout"
+        className={({ isActive }) => (isActive ? s.activeLink : s.link)}
+        onClick={(e) => {
+          e.preventDefault();
+          handleLogout();
+        }}
+      >
+        <img src={logoutIcon} alt="Logout" />
+        <span>Logout</span>
       </NavLink>
     </nav>
   );

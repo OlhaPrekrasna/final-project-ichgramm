@@ -1,5 +1,5 @@
 import s from './navigationSidebar.module.css';
-import logo from '../../assets/logo-ichgram.svg';
+import logo from '../../../assets/logo-ichgram.svg';
 import Menu from '../menu/Menu.jsx';
 import ProfileLink from '../../common/ProfileLink/ProfileLink.jsx';
 

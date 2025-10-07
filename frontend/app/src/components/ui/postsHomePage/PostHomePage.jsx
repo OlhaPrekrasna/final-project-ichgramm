@@ -1,37 +1,93 @@
-import React from 'react';
-import Menu from '../../ui/menu/Menu.jsx';
-import PostItem from '../../ui/postsHomePage/PostItem.jsx';
+import React, { useEffect, useState } from 'react';
+import PostItem from './PostItem.jsx';
+import { $api } from '../../../api/Api.jsx';
 import styles from './PostHomePage.module.css';
 
-const PostHomePage = ({ posts = [] }) => {
-  // Если posts не передан, по умолчанию это будет пустой массив []
+const PostHomePage = () => {
+  const [posts, setPosts] = useState([]);
+  const [likesCount, setLikesCount] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await $api.get('/posts'); // путь к API постов
+        setPosts(res.data);
+
+        // Инициализация количества лайков
+        const likesObj = {};
+        res.data.forEach(post => {
+          likesObj[post._id] = post.likes_count || 0;
+        });
+        setLikesCount(likesObj);
+      } catch (error) {
+        console.error('Ошибка загрузки постов:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  const handleSetLikesCount = (postId, count) => {
+    setLikesCount(prev => ({ ...prev, [postId]: count }));
+  };
+
+  if (loading) return <p>Загрузка постов...</p>;
+  if (!posts.length) return <p>Нет постов для отображения</p>;
 
   return (
-    <div className={styles.pageWrapper}>
-      <aside className={styles.sidebar}>
-        <Menu />
-      </aside>
-
-      <main className={styles.feed}>
-        <ul className={styles.postsList}>
-          {posts.length > 0 ? (
-            posts.map((item) => (
-              <PostItem
-                key={item._id || item.id} // добавил fallback на случай, если нет _id
-                item={item}
-                likesCount={item.likes || 0}
-              />
-            ))
-          ) : (
-            <li className={styles.emptyState}>Нет постов для отображения</li>
-          )}
-        </ul>
-      </main>
-    </div>
+    <ul className={styles.postList}>
+      {posts.map(post => (
+        <PostItem
+          key={post._id}
+          item={post}
+          likesCount={likesCount[post._id] || 0}
+          setLikesCount={handleSetLikesCount}
+        />
+      ))}
+    </ul>
   );
 };
 
 export default PostHomePage;
+
+
+// import React from 'react';
+// import Menu from '../../ui/menu/Menu.jsx';
+// import PostItem from '../../ui/postsHomePage/PostItem.jsx';
+// import styles from './PostHomePage.module.css';
+
+// const PostHomePage = ({ posts = [] }) => {
+//   // Если posts не передан, по умолчанию это будет пустой массив []
+
+//   return (
+//     <div className={styles.pageWrapper}>
+//       <aside className={styles.sidebar}>
+//         <Menu />
+//       </aside>
+
+//       <main className={styles.feed}>
+//         <ul className={styles.postsList}>
+//           {posts.length > 0 ? (
+//             posts.map((item) => (
+//               <PostItem
+//                 key={item._id || item.id} // добавил fallback на случай, если нет _id
+//                 item={item}
+//                 likesCount={item.likes || 0}
+//               />
+//             ))
+//           ) : (
+//             <li className={styles.emptyState}>Нет постов для отображения</li>
+//           )}
+//         </ul>
+//       </main>
+//     </div>
+//   );
+// };
+
+// export default PostHomePage;
 
 
 

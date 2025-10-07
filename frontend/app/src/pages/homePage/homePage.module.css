@@ -126,7 +126,7 @@
 
 @media (prefers-color-scheme: dark) {
   .homePage {
-    background-color: var(--color-bg-dark, #000000);
+    /* background-color: var(--color-bg-dark, #000000); */
   }
 
   .allUpdatesBig {
