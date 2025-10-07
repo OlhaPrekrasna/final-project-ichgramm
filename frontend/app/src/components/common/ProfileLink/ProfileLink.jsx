@@ -13,8 +13,7 @@ const ProfileLink = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.auth.user);
-  // const token = useSelector((state) => state.auth.token);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
@@ -36,7 +35,7 @@ const ProfileLink = () => {
             }}
           />
         </div>
-        <span className={s.text}>Profile</span>
+        {/* <span className={s.text}>Profile</span> */}
       </NavLink>
 
       {/* Logout */}
@@ -48,11 +47,74 @@ const ProfileLink = () => {
           handleLogout();
         }}
       >
-        <img src={logoutIcon} alt="Logout" />
-        <span>Logout</span>
+        <div className={s.iconContainer}>
+          <img src={logoutIcon} alt="Logout" className={s.icon} />
+        </div>
+        {/* <span className={s.text}>Logout</span> */}
       </NavLink>
     </nav>
   );
 };
 
 export default ProfileLink;
+
+
+
+// import s from './ProfileLink.module.css';
+// import { NavLink } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import noPhoto from '../../../assets/noPhoto.png';
+
+// import { logout } from '../../../redux/slices/authSlice.js';
+// import logoutIcon from '../../../assets/logout.svg';
+// import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+
+// const ProfileLink = () => {
+//   const user = useSelector((state) => state.auth.user);
+
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+//   // const user = useSelector((state) => state.auth.user);
+//   // const token = useSelector((state) => state.auth.token);
+//   const handleLogout = () => {
+//     dispatch(logout());
+//     navigate('/');
+//   };
+
+//   return (
+//     <nav className={s.profileLink}>
+//       <NavLink
+//         to="/profile"
+//         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
+//       >
+//         <div className={s.photoContainer}>
+//           <img
+//             src={user?.profile_image || noPhoto}
+//             alt={user?.username || 'Profile'}
+//             className={s.photo}
+//             onError={(e) => {
+//               e.target.src = noPhoto;
+//             }}
+//           />
+//         </div>
+//         <span className={s.text}>Profile</span>
+//       </NavLink>
+
+//       {/* Logout */}
+//       <NavLink
+//         to="/logout"
+//         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
+//         onClick={(e) => {
+//           e.preventDefault();
+//           handleLogout();
+//         }}
+//       >
+//         <img src={logoutIcon} alt="Logout" />
+//         <span>Logout</span>
+//       </NavLink>
+//     </nav>
+//   );
+// };
+
+// export default ProfileLink;

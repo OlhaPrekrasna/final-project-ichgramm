@@ -1,4 +1,42 @@
-.pageWrapper {
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 20px;
+  list-style: none;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .postsGrid {
+    gap: 20px;
+    padding: 16px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .postsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 12px;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .postsGrid {
+    gap: 12px;
+    padding: 8px;
+  }
+}
+
+
+
+/* .pageWrapper {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -45,7 +83,7 @@
   .sidebar {
     display: none;
   }
-}
+} */
 
 
 
