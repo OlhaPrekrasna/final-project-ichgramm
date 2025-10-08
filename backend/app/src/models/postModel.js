@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
   },
   content: { type: String, required: true },
   username: { type: String, required: true },
-  title: { type: String, default: '' },
+  // title: { type: String, default: '' },
   created_at: { type: Date, default: Date.now },
 });
 
