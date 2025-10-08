@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { $api } from '../../api/Api.jsx';
-import { addComment } from '../../redux/slices/commentsSlice.js';
-import noPhoto from '../../assets/noPhoto.png';
+import { $api } from '../../../api/Api.jsx';
+import { addComment } from '../../../redux/slices/commentsSlice.js';
+import noPhoto from '../../../assets/noPhoto.png';
 import styles from './PostPage.module.css';
 
 const PostPage = () => {
@@ -11,7 +11,7 @@ const PostPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
-
+  
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState('');
@@ -26,16 +26,14 @@ const PostPage = () => {
         const postResponse = await $api.get(`/posts/${id}`);
         setPost(postResponse.data);
         setLikesCount(postResponse.data.likes_count || 0);
-
+        
         // Получаем комментарии
         const commentsResponse = await $api.get(`/posts/${id}/comments`);
         setComments(commentsResponse.data);
-
+        
         // Проверяем, лайкнул ли текущий пользователь этот пост
         if (currentUser) {
-          const userLikesResponse = await $api.get(
-            `/user/${currentUser._id}/likes`
-          );
+          const userLikesResponse = await $api.get(`/user/${currentUser._id}/likes`);
           setIsLiked(userLikesResponse.data.includes(id));
         }
       } catch (error) {
@@ -66,10 +64,10 @@ const PostPage = () => {
         user_name: currentUser.username,
         profile_image: currentUser.profile_image,
         comment_text: newComment.trim(),
-        created_at: new Date().toISOString(),
+        created_at: new Date().toISOString()
       };
-
-      setComments((prev) => [...prev, newCommentData]);
+      
+      setComments(prev => [...prev, newCommentData]);
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
@@ -82,10 +80,10 @@ const PostPage = () => {
     try {
       if (isLiked) {
         await $api.delete(`/posts/${id}/likes`);
-        setLikesCount((prev) => Math.max(0, prev - 1));
+        setLikesCount(prev => Math.max(0, prev - 1));
       } else {
         await $api.post(`/posts/${id}/likes`);
-        setLikesCount((prev) => prev + 1);
+        setLikesCount(prev => prev + 1);
       }
       setIsLiked(!isLiked);
     } catch (error) {
@@ -126,9 +124,9 @@ const PostPage = () => {
       <div className={styles.postContainer}>
         {/* Левая часть - изображение */}
         <div className={styles.imageSection}>
-          <img
-            src={post.image || noPhoto}
-            alt="Post"
+          <img 
+            src={post.image || noPhoto} 
+            alt="Post" 
             className={styles.postImage}
           />
         </div>
@@ -138,8 +136,8 @@ const PostPage = () => {
           {/* Заголовок поста */}
           <div className={styles.postHeader}>
             <div className={styles.userInfo}>
-              <img
-                src={post.profile_image || noPhoto}
+              <img 
+                src={post.profile_image || noPhoto} 
                 alt="User avatar"
                 className={styles.userAvatar}
               />
@@ -150,12 +148,14 @@ const PostPage = () => {
                 </span>
               </div>
             </div>
-            <button className={styles.followButton}>Подписаться</button>
+            <button className={styles.followButton}>
+              Подписаться
+            </button>
           </div>
 
           {/* Описание поста */}
           <div className={styles.postDescription}>
-            <p>{post.content}</p>
+            <p>{post.caption}</p>
           </div>
 
           {/* Статистика поста */}
@@ -177,8 +177,8 @@ const PostPage = () => {
               {comments.length > 0 ? (
                 comments.map((comment) => (
                   <div key={comment._id} className={styles.commentItem}>
-                    <img
-                      src={comment.profile_image || noPhoto}
+                    <img 
+                      src={comment.profile_image || noPhoto} 
                       alt="User avatar"
                       className={styles.commentAvatar}
                     />
@@ -188,14 +188,10 @@ const PostPage = () => {
                           {comment.user_name}
                         </span>
                         <span className={styles.commentDate}>
-                          {new Date(comment.created_at).toLocaleDateString(
-                            'ru-RU'
-                          )}
+                          {new Date(comment.created_at).toLocaleDateString('ru-RU')}
                         </span>
                       </div>
-                      <p className={styles.commentText}>
-                        {comment.comment_text}
-                      </p>
+                      <p className={styles.commentText}>{comment.comment_text}</p>
                     </div>
                   </div>
                 ))
@@ -208,11 +204,9 @@ const PostPage = () => {
           {/* Действия с постом */}
           <div className={styles.actionsSection}>
             <div className={styles.postActions}>
-              <button
+              <button 
                 onClick={handleLike}
-                className={`${styles.likeButton} ${
-                  isLiked ? styles.liked : ''
-                }`}
+                className={`${styles.likeButton} ${isLiked ? styles.liked : ''}`}
               >
                 {isLiked ? '❤️' : '🤍'} Лайк
               </button>
@@ -233,7 +227,7 @@ const PostPage = () => {
                   }
                 }}
               />
-              <button
+              <button 
                 onClick={handleAddComment}
                 disabled={!newComment.trim()}
                 className={styles.commentButton}
