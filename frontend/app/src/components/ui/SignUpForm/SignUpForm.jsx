@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../redux/slices/authSlice.js';
+
 import { $api } from '../../../api/Api.jsx';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
@@ -8,6 +11,7 @@ import logo from '../../../assets/logo-ichgram.svg';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [userObject, setUserObject] = useState({
     email: '',
@@ -37,6 +41,10 @@ const SignUpForm = () => {
       const response = await $api.post('/auth/signup', userObject);
 
       if (response.status === 201) {
+        const { token, user } = response.data;
+        dispatch(setUser({ token, user }));
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
         navigate('/');
       }
     } catch (err) {

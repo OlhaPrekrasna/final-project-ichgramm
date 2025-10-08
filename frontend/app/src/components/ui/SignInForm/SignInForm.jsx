@@ -83,7 +83,7 @@ const SignInForm = () => {
         dispatch(setUser({ token, user }));
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        navigate('/home');
+        navigate('/');
       } else {
         setAuthError('Invalid credentials');
       }
