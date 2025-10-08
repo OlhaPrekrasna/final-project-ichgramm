@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import s from './navigationSidebar.module.css';
 import logo from '../../../assets/logo-ichgram.svg';
 import Menu from '../menu/Menu.jsx';
 import ProfileLink from '../../common/ProfileLink/ProfileLink.jsx';
 
 const NavigationSidebar = () => {
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <div className={s.navigationSidebar}>
       <div className={s.logoContainer}>
@@ -12,15 +17,21 @@ const NavigationSidebar = () => {
       <div className={s.menuContainer}>
         <Menu />
       </div>
-      <div className={s.profileContainer}>
-        <ProfileLink />
-      </div>
+      {!user ? (
+        <div className={s.profileContainer}>
+          <Link to="/signin">SignIn</Link>
+          <Link to="/signup">SignUp</Link>
+        </div>
+      ) : (
+        <div className={s.profileContainer}>
+          <ProfileLink />
+        </div>
+      )}
     </div>
   );
 };
 
 export default NavigationSidebar;
-
 
 // import s from './navigationSidebar.module.css';
 // import logo from '../../../assets/logo-ichgram.svg';

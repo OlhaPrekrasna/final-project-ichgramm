@@ -21,6 +21,7 @@ const ProfileLink = () => {
 
   return (
     <nav className={s.profileLink}>
+      {/* Profile */}
       <NavLink
         to="/profile"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
