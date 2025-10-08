@@ -1,4 +1,15 @@
 .updateProfilePage {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+
+/* .updateProfilePage {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -49,15 +60,15 @@
     padding: 16px 6px;
     min-height: calc(100vh - 45px);
   }
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .updateProfilePage {
     background-color: var(--color-bg-dark, #000000);
   }
-}
+} */
 
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
   .updateProfilePage {
     animation: none;
   }
@@ -88,4 +99,4 @@
 .updateProfilePage > * {
   width: 100%;
   max-width: 600px;
-}
+} */

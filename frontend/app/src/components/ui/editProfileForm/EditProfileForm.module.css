@@ -1,135 +1,194 @@
 .editProfileForm {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  font-family: Roboto, sans-serif;
-  color: #333;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-.editProfileForm h4 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 16px;
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 24px;
+  text-align: left;
+  width: 100%;
+  padding: 0 16px;
 }
 
 .imageSection {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #efefef;
-  border-radius: 16px;
-  padding: 20px;
-  gap: 16px;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  padding: 16px;
 }
 
 .profileImage {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ccc;
+  border: 1px solid #dbdbdb;
+  flex-shrink: 0;
 }
 
 .userInfo {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .username {
-  font-size: 16px;
   font-weight: 700;
+  color: #262626;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
 .userBio {
-  font-size: 13px;
-  color: #555;
+  font-size: 14px;
+  color: #262626;
+  line-height: 1.4;
+  margin-bottom: 8px;
 }
 
 .uploadButton {
-  background-color: #0095f6;
-  color: white;
-  padding: 6px 15px;
-  border-radius: 8px;
-  font-size: 14px;
   cursor: pointer;
-  font-weight: 500;
-  text-align: center;
+  color: #0095f6;
+  font-weight: 600;
+  font-size: 14px;
+  background: none;
+  border: none;
+  padding: 0;
+  align-self: flex-start;
+  transition: color 0.3s;
+}
+
+.uploadButton:hover {
+  color: #007acc;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #dbdbdb;
+  margin: 8px 0;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 16px;
 }
 
 .label {
-  font-size: 16px;
-  font-weight: 600;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  width: 100%;
+  color: #262626;
 }
 
-.inputField,
+.labelTitle {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #262626;
+}
+
+.inputField {
+  width: 100%;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  font-family: inherit;
+}
+
+.inputField:focus {
+  border-color: #0095f6;
+  outline: none;
+  background-color: #fff;
+}
+
 .textareaField {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  height: 120px;
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
   font-size: 14px;
+  resize: vertical;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  font-family: inherit;
+  line-height: 1.4;
 }
 
-.textareaField {
-  resize: none;
-  height: 80px;
+.textareaField:focus {
+  border-color: #0095f6;
+  outline: none;
+  background-color: #fff;
 }
 
 .charCount {
-  text-align: right;
+  align-self: flex-end;
   font-size: 12px;
-  color: #666;
+  color: #8e8e8e;
+  margin-top: 4px;
 }
 
 .saveButton {
-  width: 200px;
-  align-self: center;
-  margin-top: 10px;
+  width: calc(100% - 32px);
+  height: 32px;
+  margin: 16px;
+  font-size: 14px;
   font-weight: 600;
+  border-radius: 8px;
+  background-color: #0095f6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-@media (max-width: 768px) {
-  .imageSection {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .profileImage {
-    width: 72px;
-    height: 72px;
-  }
-
-  .inputField,
-  .textareaField {
-    font-size: 13px;
-  }
-
-  .saveButton {
-    width: 100%;
-  }
+.saveButton:hover {
+  background-color: #007acc;
 }
 
-@media (max-width: 480px) {
+.saveButton:active {
+  transform: scale(0.98);
+}
+
+/* Для мобильных устройств */
+@media (max-width: 640px) {
   .editProfileForm {
-    padding: 20px 10px;
+    padding: 0;
   }
-
-  .uploadButton {
-    font-size: 13px;
-    padding: 5px 10px;
+  
+  .imageSection {
+    padding: 16px;
   }
-
-  .username {
-    font-size: 15px;
+  
+  .formSection {
+    padding: 16px;
+  }
+  
+  .saveButton {
+    width: calc(100% - 32px);
+    margin: 16px;
+  }
+  
+  .title {
+    padding: 0 16px;
   }
 }

@@ -393,6 +393,7 @@ export default PostHomePageModal;
 // import noPhoto from '../../../assets/noPhoto.png';
 // import commbtn from '../../../assets/comment_btn.svg';
 // import heart from '../../../assets/heart_btn.svg';
+// import placeCreate from '../../../assets/place-create.svg'; // добавьте эту иконку
 // import CommentContent from '../commentContent/CommentContent';
 
 // const EmojiPicker = ({ onSelectEmoji }) => {
@@ -440,7 +441,184 @@ export default PostHomePageModal;
 //   );
 // };
 
-// const PostHomePageModal = ({ post, onClose }) => {
+// // Новый компонент для создания поста
+// const CreatePostModal = ({ onClose }) => {
+//   const [file, setFile] = useState(null);
+//   const [filePath, setFilePath] = useState('');
+//   const [caption, setCaption] = useState('');
+//   const [isUploading, setIsUploading] = useState(false);
+//   const [uploadStatus, setUploadStatus] = useState('');
+
+//   const currentUser = useSelector((state) => state.auth.user);
+
+//   const handleFileChange = (e) => {
+//     if (e.target.files?.[0]) {
+//       const selectedFile = e.target.files[0];
+//       setFile(selectedFile);
+//       setFilePath(URL.createObjectURL(selectedFile));
+//     }
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+    
+//     if (!file) {
+//       setUploadStatus('Please select an image first');
+//       return;
+//     }
+
+//     if (!currentUser) {
+//       setUploadStatus('User not authenticated');
+//       return;
+//     }
+
+//     setIsUploading(true);
+//     setUploadStatus('Creating post...');
+
+//     try {
+//       const formData = new FormData();
+//       formData.append('image', file);
+//       formData.append('caption', caption);
+//       formData.append('user_id', currentUser._id);
+//       formData.append('user_name', currentUser.username);
+
+//       const response = await $api.post('/posts', formData, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       });
+
+//       if (response.status === 201) {
+//         setUploadStatus('Post created successfully!');
+//         setTimeout(() => {
+//           onClose();
+//         }, 1500);
+//       }
+//     } catch (error) {
+//       console.error('Error creating post:', error);
+//       setUploadStatus('Failed to create post. Please try again.');
+//     } finally {
+//       setIsUploading(false);
+//     }
+//   };
+
+//   const handleDragOver = (e) => {
+//     e.preventDefault();
+//   };
+
+//   const handleDrop = (e) => {
+//     e.preventDefault();
+//     const files = e.dataTransfer.files;
+//     if (files.length > 0) {
+//       handleFileChange({ target: { files } });
+//     }
+//   };
+
+//   return (
+//     <div className={s.createPostModal} onClick={(e) => e.stopPropagation()}>
+//       {/* Header */}
+//       <div className={s.modalHeader}>
+//         <button 
+//           type="button" 
+//           className={s.backButton}
+//           onClick={onClose}
+//         >
+//           ←
+//         </button>
+//         <h2 className={s.modalTitle}>Create new post</h2>
+//         <button
+//           type="submit"
+//           form="postForm"
+//           className={s.shareButton}
+//           disabled={isUploading || !file}
+//         >
+//           {isUploading ? 'Sharing...' : 'Share'}
+//         </button>
+//       </div>
+
+//       {/* Content */}
+//       <div className={s.modalContent}>
+//         {!file ? (
+//           // Upload area - shown when no image is selected
+//           <div 
+//             className={s.uploadArea}
+//             onDragOver={handleDragOver}
+//             onDrop={handleDrop}
+//           >
+//             <div className={s.uploadContent}>
+//               <img 
+//                 src={placeCreate} 
+//                 alt="Upload" 
+//                 className={s.uploadIcon}
+//               />
+//               <p className={s.uploadText}>Drag photos and videos here</p>
+//               <label htmlFor="fileInput" className={s.fileInputLabel}>
+//                 Select from computer
+//               </label>
+//               <input
+//                 id="fileInput"
+//                 type="file"
+//                 accept="image/*"
+//                 className={s.fileInput}
+//                 onChange={handleFileChange}
+//               />
+//             </div>
+//           </div>
+//         ) : (
+//           // Edit area - shown when image is selected
+//           <div className={s.editArea}>
+//             <div className={s.imagePreview}>
+//               <img 
+//                 src={filePath} 
+//                 alt="Preview" 
+//                 className={s.previewImage}
+//               />
+//             </div>
+            
+//             <div className={s.captionSection}>
+//               <div className={s.userInfo}>
+//                 <img
+//                   src={currentUser?.profile_image || noPhoto}
+//                   alt={currentUser?.username}
+//                   className={s.userAvatar}
+//                 />
+//                 <span className={s.username}>{currentUser?.username}</span>
+//               </div>
+              
+//               <textarea
+//                 placeholder="Write a caption..."
+//                 value={caption}
+//                 onChange={(e) => setCaption(e.target.value)}
+//                 className={s.captionInput}
+//                 rows="4"
+//                 maxLength="2200"
+//               />
+              
+//               <div className={s.captionInfo}>
+//                 <span className={s.charCount}>{caption.length}/2,200</span>
+//               </div>
+//             </div>
+//           </div>
+//         )}
+
+//         {/* Status message */}
+//         {uploadStatus && (
+//           <div className={`${s.statusMessage} ${
+//             uploadStatus.includes('successfully') ? s.success : s.error
+//           }`}>
+//             {uploadStatus}
+//           </div>
+//         )}
+//       </div>
+
+//       {/* Hidden form for submission */}
+//       <form id="postForm" onSubmit={handleSubmit} className={s.hiddenForm} />
+//     </div>
+//   );
+// };
+
+// // Старый компонент для просмотра поста (оставляем как есть)
+// const PostHomePageModal = ({ post, onClose, mode = 'view' }) => {
 //   const dispatch = useDispatch();
 //   const currentUser = useSelector((state) => state.auth.user);
 
@@ -505,7 +683,17 @@ export default PostHomePageModal;
 //     setNewComment((prev) => prev + emoji);
 //   };
 
-//   if (!post) return null; // защита от undefined
+//   // Если режим 'create', показываем компонент создания поста
+//   if (mode === 'create') {
+//     return (
+//       <div className={s.modalOverlay} onClick={onClose}>
+//         <CreatePostModal onClose={onClose} />
+//       </div>
+//     );
+//   }
+
+//   // Старый код для просмотра поста
+//   if (!post) return null;
 
 //   return (
 //     <div className={s.modalOverlay} onClick={onClose}>

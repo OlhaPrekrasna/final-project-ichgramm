@@ -1,133 +1,97 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Button from '../../common/Button/Button.jsx';
-import { setUser } from '../../../redux/slices/authSlice.js';
-import { $api } from '../../../api/Api.jsx';
-import noPhoto from '../../../assets/noPhoto.png';
-import s from './editProfileForm.module.css';
+import React from 'react';
+import s from './EditProfileForm.module.css';
 
-const EditProfileForm = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+const EditProfileForm = ({ value, onChange }) => {
+  const { username, website, bio } = value;
 
-  const [username, setUsername] = useState(user?.username || '');
-  const [bioWebsite, setBioWebsite] = useState(user?.bio_website || '');
-  const [bio, setBio] = useState(user?.bio || '');
-  const [profileImage, setProfileImage] = useState(user?.profile_image || '');
-  const [profileImageFile, setProfileImageFile] = useState(null);
-  const [charCount, setCharCount] = useState(bio.length);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('bio_website', bioWebsite);
-      formData.append('bio', bio);
-      if (profileImageFile) {
-        formData.append('profile_image', profileImageFile);
-      }
-
-      const response = await $api.put('/user/current', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      dispatch(
-        setUser({
-          token: localStorage.getItem('token') || '',
-          user: response.data,
-        })
-      );
-
-      localStorage.setItem('user', JSON.stringify(response.data));
-      console.log('✅ User updated successfully');
-    } catch (error) {
-      console.error('❌ Error updating user profile:', error);
+  const handleBioChange = (e) => {
+    if (e.target.value.length <= 150) {
+      onChange(e);
     }
-  };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setProfileImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => setProfileImage(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleBioChange = (event) => {
-    const newBio = event.target.value;
-    setBio(newBio);
-    setCharCount(newBio.length);
   };
 
   return (
-    <form className={s.editProfileForm} onSubmit={handleSubmit}>
-      <h4>{t('editProfileForm.edit')}</h4>
-
+    <form className={s.editProfileForm}>
+      <h1 className={s.title}>Edit profile</h1>
+      
+      {/* Profile Image Section */}
       <div className={s.imageSection}>
-        <img
-          src={profileImage || noPhoto}
-          alt="Profile"
+        <img 
+          src="/api/placeholder/80/80" 
+          alt="Profile" 
           className={s.profileImage}
         />
         <div className={s.userInfo}>
-          <p className={s.username}>
-            {username || t('editProfileForm.defaultUsername')}
-          </p>
-          <p className={s.userBio}>{bio || t('editProfileForm.defaultBio')}</p>
+          <div className={s.username}>ICH</div>
+          <div className={s.userBio}>
+            Ichschool<br />
+            - Гарантия помощи с трудоустройством в ведущие IT-компании
+          </div>
+          <button type="button" className={s.uploadButton}>New photo</button>
         </div>
-        <label className={s.uploadButton}>
-          {t('editProfileForm.newPhoto')}
+      </div>
+
+      <div className={s.separator}></div>
+
+      {/* Username Field */}
+      <div className={s.formSection}>
+        <label className={s.label}>
+          <span className={s.labelTitle}>Username</span>
           <input
-            type="file"
-            onChange={handleImageChange}
-            accept="image/*"
-            hidden
+            type="text"
+            name="username"
+            value={username || "ichschool"}
+            onChange={onChange}
+            className={s.inputField}
           />
         </label>
       </div>
 
-      <label className={s.label}>
-        {t('editProfileForm.username')}
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className={s.inputField}
-        />
-      </label>
+      <div className={s.separator}></div>
 
-      <label className={s.label}>
-        {t('editProfileForm.website')}
-        <input
-          type="text"
-          value={bioWebsite}
-          onChange={(e) => setBioWebsite(e.target.value)}
-          className={s.inputField}
-        />
-      </label>
+      {/* Website Field */}
+      <div className={s.formSection}>
+        <label className={s.label}>
+          <span className={s.labelTitle}>Website</span>
+          <input
+            type="text"
+            name="website"
+            value={website || "bit.ly/3rpilibh"}
+            onChange={onChange}
+            className={s.inputField}
+          />
+        </label>
+      </div>
 
-      <label className={s.label}>
-        {t('editProfileForm.about')}
-        <textarea
-          value={bio}
-          onChange={handleBioChange}
-          className={s.textareaField}
-          maxLength={150}
-        />
-        <div className={s.charCount}>{charCount} / 150</div>
-      </label>
+      <div className={s.separator}></div>
 
-      <Button
-        text={t('editProfileForm.saveBtn')}
-        type="submit"
-        className={s.saveButton}
-      />
+      {/* Bio Field */}
+      <div className={s.formSection}>
+        <label className={s.label}>
+          <span className={s.labelTitle}>About</span>
+          <textarea
+            name="bio"
+            value={bio || "- Гарантия помощи с трудоустройством в ведущие IT-компании\n- Выпускники зарабатывают от 45к евро\nБЕСПЛАТНАЯ"}
+            onChange={handleBioChange}
+            className={s.textareaField}
+            maxLength={150}
+          />
+          <div className={s.charCount}>
+            {(bio || "- Гарантия помощи с трудоустройством в ведущие IT-компании\n- Выпускники зарабатывают от 45к евро\nБЕСПЛАТНАЯ").length} / 150
+          </div>
+        </label>
+      </div>
+
+      <div className={s.separator}></div>
+
+      {/* Save Button */}
+      <button type="submit" className={s.saveButton}>
+        Save
+      </button>
     </form>
   );
 };
 
 export default EditProfileForm;
+
+
