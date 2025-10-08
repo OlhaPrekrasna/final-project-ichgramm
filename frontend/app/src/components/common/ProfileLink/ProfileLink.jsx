@@ -35,7 +35,7 @@ const ProfileLink = () => {
             }}
           />
         </div>
-        {/* <span className={s.text}>Profile</span> */}
+        <span className={s.text}>Profile</span>
       </NavLink>
 
       {/* Logout */}
