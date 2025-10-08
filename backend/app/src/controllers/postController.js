@@ -47,25 +47,20 @@ export const getUserPosts = async (req, res) => {
 // create Post +
 export const createPost = async (req, res) => {
   try {
-    const user = req.user;
-    if (!user) {
+    const currentUser = req.user;
+    if (!currentUser) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { title, content } = req.body;
+    const { content } = req.body;
 
     const post = new Post({
-      user_id: user._id,
-      username: user.username,
-      title,
+      user_id: currentUser.userId,
+      username: currentUser.username,
       content,
       created_at: new Date(),
     });
-
     await post.save();
-
-    user.posts_count += 1;
-    await user.save();
 
     res.status(201).json(post);
   } catch (error) {

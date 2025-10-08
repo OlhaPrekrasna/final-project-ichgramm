@@ -10,7 +10,7 @@ import placeCreate from '../../../assets/place-create.svg';
 const ImageForm = ({ closeModal }) => {
   const [file, setFile] = useState(null);
   const [filePath, setFilePath] = useState('');
-  const [caption, setCaption] = useState('');
+  const [content, setContent] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState('');
 
@@ -43,15 +43,11 @@ const ImageForm = ({ closeModal }) => {
     try {
       const formData = new FormData();
       formData.append('image', file);
-      formData.append('caption', caption);
+      formData.append('content', content);
       formData.append('user_id', currentUser._id);
-      formData.append('user_name', currentUser.username);
+      formData.append('username', currentUser.username);
 
-      const response = await $api.post('/posts', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await $api.post('/posts', formData);
 
       if (response.status === 201) {
         setUploadStatus('Post created successfully!');
@@ -140,7 +136,7 @@ const ImageForm = ({ closeModal }) => {
               />
             </div>
 
-            <div className={styles.captionSection}>
+            <div className={styles.contentSection}>
               <div className={styles.userInfo}>
                 <img
                   src={currentUser?.profile_image || noPhoto}
@@ -151,16 +147,16 @@ const ImageForm = ({ closeModal }) => {
               </div>
 
               <textarea
-                placeholder="Write a caption..."
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                className={styles.captionInput}
+                placeholder="Write a post..."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className={styles.contentInput}
                 rows="4"
                 maxLength="2200"
               />
 
-              <div className={styles.captionInfo}>
-                <span className={styles.charCount}>{caption.length}/2,200</span>
+              <div className={styles.contentInfo}>
+                <span className={styles.charCount}>{content.length}/2,200</span>
               </div>
             </div>
           </div>

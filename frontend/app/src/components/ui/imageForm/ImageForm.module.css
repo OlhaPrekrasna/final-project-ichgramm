@@ -143,7 +143,7 @@
   object-fit: contain;
 }
 
-.captionSection {
+.contentSection {
   flex: 0.8;
   padding: 20px;
   border-left: 1px solid #dbdbdb;
@@ -173,7 +173,7 @@
   color: #262626;
 }
 
-.captionInput {
+.contentInput {
   flex: 1;
   border: none;
   resize: none;
@@ -185,11 +185,11 @@
   margin-bottom: 12px;
 }
 
-.captionInput::placeholder {
+.contentInput::placeholder {
   color: #8e8e8e;
 }
 
-.captionInfo {
+.contentInfo {
   display: flex;
   justify-content: flex-end;
   padding-top: 12px;
@@ -242,7 +242,7 @@
     height: 300px;
   }
 
-  .captionSection {
+  .contentSection {
     border-left: none;
     border-top: 1px solid #dbdbdb;
     flex: none;
@@ -278,7 +278,7 @@
     padding: 6px 12px;
   }
 
-  .captionSection {
+  .contentSection {
     padding: 16px;
   }
 
@@ -432,7 +432,7 @@
   object-fit: contain;
 }
 
-.captionSection {
+.contentSection {
   flex: 0.8;
   padding: 20px;
   border-left: 1px solid #dbdbdb;
@@ -462,7 +462,7 @@
   color: #262626;
 }
 
-.captionInput {
+.contentInput {
   flex: 1;
   border: none;
   resize: none;
@@ -474,11 +474,11 @@
   margin-bottom: 12px;
 }
 
-.captionInput::placeholder {
+.contentInput::placeholder {
   color: #8e8e8e;
 }
 
-.captionInfo {
+.contentInfo {
   display: flex;
   justify-content: flex-end;
   padding-top: 12px;
@@ -533,7 +533,7 @@
     height: 300px;
   }
 
-  .captionSection {
+  .contentSection {
     border-left: none;
     border-top: 1px solid #dbdbdb;
     flex: none;
@@ -569,7 +569,7 @@
     padding: 6px 12px;
   }
 
-  .captionSection {
+  .contentSection {
     padding: 16px;
   }
 
