@@ -1,19 +1,20 @@
 import { $api } from './Api.jsx';
 
-// Функция для получения пользователя по ID
+// Function to get a user by ID
 export const getUserByIdApi = async (userId) => {
   try {
-    // Делаем GET-запрос к backend API по маршруту /user/:id
+    // Send a GET request to the backend API at /user/:id
     const { data } = await $api.get(`/user/${userId}`);
 
-    // Возвращаем тело ответа (данные пользователя)
+    // Return the response body (user data)
     return data;
   } catch (e) {
-    // Если запрос не удался (например, сервер недоступен или вернул ошибку),
-    // выводим ошибку в консоль для разработчика
-    console.error('Ошибка API:', e);
+    // If the request fails (e.g., server unavailable or returned an error),
+    // log the error to the console for developers
+    console.error('API error:', e);
 
-    // Пробрасываем понятное сообщение для UI
-    throw new Error('Ошибка при получении пользователя');
+    // Throw a readable error message for the UI
+    throw new Error('Error fetching user');
   }
 };
+

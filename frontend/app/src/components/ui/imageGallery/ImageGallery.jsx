@@ -6,7 +6,6 @@ import s from './ImageGallery.module.css';
 
 const ImageGallery = () => {
   const dispatch = useDispatch();
-  // const { posts, loading, error } = useSelector((state) => state.posts);
   const [selectedPost, setSelectedPost] = useState(null);
 
   const [posts, setPosts] = useState([]);
@@ -29,7 +28,7 @@ const ImageGallery = () => {
     dispatch(getAllPosts());
   };
 
-  if (loading) return <div className={s.loading}>Загрузка...</div>;
+  if (loading) return <div className={s.loading}></div>; // Загрузка...
   if (error) return <div className={s.error}>{error}</div>;
 
   return (

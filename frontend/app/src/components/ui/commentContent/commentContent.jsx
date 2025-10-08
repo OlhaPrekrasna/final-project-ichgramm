@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaHeart } from 'react-icons/fa';
-import { fetchComments, likeComment } from '../../../redux/slices/commentsSlice.js';
+import {
+  fetchComments,
+  likeComment,
+} from '../../../redux/slices/commentsSlice.js';
 import noPhoto from '../../../assets/noPhoto.png';
 import s from './CommentContent.module.css';
 import parseData from '../../../helpers/parseData.jsx';
@@ -13,14 +16,12 @@ const CommentContent = ({ postId }) => {
   const currentUser = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.comments.loading);
 
-  // Загружаем комментарии при изменении postId
   useEffect(() => {
     if (postId) {
       dispatch(fetchComments(postId));
     }
   }, [dispatch, postId]);
 
-  // Обработка лайка комментария
   const handleLikeComment = async (commentId) => {
     if (!currentUser || !currentUser._id) {
       console.error(t('postModal.errorUserNotFound'));
@@ -30,13 +31,12 @@ const CommentContent = ({ postId }) => {
       await dispatch(
         likeComment({ commentId, userId: currentUser._id })
       ).unwrap();
-      dispatch(fetchComments(postId)); // Обновляем список комментариев
+      dispatch(fetchComments(postId));
     } catch (err) {
-      console.error('Ошибка при лайке комментария:', err);
+      console.error('Error while liking the comment:', err);
     }
   };
 
-  // Состояние загрузки
   if (loading) {
     return <p>{t('postModal.loadingComments')}</p>;
   }

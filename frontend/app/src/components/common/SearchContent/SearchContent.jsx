@@ -23,7 +23,7 @@ function SearchContent() {
 
   const handleUserClick = (userId) => {
     navigate(`/profile/${userId}`);
-    setSearchPerson(''); // Очищаем поиск после выбора
+    setSearchPerson('');
   };
 
   return (

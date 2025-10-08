@@ -95,7 +95,6 @@
   font-style: italic;
 }
 
-/* Анимации */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -111,7 +110,6 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Стили для скроллбара */
 .usersList::-webkit-scrollbar {
   width: 6px;
 }
@@ -130,7 +128,6 @@
   background: var(--color-text-dark, #a8a8a8);
 }
 
-/* Адаптивность для планшетов */
 @media (max-width: 1190px) {
   .searchContent {
     padding: 20px 16px;
@@ -180,7 +177,6 @@
   }
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 568px) {
   .searchContent {
     padding: 12px 8px;
@@ -218,7 +214,6 @@
   }
 }
 
-/* Очень маленькие экраны */
 @media (max-width: 375px) {
   .searchContent {
     padding: 8px 6px;
@@ -244,7 +239,6 @@
   }
 }
 
-/* Поддержка темной темы */
 @media (prefers-color-scheme: dark) {
   .searchContent {
     background-color: var(--color-bg-dark, #000000);
@@ -283,7 +277,6 @@
   }
 }
 
-/* Улучшенная доступность */
 @media (prefers-reduced-motion: reduce) {
   .searchContent {
     animation: none;
@@ -294,13 +287,11 @@
   }
 }
 
-/* Focus states для доступности */
 .userItem:focus-visible {
   outline: 2px solid var(--color-primary, #0095f6);
   outline-offset: 2px;
 }
 
-/* Поддержка высоких экранов */
 @media (min-height: 800px) {
   .searchContent {
     padding: 32px 20px;

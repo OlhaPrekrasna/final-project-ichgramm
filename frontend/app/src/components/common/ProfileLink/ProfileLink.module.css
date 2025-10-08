@@ -74,7 +74,6 @@
   transition: opacity 0.2s ease;
 }
 
-/* Адаптивность для планшетов */
 @media (max-width: 1024px) {
   .link,
   .activeLink {
@@ -87,7 +86,6 @@
   }
 }
 
-/* Адаптивность для экранов меньше 768px - скрыть текст */
 @media (max-width: 768px) {
   .profileLink {
     gap: 4px;
@@ -117,7 +115,6 @@
   }
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 568px) {
   .profileLink {
     position: static;
@@ -150,7 +147,6 @@
   }
 }
 
-/* Адаптивность для очень маленьких экранов */
 @media (max-width: 375px) {
   .profileLink {
     gap: 16px;
@@ -187,7 +183,6 @@
   }
 } */
 
-/* Анимации */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -203,7 +198,6 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Улучшенная доступность */
 @media (prefers-reduced-motion: reduce) {
   .profileLink {
     animation: none;
@@ -217,14 +211,12 @@
   }
 }
 
-/* Focus states для доступности */
 .link:focus-visible,
 .activeLink:focus-visible {
   outline: 2px solid var(--color-primary, #0095f6);
   outline-offset: 2px;
 }
 
-/* Состояние загрузки/ошибки */
 .photoContainer.loading {
   background-color: var(--color-bg-light-grey, #f0f0f0);
   animation: pulse 1.5s ease-in-out infinite;
@@ -242,7 +234,6 @@
   }
 }
 
-/* Поддержка высоких экранов */
 @media (min-height: 800px) {
   .photoContainer {
     width: 26px;
@@ -278,236 +269,3 @@
     }
   }
 }
-
-
-
-
-
-
-/* .profileLink {
-  display: flex;
-  width: fit-content;
-}
-
-.link {
-  color: var(--color-text-dark, #262626);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  gap: 12px;
-}
-
-.link:hover {
-  background-color: var(--color-bg-light-grey, #fafafa);
-  cursor: pointer;
-}
-
-.activeLink {
-  color: var(--color-text-dark, #262626);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background-color: var(--color-bg-light-grey, #fafafa);
-  gap: 12px;
-}
-
-.photoContainer {
-  width: 24px;
-  height: 24px;
-  border: var(--border, 1px solid #dbdbdb);
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
-}
-
-.photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.text {
-  font-size: 14px;
-  font-weight: 400;
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-}
-
-/* Адаптивность для планшетов */
-/* @media (max-width: 1024px) {
-  .link,
-  .activeLink {
-    padding: 6px 10px;
-    gap: 10px;
-  }
-
-  .text {
-    font-size: 13px;
-  }
-}
-
-/* Адаптивность для экранов меньше 768px - скрыть текст */
-/* @media (max-width: 768px) {
-  .link,
-  .activeLink {
-    padding: 8px;
-    border-radius: 50%;
-    justify-content: center;
-  }
-
-  .text {
-    display: none;
-  }
-
-  .photoContainer {
-    margin-right: 0;
-    width: 28px;
-    height: 28px;
-  }
-} */
-
-/* Адаптивность для мобильных устройств */
-/* @media (max-width: 568px) {
-  .profileLink {
-    position: relative;
-  }
-
-  .link,
-  .activeLink {
-    padding: 0;
-    background: none;
-  }
-
-  .photoContainer {
-    width: 32px;
-    height: 32px;
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    border: 2px solid var(--color-primary, #0095f6);
-  }
-
-  .link:hover,
-  .activeLink:hover {
-    background: none;
-  }
-
-  .activeLink {
-    background: none;
-  }
-} */
-
-/* Адаптивность для очень маленьких экранов */
-/* @media (max-width: 375px) {
-  .photoContainer {
-    width: 30px;
-    height: 30px;
-    right: 12px;
-    top: 8px;
-  }
-} */
-
-/* Поддержка темной темы */
-/* @media (prefers-color-scheme: dark) {
-  .link {
-    color: var(--color-text-light, #ffffff);
-  }
-
-  .link:hover {
-    background-color: var(--color-bg-dark-grey, #262626);
-  }
-
-  .activeLink {
-    color: var(--color-text-light, #ffffff);
-    background-color: var(--color-bg-dark-grey, #262626);
-  }
-
-  .photoContainer {
-    border-color: var(--color-border-dark, #363636);
-  }
-} */
-
-/* Анимации */
-/* @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.profileLink {
-  animation: fadeIn 0.3s ease-out;
-} */
-
-/* Улучшенная доступность */
-/* @media (prefers-reduced-motion: reduce) {
-  .profileLink {
-    animation: none;
-  }
-
-  .link,
-  .activeLink,
-  .photoContainer,
-  .text {
-    transition: none;
-  }
-} */
-
-/* Focus states для доступности */
-/* .link:focus-visible,
-.activeLink:focus-visible {
-  outline: 2px solid var(--color-primary, #0095f6);
-  outline-offset: 2px;
-} */
-
-/* Состояние загрузки/ошибки */
-/* .photoContainer.loading {
-  background-color: var(--color-bg-light-grey, #f0f0f0);
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
-} */
-
-/* Поддержка высоких экранов */
-/* @media (min-height: 800px) {
-  .photoContainer {
-    width: 26px;
-    height: 26px;
-  }
-
-  @media (max-width: 768px) {
-    .photoContainer {
-      width: 30px;
-      height: 30px;
-    }
-  }
-
-  @media (max-width: 568px) {
-    .photoContainer {
-      width: 34px;
-      height: 34px;
-    }
-  }
-} */

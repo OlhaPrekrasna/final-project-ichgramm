@@ -1,22 +1,22 @@
-import React from "react";
-import "./allPostCard.css"; // подключаем стили
+import React from 'react';
+import './allPostCard.css';
 
-const AllPostsCard = ({ 
-  image_url, 
-  caption, 
-  likes_count, 
-  comments_count, 
-  user_name, 
-  profile_image, 
-  created_at 
+const AllPostsCard = ({
+  image_url,
+  caption,
+  likes_count,
+  comments_count,
+  user_name,
+  profile_image,
+  created_at,
 }) => {
   return (
     <div className="post-card">
       <div className="post-card-header">
-        <img 
-          src={profile_image} 
-          alt={`${user_name} profile`} 
-          className="profile-image" 
+        <img
+          src={profile_image}
+          alt={`${user_name} profile`}
+          className="profile-image"
         />
         <span className="username">{user_name}</span>
       </div>

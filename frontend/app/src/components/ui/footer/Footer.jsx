@@ -2,16 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import s from './Footer.module.css';
 import { useSelector } from 'react-redux';
-// ADDED logout
-import { logout } from '../../../redux/slices/authSlice.js';
+// import { logout } from '../../../redux/slices/authSlice.js';
 import st from '../signInForm/SignInForm.module.css';
 import logoutIcon from '../../../assets/logout.svg';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-//------
 
 const Footer = () => {
-  // ADDED logout
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,7 +19,6 @@ const Footer = () => {
     dispatch(logout());
     navigate('/');
   };
-  //------
 
   return (
     <footer className={s.footer}>

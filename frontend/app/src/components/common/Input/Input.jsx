@@ -17,10 +17,10 @@ function Input({
   };
 
   const inputClass = [
-    s.inputContainer, 
-    errorMessage ? s.error : '', 
+    s.inputContainer,
+    errorMessage ? s.error : '',
     icon ? s.hasIcon : '',
-    className
+    className,
   ]
     .filter(Boolean)
     .join(' ');
