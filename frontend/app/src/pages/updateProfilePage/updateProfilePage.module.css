@@ -5,98 +5,80 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  position: relative;
 }
 
-
-
-/* .updateProfilePage {
+.successMessage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: flex-start;
   justify-content: center;
-  min-height: 100vh;
-  background-color: var(--color-bg-white, #ffffff);
-  padding: 40px 20px;
-  box-sizing: border-box;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.successContent {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.successIcon {
+  font-size: 48px;
+  color: #22c55e;
+  margin-bottom: 16px;
+}
+
+.successText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 8px;
+}
+
+.redirectText {
+  font-size: 14px;
+  color: #666;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
-.updateProfilePage {
-  animation: fadeIn 0.5s ease-out;
-}
 
-@media (max-width: 1024px) {
-  .updateProfilePage {
-    padding: 32px 16px;
-  }
-}
 
-@media (max-width: 768px) {
-  .updateProfilePage {
-    padding: 24px 12px;
-    min-height: calc(100vh - 60px);
-    align-items: center;
-  }
-}
-
-@media (max-width: 568px) {
-  .updateProfilePage {
-    padding: 20px 8px;
-    min-height: calc(100vh - 50px);
-  }
-}
-
-@media (max-width: 375px) {
-  .updateProfilePage {
-    padding: 16px 6px;
-    min-height: calc(100vh - 45px);
-  }
-} */
-
-/* @media (prefers-color-scheme: dark) {
-  .updateProfilePage {
-    background-color: var(--color-bg-dark, #000000);
-  }
-} */
-
-/* @media (prefers-reduced-motion: reduce) {
-  .updateProfilePage {
-    animation: none;
-  }
-}
-
-@media (min-height: 800px) {
-  .updateProfilePage {
-    padding: 60px 20px;
-  }
-}
-
-@media (min-height: 1000px) {
-  .updateProfilePage {
-    padding: 80px 20px;
-  }
-}
-
-.updateProfilePage.loading {
+/* .updateProfilePage {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 20px;
+  display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.updateProfilePage:focus-visible {
-  outline: 2px solid var(--color-primary, #0095f6);
-  outline-offset: -2px;
-}
-
-.updateProfilePage > * {
-  width: 100%;
-  max-width: 600px;
+  align-items: flex-start;
 } */
+
+
+
