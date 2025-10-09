@@ -194,24 +194,23 @@ const PostItem = ({
             size={20}
           />
           <span className={styles.likesCount}>{likesCount} likes</span>
-          <FaRegComment
+          {/* <FaRegComment
             className="text-gray-500"
             size={20}
             onClick={(e) => {
               e.stopPropagation();
               handlePostClick(); // При клике на комментарий тоже открываем пост
             }}
-          />
+          /> */}
         </div>
         <div className={styles.caption}>
           <span className={styles.bold} onClick={handleUserClick}>
             {item.user_name}
           </span>
-          : {item.caption}
         </div>
       </div>
 
-      <div className={styles.commentsContainer}>
+      {/* <div className={styles.commentsContainer}>
         <span>{item.last_comment || 'Add a comment...'}</span>
         <span
           className={styles.commentText}
@@ -222,7 +221,7 @@ const PostItem = ({
         >
           View all comments ({item.comments_count || 0})
         </span>
-      </div>
+      </div> */}
     </li>
   );
 };

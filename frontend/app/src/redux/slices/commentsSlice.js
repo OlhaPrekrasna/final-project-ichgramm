@@ -22,7 +22,7 @@ export const addComment = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await $api.post(`/comments/${postId}`, {
+      const response = await $api.post(`/comments/${postId}/comments`, {
         userId,
         comment_text,
         profile_photo,
