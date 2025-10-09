@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegComment } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // Добавляем useNavigate
+import { useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button.jsx';
 import { $api } from '../../../api/Api.jsx';
 import avaImage from '../../../assets/noPhoto.png';
@@ -12,7 +12,6 @@ import styles from './PostItem.module.css';
 const PostItem = ({
   item,
   author,
-  // likesCount: initialLikesCount,
   likesCount,
   setLikesCount,
   onClick,
@@ -22,34 +21,23 @@ const PostItem = ({
   userLikes,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
-  // const [likesCount, setLocalLikesCount] = useState(initialLikesCount || 0);
   const currentUser = useSelector((state) => state.auth.user);
   const { _id: currentUserId } = currentUser || {};
   const userId =
     typeof item.user_id === 'string' ? item.user_id : item.user_id?._id || '';
 
-  const navigate = useNavigate(); // Добавляем навигацию
-
+  const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(null);
 
-  // Убираем условие скрытия своих постов, если нужно показывать все посты
-  // if (userId === currentUserId) return null;
-
-  // Инициализация состояния лайков
   useEffect(() => {
     const userHasLiked = userLikes.includes(item._id);
     setIsLiked(userHasLiked);
 
-    // Корректируем количество лайков если нужно
-    // if (userHasLiked && initialLikesCount === 0) {
     if (userHasLiked) {
-      // setLocalLikesCount(1);
       setLikesCount(1);
     } else {
-      // setLocalLikesCount(initialLikesCount || 0);
       setLikesCount(likesCount || 0);
     }
-    // }, [item._id, userLikes, initialLikesCount]);
   }, [item._id, userLikes, likesCount]);
 
   useEffect(() => {
@@ -59,22 +47,19 @@ const PostItem = ({
   }, [currentUserId, userId, listFollowing]);
 
   const handleLike = async (e) => {
-    e.stopPropagation(); // Останавливаем всплытие чтобы не открывался пост при лайке
+    e.stopPropagation();
     if (!currentUserId) return;
 
     try {
       await $api.post(`/posts/${item._id}/likes`);
 
       if (isLiked) {
-        // Убираем лайк
         const newCount = Math.max(0, likesCount - 1);
-        // setLocalLikesCount(newCount);
-        // setLikesCount(newCount);
+
         setLikesCount(item._id, newCount);
       } else {
-        // Добавляем лайк
         const newCount = likesCount + 1;
-        // setLocalLikesCount(newCount);
+
         setLikesCount(item._id, newCount);
       }
       setIsLiked(!isLiked);
@@ -84,7 +69,7 @@ const PostItem = ({
   };
 
   const handleFollow = async (e) => {
-    e.stopPropagation(); // Останавливаем всплытие
+    e.stopPropagation();
     if (!currentUserId || !userId) return;
     try {
       const response = await $api.post(
@@ -100,7 +85,7 @@ const PostItem = ({
   };
 
   const handleUnfollow = async (e) => {
-    e.stopPropagation(); // Останавливаем всплытие
+    e.stopPropagation();
     if (!currentUserId || !userId) return;
     try {
       const response = await $api.delete(
@@ -124,16 +109,14 @@ const PostItem = ({
     }
   };
 
-  // Обработчик клика по посту - переход на страницу поста
   const handlePostClick = () => {
     if (onClick) {
-      onClick(); // Если передан кастомный обработчик
+      onClick();
     } else {
-      navigate(`/posts/${item._id}`); // Стандартный переход на страницу поста
+      navigate(`/posts/${item._id}`);
     }
   };
 
-  // Обработчик клика по имени пользователя - переход в профиль
   const handleUserClick = (e) => {
     e.stopPropagation();
     if (userId) {
@@ -149,14 +132,11 @@ const PostItem = ({
             src={author.profile_photo || avaImage}
             alt="avatar"
             className={styles.avatar}
-            onClick={handleUserClick} // Клик по аватарке ведет в профиль
+            onClick={handleUserClick}
           />
         </div>
         <div className={styles.userInfo}>
-          <span
-            className={styles.userName}
-            onClick={handleUserClick} // Клик по имени ведет в профиль
-          >
+          <span className={styles.userName} onClick={handleUserClick}>
             {author.username}
           </span>
           <span className={styles.greyText}>
@@ -194,14 +174,6 @@ const PostItem = ({
             size={20}
           />
           <span className={styles.likesCount}>{likesCount} likes</span>
-          {/* <FaRegComment
-            className="text-gray-500"
-            size={20}
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePostClick(); // При клике на комментарий тоже открываем пост
-            }}
-          /> */}
         </div>
         <div className={styles.caption}>
           <span className={styles.bold} onClick={handleUserClick}>
@@ -209,19 +181,6 @@ const PostItem = ({
           </span>
         </div>
       </div>
-
-      {/* <div className={styles.commentsContainer}>
-        <span>{item.last_comment || 'Add a comment...'}</span>
-        <span
-          className={styles.commentText}
-          onClick={(e) => {
-            e.stopPropagation();
-            handlePostClick(); // При клике на "View all comments" открываем пост
-          }}
-        >
-          View all comments ({item.comments_count || 0})
-        </span>
-      </div> */}
     </li>
   );
 };

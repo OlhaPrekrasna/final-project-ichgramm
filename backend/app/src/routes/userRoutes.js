@@ -15,7 +15,7 @@ const router = express.Router();
 // GET /api/v1/user - список пользователей +
 router.get('/', find);
 
-// ??? GET /api/v1/user/:id - профиль пользователя +
+// GET /api/v1/user/:id - профиль пользователя +
 router.get('/:id', getUserProfile);
 
 // PUT /api/v1/user/:id - update user profile +
@@ -40,56 +40,3 @@ router.delete('/:id', authMiddleware, deleteUser);
 router.get('/:id/likes', authMiddleware, getUserLikes);
 
 export default router;
-
-// PATCH /api/v1/users/update-email/:id - update user email
-// router.patch('/update-email/:id', async (req, res) => {
-//   const userId = req.params.id;
-//   const { email } = req.body;
-
-//   try {
-//     const existingUser = await User.findOne({ email, _id: { $ne: userId } });
-//     if (existingUser) {
-//       return res.status(400).json({ message: 'Email is already in use by another user' });
-//     }
-
-//     const updatedUser = await User.findByIdAndUpdate(
-//       userId,
-//       { email },
-//       { new: true, runValidators: true }
-//     ).select('-password');
-
-//     if (!updatedUser) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     res.json({
-//       message: 'User email successfully updated',
-//       user: updatedUser,
-//     });
-//   } catch (error) {
-//     res.status(400).json({
-//       message: 'Error updating user email',
-//       error: error.message,
-//     });
-//   }
-// });
-
-//
-//
-//
-//
-//
-//
-//
-//
-// ,
-
-// POST /api/v1/users/upload-profile-image - upload profile image
-// router.post('/upload-profile-image', uploadProfileImage);
-
-//
-//
-//
-//
-//
-//

@@ -332,12 +332,11 @@
   margin: 0;
 }
 
-/* Адаптивность */
 @media (max-width: 1024px) {
   .postContainer {
     gap: 30px;
   }
-  
+
   .infoSection {
     padding: 25px;
   }
@@ -347,26 +346,26 @@
   .postPage {
     padding: 15px;
   }
-  
+
   .postContainer {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  
+
   .imageSection {
     height: 400px;
   }
-  
+
   .infoSection {
     padding: 20px;
   }
-  
+
   .postHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .followButton {
     align-self: flex-start;
   }
@@ -376,29 +375,29 @@
   .postPage {
     padding: 10px;
   }
-  
+
   .imageSection {
     height: 350px;
   }
-  
+
   .infoSection {
     padding: 15px;
     gap: 20px;
   }
-  
+
   .postStats {
     gap: 20px;
   }
-  
+
   .commentsList {
     max-height: 250px;
   }
-  
+
   .addCommentForm {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .commentButton {
     width: 100%;
   }

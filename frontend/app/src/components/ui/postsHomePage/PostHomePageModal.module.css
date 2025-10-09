@@ -1,4 +1,3 @@
-/* === ОБЩИЕ СТИЛИ МОДАЛЬНОГО ОКНА === */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -16,7 +15,6 @@
   display: flex;
   background-color: #fff;
   border-radius: 12px;
-  /* overflow: hidden; */
   position: relative;
   width: 60vw;
   height: 65vh;
@@ -39,7 +37,6 @@
   object-fit: contain;
 }
 
-/* Правая часть */
 .rightBox {
   width: 40%;
   display: flex;
@@ -53,7 +50,6 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  /* overflow: hidden; */
 }
 
 .modalContent_rightside_caption {
@@ -109,14 +105,13 @@
 
 .commentsSection {
   flex: 1;
-  /* overflow: hidden; */
+
   display: flex;
   flex-direction: column;
 }
 
 .commentContent {
   height: 100%;
-  /* overflow: hidden; */
 }
 
 .avaImg {
@@ -413,7 +408,6 @@
   display: none;
 }
 
-/* Edit Area */
 .editArea {
   display: flex;
   height: 500px;
@@ -425,7 +419,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* overflow: hidden; */
 }
 
 .previewImage {
@@ -492,7 +485,6 @@
   color: #8e8e8e;
 }
 
-/* Status Message */
 .statusMessage {
   padding: 12px 20px;
   margin: 0 20px 20px;
@@ -517,9 +509,7 @@
   display: none;
 }
 
-/* === АДАПТИВНОСТЬ === */
 @media (max-width: 768px) {
-  /* Адаптивность для просмотра поста */
   .modalContent {
     flex-direction: column;
     width: 93vw;
@@ -544,7 +534,6 @@
     font-size: 12px;
   }
 
-  /* Адаптивность для создания поста */
   .createPostModal {
     max-width: 100%;
     height: 100vh;

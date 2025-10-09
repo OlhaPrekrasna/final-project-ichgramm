@@ -48,7 +48,7 @@ const UserProfile = () => {
         const res = await $api.get(`/posts/user/${userId}`);
         setPosts(res.data);
       } catch (error) {
-        console.error('Ошибка загрузки постов:', error);
+        console.error('Error loading posts:', error);
       }
     };
 
@@ -65,7 +65,6 @@ const UserProfile = () => {
 
   return (
     <div className={s.profilePage}>
-      {/* Верхняя часть профиля */}
       <div className={s.currentUserProfile}>
         <div className={s.avatarContainer}>
           <span className={s.gradient_border}>
@@ -136,10 +135,8 @@ const UserProfile = () => {
         </div>
       </div>
 
-      {/* Разделительная линия */}
       <div className={s.divider}></div>
 
-      {/* Сетка постов */}
       <div className={s.postsGrid}>
         {posts.map((post) => (
           <div

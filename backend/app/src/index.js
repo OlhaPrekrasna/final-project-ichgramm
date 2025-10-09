@@ -29,7 +29,7 @@ const io = new Server(server, {
   },
 });
 
-app.set('io', io); // to use io in controllers
+app.set('io', io);
 
 app.use(express.static('public'));
 

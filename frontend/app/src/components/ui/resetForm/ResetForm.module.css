@@ -140,7 +140,6 @@
   color: var(--color-primary, #0095f6);
 }
 
-/* Адаптивные стили */
 @media (max-width: 480px) {
   .resetFormContainer {
     padding: 10px;

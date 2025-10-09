@@ -26,7 +26,6 @@ const SignInForm = () => {
   const handleInputChange = (field) => (event) => {
     const value = event.target.value;
 
-    // Очищаем ошибки при вводе
     if (field === 'email' && emailError) {
       setEmailError('');
     }
@@ -67,7 +66,6 @@ const SignInForm = () => {
     e.preventDefault();
     setIsFormTouched(true);
 
-    // Валидируем форму только при отправке
     if (!validateForm()) {
       return;
     }

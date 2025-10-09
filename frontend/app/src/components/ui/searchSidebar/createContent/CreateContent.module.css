@@ -184,7 +184,6 @@
   padding: 16px;
 }
 
-/* Адаптивные стили */
 @media (max-width: 1024px) {
   .createContainer {
     width: 90%;

@@ -40,14 +40,6 @@ router.post(
   createPost
 );
 
-// Создание поста с несколькими медиа (до 5 файлов)
-// router.post(
-//   '/media',
-//   authMiddleware,
-//   upload.array('media', 5),
-//   createPostWithMedia
-// );
-
 // Обновление поста
 // router.put('/posts/:postId', authMiddleware, upload.single('image'), updatePost);
 router.put('/:postId', authMiddleware, updatePost);

@@ -1,5 +1,3 @@
-// исправленный вариант для создания поста
-
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './ImageForm.module.css';
@@ -103,10 +101,8 @@ const ImageForm = ({ closeModal }) => {
         </button>
       </div>
 
-      {/* Content */}
       <div className={styles.modalContent}>
         {!file ? (
-          // Upload area - shown when no image is selected
           <div
             className={styles.uploadArea}
             onDragOver={handleDragOver}
@@ -132,7 +128,6 @@ const ImageForm = ({ closeModal }) => {
             </div>
           </div>
         ) : (
-          // Edit area - shown when image is selected
           <div className={styles.editArea}>
             <div className={styles.imagePreview}>
               <img
@@ -168,7 +163,6 @@ const ImageForm = ({ closeModal }) => {
           </div>
         )}
 
-        {/* Status message */}
         {uploadStatus && (
           <div
             className={`${styles.statusMessage} ${
@@ -182,7 +176,6 @@ const ImageForm = ({ closeModal }) => {
         )}
       </div>
 
-      {/* Hidden form for submission */}
       <form
         id="postForm"
         onSubmit={handleSubmit}

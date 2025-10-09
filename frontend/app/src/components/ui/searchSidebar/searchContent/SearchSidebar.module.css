@@ -229,20 +229,11 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  /* .searchSidebar_content {
-    background-color: var(--color-bg-dark, #000000);
-    color: var(--color-text-light, #ffffff);
-  } */
-
   .searchSidebar_content input {
     background-color: var(--color-bg-dark-grey, #262626);
     color: var(--color-text-light, #ffffff);
     border-color: var(--color-border-dark, #363636);
   }
-
-  /* .searchSidebar_content input:focus {
-    background-color: var(--color-bg-dark, #000000);
-  } */
 
   .title,
   .recentTitle,

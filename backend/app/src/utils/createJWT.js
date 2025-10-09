@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-// секретный ключ (обязательно в .env)
+// секретный ключ 
 const SECRET = process.env.SECRET_JWT || 'supersecret';
 const EXPIRES_IN = '7d';
 
@@ -9,11 +9,3 @@ export default function generateToken(payload) {
   return jwt.sign(payload, SECRET, { expiresIn: EXPIRES_IN });
 }
 
-
-
-// import crypto from 'crypto';
-
-// const token = crypto.randomBytes(64).toString('base64');
-// // console.log(token);
-
-// export default token;

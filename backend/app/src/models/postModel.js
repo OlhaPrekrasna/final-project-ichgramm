@@ -21,7 +21,7 @@ postSchema.virtual('count_of_likes', {
 });
 
 postSchema.virtual('count_of_comments', {
-  ref: 'Comment', // если будет отдельная модель комментариев
+  ref: 'Comment',
   localField: '_id',
   foreignField: 'post_id',
   count: true,

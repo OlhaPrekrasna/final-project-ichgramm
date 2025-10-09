@@ -28,7 +28,7 @@ const ImageGallery = () => {
     dispatch(getAllPosts());
   };
 
-  if (loading) return <div className={s.loading}></div>; // Загрузка...
+  if (loading) return <div className={s.loading}></div>; 
   if (error) return <div className={s.error}>{error}</div>;
 
   return (

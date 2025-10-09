@@ -62,7 +62,7 @@ const App = () => {
   return (
     <div className="globalContainer">
       <NavigationSidebar openModal={openModal} />
-      
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<SignInPage />} />
@@ -80,7 +80,7 @@ const App = () => {
           <Route path="/posts/:id" element={<PostPage />} />
         </Route>
       </Routes>
-      
+
       <Footer />
       <Search isOpen={isSearchOpen} onClose={closeModal} />
     </div>

@@ -23,7 +23,7 @@ const PostPage = () => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        // Получаем данные поста
+        // Fetch post data
         const postResponse = await $api.get(`/posts/${id}`);
         const post = postResponse.data;
         setPost(post);
@@ -35,11 +35,11 @@ const PostPage = () => {
         const userResponse = await $api.get(`/user/${authorId}`);
         setAuthor(userResponse.data);
 
-        // Получаем комментарии
+        // Fetch comments
         const commentsResponse = await $api.get(`/comments/${id}/comments`);
         setComments(commentsResponse.data || []);
 
-        // Проверяем, лайкнул ли текущий пользователь этот пост
+        // Check if the current user liked this post
         if (currentUser) {
           const userLikesResponse = await $api.get(
             `/user/${currentUser._id}/likes`
@@ -72,7 +72,6 @@ const PostPage = () => {
         })
       ).unwrap();
 
-      // Добавляем новый комментарий в список
       const newCommentData = {
         _id: response._id,
         user_name: currentUser.username,
@@ -112,7 +111,7 @@ const PostPage = () => {
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
-        <div className={styles.loadingSpinner}>Загрузка...</div>
+        <div className={styles.loadingSpinner}>Loading...</div>
       </div>
     );
   }
@@ -120,9 +119,9 @@ const PostPage = () => {
   if (!post) {
     return (
       <div className={styles.errorContainer}>
-        <h2>Пост не найден</h2>
+        <h2>Post not found</h2>
         <button onClick={handleBackClick} className={styles.backButton}>
-          Назад
+          Back
         </button>
       </div>
     );
@@ -130,13 +129,11 @@ const PostPage = () => {
 
   return (
     <div className={styles.postPage}>
-      {/* Кнопка назад */}
       <button onClick={handleBackClick} className={styles.backButton}>
-        ← Назад
+        ← Back
       </button>
 
       <div className={styles.postContainer}>
-        {/* Левая часть - изображение */}
         <div className={styles.imageSection}>
           <img
             src={post.image_url || noPhoto}
@@ -145,9 +142,7 @@ const PostPage = () => {
           />
         </div>
 
-        {/* Правая часть - информация о посте */}
         <div className={styles.infoSection}>
-          {/* Заголовок поста */}
           <div className={styles.postHeader}>
             <a link="#" onClick={handleAuthorProfileClick}>
               <div className={styles.userInfo}>
@@ -159,34 +154,31 @@ const PostPage = () => {
                 <div className={styles.userDetails}>
                   <span className={styles.username}>{author.username}</span>
                   <span className={styles.postDate}>
-                    {new Date(post.created_at).toLocaleDateString('ru-RU')}
+                    {new Date(post.created_at).toLocaleDateString('en-US')}
                   </span>
                 </div>
               </div>
             </a>
-            <button className={styles.followButton}>Подписаться</button>
+            <button className={styles.followButton}>Follow</button>
           </div>
 
-          {/* Описание поста */}
           <div className={styles.postDescription}>
             <p>{post.caption}</p>
           </div>
 
-          {/* Статистика поста */}
           <div className={styles.postStats}>
             <div className={styles.statItem}>
               <span className={styles.statCount}>{likesCount}</span>
-              <span className={styles.statLabel}>лайков</span>
+              <span className={styles.statLabel}>likes</span>
             </div>
             <div className={styles.statItem}>
               <span className={styles.statCount}>{comments.length}</span>
-              <span className={styles.statLabel}>комментариев</span>
+              <span className={styles.statLabel}>comments</span>
             </div>
           </div>
 
-          {/* Комментарии */}
           <div className={styles.commentsSection}>
-            <h3 className={styles.commentsTitle}>Комментарии</h3>
+            <h3 className={styles.commentsTitle}>Comments</h3>
             <div className={styles.commentsList}>
               {comments.length > 0 ? (
                 comments.map((comment) => (
@@ -203,7 +195,7 @@ const PostPage = () => {
                         </span>
                         <span className={styles.commentDate}>
                           {new Date(comment.created_at).toLocaleDateString(
-                            'ru-RU'
+                            'en-US'
                           )}
                         </span>
                       </div>
@@ -214,12 +206,11 @@ const PostPage = () => {
                   </div>
                 ))
               ) : (
-                <p className={styles.noComments}>Пока нет комментариев</p>
+                <p className={styles.noComments}>No comments yet</p>
               )}
             </div>
           </div>
 
-          {/* Действия с постом */}
           <div className={styles.actionsSection}>
             <div className={styles.postActions}>
               <button
@@ -228,18 +219,17 @@ const PostPage = () => {
                   isLiked ? styles.liked : ''
                 }`}
               >
-                {isLiked ? '❤️' : '🤍'} Лайк
+                {isLiked ? '❤️' : '🤍'} Like
               </button>
-              <span className={styles.likesCount}>{likesCount} лайков</span>
+              <span className={styles.likesCount}>{likesCount} likes</span>
             </div>
 
-            {/* Форма добавления комментария */}
             <div className={styles.addCommentForm}>
               <input
                 type="text"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Добавьте комментарий..."
+                placeholder="Add a comment..."
                 className={styles.commentInput}
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
@@ -252,7 +242,7 @@ const PostPage = () => {
                 disabled={!newComment.trim()}
                 className={styles.commentButton}
               >
-                Отправить
+                Send
               </button>
             </div>
           </div>

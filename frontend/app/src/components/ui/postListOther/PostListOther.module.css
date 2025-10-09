@@ -68,7 +68,6 @@
   margin: 20px 0;
 }
 
-/* Адаптивность для планшетов */
 @media (max-width: 1024px) {
   .postList {
     grid-template-columns: repeat(2, 1fr);
@@ -77,7 +76,6 @@
   }
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .postList {
     grid-template-columns: repeat(2, 1fr);

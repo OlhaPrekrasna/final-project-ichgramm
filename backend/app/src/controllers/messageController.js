@@ -19,7 +19,6 @@ export const loadMessagesSocket = async (userId, targetUserId, socket) => {
   }
 };
 
-// HTTP версия
 export const loadMessagesHTTP = async (userId, targetUserId) => {
   try {
     const messages = await Message.find({

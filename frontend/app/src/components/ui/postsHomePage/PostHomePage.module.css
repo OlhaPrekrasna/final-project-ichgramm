@@ -9,7 +9,6 @@
   list-style: none;
 }
 
-/* Адаптивность для планшетов */
 @media (max-width: 1024px) {
   .postsGrid {
     gap: 20px;
@@ -17,7 +16,6 @@
   }
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .postsGrid {
     grid-template-columns: 1fr;
@@ -26,81 +24,9 @@
   }
 }
 
-/* Для очень маленьких экранов */
 @media (max-width: 480px) {
   .postsGrid {
     gap: 12px;
     padding: 8px;
   }
 }
-
-
-
-/* .pageWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #fafafa;
-  padding: 20px 0;
-}
-
-.sidebar {
-  width: 245px;
-  flex-shrink: 0;
-  border-right: 1px solid #dbdbdb;
-  padding: 20px;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  background-color: #fff;
-}
-
-.feed {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-}
-
-.postsList {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 850px;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-@media (max-width: 900px) {
-  .postsList {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    display: none;
-  }
-} */
-
-
-
-
-
-
-/* .postsContainer {
-    display: grid;
-    gap: 14px;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  @media (min-width: 768px) {
-    .postsContainer {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-    }
-  }
-   */

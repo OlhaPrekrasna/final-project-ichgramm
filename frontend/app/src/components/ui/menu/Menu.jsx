@@ -49,8 +49,7 @@ const Menu = () => {
         setModalSize('large');
         setModalContent(<CreatePostPage menuCloseModal={closeModal} />);
         break;
-      // default:
-      //   setModalContent(null);
+      
     }
   };
 
@@ -168,11 +167,3 @@ const Menu = () => {
 };
 
 export default Menu;
-
-// {
-/* <div className={st.logoutBox}>
-            <button className={st.logoutButton} onClick={handleLogout}>
-              <img src={logoutIcon} alt="Logout" className={st.logoutIcon} />
-            </button>
-          </div> */
-// }

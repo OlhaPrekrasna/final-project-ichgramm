@@ -10,7 +10,6 @@
   box-sizing: border-box;
 }
 
-/* Анимации */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -26,7 +25,6 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-/* Адаптивность для планшетов */
 @media (max-width: 1024px) {
   .resetPage {
     margin-top: 60px;
@@ -36,7 +34,6 @@
   }
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .resetPage {
     margin-top: 40px;
@@ -56,7 +53,6 @@
   }
 }
 
-/* Очень маленькие экраны */
 @media (max-width: 375px) {
   .resetPage {
     margin-top: 20px;
@@ -66,21 +62,18 @@
   }
 }
 
-/* Поддержка темной темы */
 @media (prefers-color-scheme: dark) {
   .resetPage {
     background-color: var(--color-bg-dark, #000000);
   }
 }
 
-/* Улучшенная доступность */
 @media (prefers-reduced-motion: reduce) {
   .resetPage {
     animation: none;
   }
 }
 
-/* Поддержка высоких экранов */
 @media (min-height: 800px) {
   .resetPage {
     margin-top: 120px;
@@ -97,13 +90,11 @@
   }
 }
 
-/* Состояние загрузки */
 .resetPage.loading {
   justify-content: center;
   align-items: center;
 }
 
-/* Фокус состояния для доступности */
 .resetPage:focus-visible {
   outline: 2px solid var(--color-primary, #0095f6);
   outline-offset: -2px;

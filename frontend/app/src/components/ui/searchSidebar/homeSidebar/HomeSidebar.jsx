@@ -67,20 +67,7 @@ const HomeSidebar = () => {
       </Link>
 
       <nav className={s.sidebarNav}>
-        {/* <Link
-          to="/homePage"
-          onClick={() => handleLinkClick('home')}
-          className={`${s.navLink} ${
-            activeLink === 'home' ? s.activeLink : ''
-          }`}
-        >
-          <img
-            src={activeLink === 'home' ? homeD : homeL}
-            alt="Home"
-            className={s.navIcon}
-          />
-          <span className={s.navText}>Home</span>
-        </Link> */}
+        
 
         <button
           onClick={() => handleModalLinkClick('search')}

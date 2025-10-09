@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 
 export async function encrypt(str) {
   const hash = await bcrypt.hash(str, 10);
-  // console.log(hash);
 
   return hash;
 }
