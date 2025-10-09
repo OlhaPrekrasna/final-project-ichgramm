@@ -27,7 +27,8 @@ const PostPage = () => {
         const postResponse = await $api.get(`/posts/${id}`);
         const post = postResponse.data;
         setPost(post);
-        setLikesCount(postResponse.data.likes_count || 0);
+        console.log(post);
+        setLikesCount(post.count_of_likes || 0);
 
         // it's a temp solution. TODO redo after refactoring PostModel
         const authorId = post.user_id.id;

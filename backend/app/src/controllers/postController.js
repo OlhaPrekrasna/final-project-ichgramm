@@ -79,7 +79,9 @@ export const getPostById = async (req, res) => {
   const { postId } = req.params;
 
   try {
-    const post = await Post.findById(postId).populate('user_id', 'username');
+    const post = await Post.findById(postId)
+      .populate('user_id', 'username')
+      .populate('count_of_likes');
     if (!post) return res.status(404).json({ error: 'Post not found' });
 
     res.status(200).json(post);
@@ -120,10 +122,9 @@ export const updatePost = async (req, res) => {
 // Получение всех постов +
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({}).populate(
-      'user_id',
-      'username profile_photo'
-    );
+    const posts = await Post.find({})
+      .populate('user_id', 'username profile_photo')
+      .populate('count_of_likes');
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ error: 'Error retrieving all posts' });

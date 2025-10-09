@@ -12,7 +12,8 @@ import styles from './PostItem.module.css';
 const PostItem = ({
   item,
   author,
-  likesCount: initialLikesCount,
+  // likesCount: initialLikesCount,
+  likesCount,
   setLikesCount,
   onClick,
   listFollowing,
@@ -21,7 +22,7 @@ const PostItem = ({
   userLikes,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLocalLikesCount] = useState(initialLikesCount || 0);
+  // const [likesCount, setLocalLikesCount] = useState(initialLikesCount || 0);
   const currentUser = useSelector((state) => state.auth.user);
   const { _id: currentUserId } = currentUser || {};
   const userId =
@@ -40,12 +41,16 @@ const PostItem = ({
     setIsLiked(userHasLiked);
 
     // Корректируем количество лайков если нужно
-    if (userHasLiked && initialLikesCount === 0) {
-      setLocalLikesCount(1);
+    // if (userHasLiked && initialLikesCount === 0) {
+    if (userHasLiked) {
+      // setLocalLikesCount(1);
+      setLikesCount(1);
     } else {
-      setLocalLikesCount(initialLikesCount || 0);
+      // setLocalLikesCount(initialLikesCount || 0);
+      setLikesCount(likesCount || 0);
     }
-  }, [item._id, userLikes, initialLikesCount]);
+    // }, [item._id, userLikes, initialLikesCount]);
+  }, [item._id, userLikes, likesCount]);
 
   useEffect(() => {
     if (listFollowing && userId) {
@@ -63,12 +68,13 @@ const PostItem = ({
       if (isLiked) {
         // Убираем лайк
         const newCount = Math.max(0, likesCount - 1);
-        setLocalLikesCount(newCount);
+        // setLocalLikesCount(newCount);
+        // setLikesCount(newCount);
         setLikesCount(item._id, newCount);
       } else {
         // Добавляем лайк
         const newCount = likesCount + 1;
-        setLocalLikesCount(newCount);
+        // setLocalLikesCount(newCount);
         setLikesCount(item._id, newCount);
       }
       setIsLiked(!isLiked);
