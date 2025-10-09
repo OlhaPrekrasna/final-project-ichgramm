@@ -8,7 +8,7 @@ const SearchSidebar = () => {
         <h3 className={s.title}>{t('searchBar.search')}</h3>
         <div className={s.inputContainer}>
           <Input
-            placeholder={t('searchBar.searchPlaceholder')}
+            placeholder={Search('searchBar.searchPlaceholder')}
             style={{
               background: 'var(--color-bg-dark-grey)',
               width: '100%',

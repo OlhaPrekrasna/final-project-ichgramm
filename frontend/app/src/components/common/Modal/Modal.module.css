@@ -191,7 +191,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .modal {
     background-color: var(--color-bg-dark, #000000);
     color: var(--color-text-light, #ffffff);
@@ -205,7 +205,7 @@
     background-color: var(--color-bg-dark-grey, #333333);
     color: var(--color-text-light, #ffffff);
   }
-}
+} */
 
 @media (prefers-reduced-motion: reduce) {
   .overlay,

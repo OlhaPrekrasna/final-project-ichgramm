@@ -49,8 +49,8 @@ const Menu = () => {
         setModalSize('large');
         setModalContent(<CreatePostPage menuCloseModal={closeModal} />);
         break;
-      default:
-        setModalContent(null);
+      // default:
+      //   setModalContent(null);
     }
   };
 
@@ -77,21 +77,17 @@ const Menu = () => {
       <NavLink
         to="/search"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
-        onClick={(e) => {
-          e.preventDefault();
-          openModal('search');
-          handleLinkClick('search');
-        }}
       >
-        <img
-          src={activeLink === 'search' ? searchIconActive : searchIcon}
-          alt="Search"
-        />
-        <span>Search</span>
+        {({ isActive }) => (
+          <>
+            <img src={isActive ? searchIconActive : searchIcon} alt="Search" />
+            <span>Search</span>
+          </>
+        )}
       </NavLink>
 
       {/* Explore */}
-      <NavLink
+      {/* <NavLink
         to="/explore"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
       >
@@ -104,7 +100,7 @@ const Menu = () => {
             <span>Explore</span>
           </>
         )}
-      </NavLink>
+      </NavLink> */}
 
       {/* Messages */}
       <NavLink
@@ -123,7 +119,7 @@ const Menu = () => {
       </NavLink>
 
       {/* Notifications */}
-      <NavLink
+      {/* <NavLink
         to="/notifications"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
         onClick={(e) => {
@@ -141,7 +137,7 @@ const Menu = () => {
           alt="Notifications"
         />
         <span>Notifications</span>
-      </NavLink>
+      </NavLink> */}
 
       {/* Create */}
       <NavLink

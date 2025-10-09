@@ -6,7 +6,7 @@ import s from './PostHomePageModal.module.css';
 import noPhoto from '../../../assets/noPhoto.png';
 import commbtn from '../../../assets/comment_btn.svg';
 import heart from '../../../assets/heart_btn.svg';
-import placeCreate from '../../../assets/place-create.svg'; // добавьте эту иконку
+import placeCreate from '../../../assets/place-create.svg';
 import CommentContent from '../commentContent/CommentContent';
 
 const EmojiPicker = ({ onSelectEmoji }) => {
@@ -220,7 +220,7 @@ const CreatePostModal = ({ onClose }) => {
   );
 };
 
-// Старый компонент для просмотра поста (оставляем как есть)
+// Старый компонент для просмотра поста
 const PostHomePageModal = ({ post, onClose, mode = 'view' }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
@@ -375,6 +375,7 @@ const PostHomePageModal = ({ post, onClose, mode = 'view' }) => {
 
 export default PostHomePageModal;
 
+
 // import React, { useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { addComment } from '../../../redux/slices/commentsSlice.js';
@@ -383,7 +384,7 @@ export default PostHomePageModal;
 // import noPhoto from '../../../assets/noPhoto.png';
 // import commbtn from '../../../assets/comment_btn.svg';
 // import heart from '../../../assets/heart_btn.svg';
-// import placeCreate from '../../../assets/place-create.svg'; // добавьте эту иконку
+// import placeCreate from '../../../assets/place-create.svg';
 // import CommentContent from '../commentContent/CommentContent';
 
 // const EmojiPicker = ({ onSelectEmoji }) => {
@@ -508,11 +509,7 @@ export default PostHomePageModal;
 //     <div className={s.createPostModal} onClick={(e) => e.stopPropagation()}>
 //       {/* Header */}
 //       <div className={s.modalHeader}>
-//         <button
-//           type="button"
-//           className={s.backButton}
-//           onClick={onClose}
-//         >
+//         <button type="button" className={s.backButton} onClick={onClose}>
 //           ←
 //         </button>
 //         <h2 className={s.modalTitle}>Create new post</h2>
@@ -536,11 +533,7 @@ export default PostHomePageModal;
 //             onDrop={handleDrop}
 //           >
 //             <div className={s.uploadContent}>
-//               <img
-//                 src={placeCreate}
-//                 alt="Upload"
-//                 className={s.uploadIcon}
-//               />
+//               <img src={placeCreate} alt="Upload" className={s.uploadIcon} />
 //               <p className={s.uploadText}>Drag photos and videos here</p>
 //               <label htmlFor="fileInput" className={s.fileInputLabel}>
 //                 Select from computer
@@ -558,11 +551,7 @@ export default PostHomePageModal;
 //           // Edit area - shown when image is selected
 //           <div className={s.editArea}>
 //             <div className={s.imagePreview}>
-//               <img
-//                 src={filePath}
-//                 alt="Preview"
-//                 className={s.previewImage}
-//               />
+//               <img src={filePath} alt="Preview" className={s.previewImage} />
 //             </div>
 
 //             <div className={s.captionSection}>
@@ -593,9 +582,11 @@ export default PostHomePageModal;
 
 //         {/* Status message */}
 //         {uploadStatus && (
-//           <div className={`${s.statusMessage} ${
-//             uploadStatus.includes('successfully') ? s.success : s.error
-//           }`}>
+//           <div
+//             className={`${s.statusMessage} ${
+//               uploadStatus.includes('successfully') ? s.success : s.error
+//             }`}
+//           >
 //             {uploadStatus}
 //           </div>
 //         )}
@@ -761,3 +752,4 @@ export default PostHomePageModal;
 // };
 
 // export default PostHomePageModal;
+

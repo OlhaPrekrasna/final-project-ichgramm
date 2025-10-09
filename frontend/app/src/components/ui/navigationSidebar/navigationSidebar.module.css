@@ -78,8 +78,56 @@
   }
 }
 
+.profileContainer {
+  padding: 12px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profileContainer a {
+  display: block;
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+/* Стиль для SignIn */
+.profileContainer a[href*="signin"] {
+  background-color: #0095f6;
+  color: white;
+}
+
+.profileContainer a[href*="signin"]:hover {
+  background-color: #0081d6;
+  transform: translateY(-1px);
+}
+
+/* Стиль для SignUp */
+.profileContainer a[href*="signup"] {
+  background-color: transparent;
+  color: #0095f6;
+  border: 1px solid #dbdbdb;
+}
+
+.profileContainer a[href*="signup"]:hover {
+  background-color: #f8f9fa;
+  border-color: #0095f6;
+}
+
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 568px) {
+
+  .profileContainer {
+    display: none;
+  }
   .navigationSidebar {
     position: fixed;
     bottom: 0;

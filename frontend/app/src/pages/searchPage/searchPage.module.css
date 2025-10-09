@@ -1,0 +1,73 @@
+/* SearchPage.module.css */
+.searchPage {
+  min-height: 100vh;
+  background-color: var(--color-bg-white, #ffffff);
+  padding: 20px;
+  margin-left: 244px; /* Отступ для сайдбара */
+}
+
+.searchContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-dark, #262626);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.searchInputContainer {
+  margin-bottom: 24px;
+}
+
+.searchInput {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: var(--border-radius-s, 8px);
+  border: 1px solid var(--color-border, #dbdbdb);
+  font-size: 16px;
+  background-color: var(--color-bg-dark-grey, #f0f0f0);
+  color: var(--color-text-dark, #262626);
+  transition: all 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary, #0095f6);
+  background-color: var(--color-bg-white, #ffffff);
+  box-shadow: 0 0 0 2px rgba(0, 149, 246, 0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .searchPage {
+    margin-left: 72px;
+    padding: 16px;
+  }
+  
+  .pageTitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 568px) {
+  .searchPage {
+    margin-left: 0;
+    padding: 12px;
+    padding-bottom: 80px; /* Для футера */
+  }
+  
+  .searchContainer {
+    max-width: 100%;
+  }
+  
+  .searchInput {
+    height: 40px;
+    font-size: 14px;
+  }
+}

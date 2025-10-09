@@ -1,199 +1,25 @@
-.search {
-  width: 100%;
-  height: 100vh;
-  background-color: var(--color-modal, rgba(0, 0, 0, 0.5));
-  display: flex;
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.2s ease-out;
 }
 
-.searchContainer {
+.searchModal {
+  position: fixed;
+  top: 0;
+  left: 244px; /* Ширина основного сайдбара */
+  width: 400px;
+  height: 100vh;
   background-color: var(--background-color, #ffffff);
-  width: 397px;
-  height: 100%;
-  border-radius: 0 var(--border-radius-l, 16px) var(--border-radius-l, 16px) 0;
-  box-shadow: var(--box-shadow, 0 4px 20px rgba(0, 0, 0, 0.15));
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.searchTitle {
-  margin-top: 16px;
-  margin-bottom: 24px;
-  margin-left: 8px;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--color-text-dark, #262626);
-}
-
-.inputWrapper {
-  margin: 0 0 25px 0;
-  width: 100%;
-}
-
-.searchContainer input {
-  width: 100%;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: var(--border-radius-s, 8px);
-  border: 1px solid var(--color-border, #dbdbdb);
-  font-size: 14px;
-  background-color: var(--color-bg-dark-grey, #f0f0f0);
-  color: var(--color-text-dark, #262626);
-}
-
-.searchContainer input:focus {
-  outline: none;
-  border-color: var(--color-primary, #0095f6);
-  background-color: var(--color-bg-white, #ffffff);
-}
-
-.recentTitle {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  margin-left: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-text-dark, #262626);
-}
-
-.recentSearches {
-  padding: 0 8px;
-}
-
-.noSearches {
-  font-size: 14px;
-  color: var(--color-text-grey, #8e8e8e);
-  text-align: center;
-  padding: 20px 0;
-  font-style: italic;
-}
-
-.searchItem {
-  display: flex;
-  align-items: center;
-  padding: 12px 8px;
-  cursor: pointer;
-  border-radius: var(--border-radius-s, 8px);
-  transition: background-color 0.2s ease;
-}
-
-.searchItem:hover {
-  background-color: var(--color-bg-light-grey, #fafafa);
-}
-
-.searchItem img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 12px;
-  object-fit: cover;
-}
-
-.searchItemInfo {
-  flex: 1;
-}
-
-.searchItemName {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text-dark, #262626);
-  margin: 0;
-}
-
-.searchItemUsername {
-  font-size: 12px;
-  color: var(--color-text-grey, #8e8e8e);
-  margin: 0;
-}
-
-/* Адаптивные стили для планшетов */
-@media (max-width: 1024px) {
-  .searchContainer {
-    width: 350px;
-  }
-}
-
-@media (max-width: 768px) {
-  .search {
-    background-color: transparent;
-    position: relative;
-    height: auto;
-    min-height: auto;
-  }
-
-  .searchContainer {
-    width: 100%;
-    height: auto;
-    min-height: 100vh;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 16px;
-  }
-
-  .searchTitle {
-    margin-top: 8px;
-    margin-bottom: 20px;
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .inputWrapper {
-    margin-bottom: 20px;
-  }
-
-  .recentTitle {
-    margin-top: 20px;
-    margin-bottom: 12px;
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .searchContainer {
-    padding: 12px;
-  }
-
-  .searchTitle {
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
-
-  .searchContainer input {
-    height: 36px;
-    font-size: 13px;
-    padding: 0 12px;
-  }
-
-  .recentTitle {
-    font-size: 14px;
-    margin-top: 16px;
-  }
-
-  .noSearches {
-    font-size: 13px;
-    padding: 16px 0;
-  }
-
-  .searchItem {
-    padding: 10px 6px;
-  }
-
-  .searchItem img {
-    width: 28px;
-    height: 28px;
-    margin-right: 10px;
-  }
-
-  .searchItemName {
-    font-size: 13px;
-  }
-
-  .searchItemUsername {
-    font-size: 11px;
-  }
+  border-right: 1px solid var(--color-border, #dbdbdb);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
 }
 
 /* Анимации */
@@ -208,49 +34,26 @@
   }
 }
 
-.searchContainer {
-  animation: slideIn 0.3s ease-out;
-}
-
-/* Стили для скроллбара */
-.searchContainer::-webkit-scrollbar {
-  width: 6px;
-}
-
-.searchContainer::-webkit-scrollbar-track {
-  background: var(--color-bg-light-grey, #fafafa);
-  border-radius: 3px;
-}
-
-.searchContainer::-webkit-scrollbar-thumb {
-  background: var(--color-text-grey, #8e8e8e);
-  border-radius: 3px;
-}
-
-.searchContainer::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-dark, #666666);
-}
-
-/* Темная тема поддержка */
-@media (prefers-color-scheme: dark) {
-  .searchContainer {
-    background-color: var(--color-bg-dark, #000000);
-    color: var(--color-text-light, #ffffff);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  .searchContainer input {
-    background-color: var(--color-bg-dark-grey, #262626);
-    color: var(--color-text-light, #ffffff);
-    border-color: var(--color-border-dark, #363636);
+  to {
+    opacity: 1;
   }
+}
 
-  .searchContainer input:focus {
-    background-color: var(--color-bg-dark, #000000);
+/* Адаптивность */
+@media (max-width: 768px) {
+  .searchModal {
+    left: 72px;
+    width: 320px;
   }
+}
 
-  .searchTitle,
-  .recentTitle,
-  .searchItemName {
-    color: var(--color-text-light, #ffffff);
+@media (max-width: 568px) {
+  .searchModal {
+    left: 0;
+    width: 100%;
   }
 }

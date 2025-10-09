@@ -6,7 +6,7 @@ import logo from '../../../assets/logo-ichgram.svg';
 import Menu from '../menu/Menu.jsx';
 import ProfileLink from '../../common/ProfileLink/ProfileLink.jsx';
 
-const NavigationSidebar = () => {
+const NavigationSidebar = ({ openModal }) => {
   const user = useSelector((state) => state.auth.user);
 
   return (
@@ -15,7 +15,7 @@ const NavigationSidebar = () => {
         <img src={logo} alt="Ichgram logo" className={s.logo} />
       </div>
       <div className={s.menuContainer}>
-        <Menu />
+        <Menu openModal={openModal} />
       </div>
       {!user ? (
         <div className={s.profileContainer}>
@@ -32,26 +32,3 @@ const NavigationSidebar = () => {
 };
 
 export default NavigationSidebar;
-
-// import s from './navigationSidebar.module.css';
-// import logo from '../../../assets/logo-ichgram.svg';
-// import Menu from '../menu/Menu.jsx';
-// import ProfileLink from '../../common/ProfileLink/ProfileLink.jsx';
-
-// const NavigationSidebar = () => {
-//   return (
-//     <div className={s.navigationSidebar}>
-//       <div className={s.logoContainer}>
-//         <img src={logo} alt="Ichgram logo" className={s.logo} />
-//       </div>
-//       <div className={s.menuContainer}>
-//         <Menu />
-//       </div>
-//       <div className={s.profileContainer}>
-//         <ProfileLink />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default NavigationSidebar;
