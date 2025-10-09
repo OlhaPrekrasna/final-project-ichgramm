@@ -122,7 +122,7 @@ const PostItem = ({
     if (onClick) {
       onClick(); // Если передан кастомный обработчик
     } else {
-      navigate(`/post/${item._id}`); // Стандартный переход на страницу поста
+      navigate(`/posts/${item._id}`); // Стандартный переход на страницу поста
     }
   };
 

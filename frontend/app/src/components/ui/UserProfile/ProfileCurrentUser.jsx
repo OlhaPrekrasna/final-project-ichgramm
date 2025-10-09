@@ -50,7 +50,7 @@ const CurrentUserProfile = () => {
 
   // Функция для перехода к посту
   const handlePostClick = (postId) => {
-    navigate(`/post/${postId}`);
+    navigate(`/posts/${postId}`);
   };
 
   return (

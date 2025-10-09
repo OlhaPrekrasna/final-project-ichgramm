@@ -18,7 +18,7 @@ import ChatPage from './pages/chatPage/ChatPage.jsx';
 import AnotherProfilePage from './pages/anotherProfilePage/AnotherProfilePage.jsx';
 import ProfilePage from './pages/profilePage/ProfilePage.jsx';
 import ResetPage from './pages/resetPage/ResetPage.jsx';
-import PostPage from './pages/homePage/HomePage.jsx';
+import PostPage from './pages/postPage/PostPage.jsx';
 // import dark from './assets/dark_mode.svg';
 // import light from './assets/light_mode.svg';
 import './index.css';
@@ -68,7 +68,7 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<UpdateProfilePage />} />
           <Route path="/profile/:userId" element={<AnotherProfilePage />} />
-          <Route path="/post/:id" element={<PostPage />} />
+          <Route path="/posts/:id" element={<PostPage />} />
         </Route>
       </Routes>
       <Footer />
