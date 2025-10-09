@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button/Button.jsx';
-import Follows from '../../ui/follows/Follows.jsx';
 import noPhoto from '../../../assets/noPhoto.png';
 import s from './ProfileCurrentUser.module.css';
 import web from '../../../assets/web.svg';

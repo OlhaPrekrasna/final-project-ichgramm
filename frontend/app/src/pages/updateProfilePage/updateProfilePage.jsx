@@ -29,8 +29,8 @@ const UpdateProfilePage = () => {
     const imageUrl = URL.createObjectURL(file);
     setProfileData((prev) => ({
       ...prev,
-      avatar: imageUrl,
-      avatarFile: file, // сохраняем файл для отправки на сервер
+      profile_photo: imageUrl,
+      profile_file: file, // сохраняем файл для отправки на сервер
     }));
   };
 
@@ -42,9 +42,10 @@ const UpdateProfilePage = () => {
       formData.append('username', profileData.username);
       formData.append('bio_website', profileData.bio_website);
       formData.append('bio', profileData.bio);
-      // if (profileData.avatarFile) {
-      //   formData.append('avatar', profileData.avatarFile);
-      // }
+
+      if (profileData.profile_file) {
+        formData.append('avatar', profileData.profile_file);
+      }
 
       const response = await $api.put(`/user/${profileData.id}`, formData, {
         headers: {

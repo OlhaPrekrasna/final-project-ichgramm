@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   bio: { type: String, default: '' },
   bio_website: { type: String, default: '' },
   profile_photo: { type: String, default: '' },
+  profile_key: { type: String, default: '' },
   created_at: { type: Date, default: Date.now },
 });
 

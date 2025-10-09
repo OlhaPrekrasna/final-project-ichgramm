@@ -45,20 +45,21 @@ export const find = async (req, res) => {
 // Update profile
 export const updateProfile = async (req, res) => {
   const { id } = req.params;
-  const {
-    username,
-    email,
-    first_name,
-    last_name,
-    bio,
-    bio_website,
-    profile_photo,
-  } = req.body;
+  const { username, email, first_name, last_name, bio, bio_website } = req.body;
 
   const { userId: loggedUserId } = req.user;
   if (loggedUserId !== id) {
     return res.status(403).json({ error: 'Not authorised!' });
   }
+
+  const profilePhotoDto = {};
+  if (req.file) {
+    const { location: imageUrl, key: imageFile } = req.file;
+    profilePhotoDto['profile_photo'] = imageUrl;
+    profilePhotoDto['profile_key'] = imageFile;
+  }
+
+  console.log(profilePhotoDto);
 
   try {
     const updatedUser = await userRepository.updateById(id, {
@@ -68,7 +69,7 @@ export const updateProfile = async (req, res) => {
       last_name,
       bio,
       bio_website,
-      profile_photo,
+      ...profilePhotoDto,
     });
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });

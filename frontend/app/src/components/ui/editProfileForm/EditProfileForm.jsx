@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import s from './EditProfileForm.module.css';
 import noPhoto from '../../../assets/noPhoto.png';
 
