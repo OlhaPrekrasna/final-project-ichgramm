@@ -93,7 +93,7 @@ const ChatUsersList = () => {
                 <div className={s.avatarContainer}>
                   <img
                     className={s.avatar}
-                    src={chatUser.profile_image || '/default-avatar.png'}
+                    src={chatUser.profile_photo || '/default-avatar.png'}
                     alt={chatUser.username}
                     onError={(e) => {
                       e.target.src = '/default-avatar.png';

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 import userRepository from '../repositories/userRepository.js';
+import generateToken from '../utils/createJWT.js';
 
 // Get user profile
 export const getUserProfile = async (req, res) => {
@@ -69,9 +70,12 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    const token = generateToken({ id });
+
     res.json({
       message: 'User profile successfully updated',
       user: updatedUser,
+      token,
     });
   } catch (error) {
     res.status(400).json({
@@ -264,7 +268,7 @@ export const uploadProfilePhoto = async (req, res) => {
 // ];
 
 // export const uploadProfileImage = [
-//   upload.single('profile_image'),
+//   upload.single('profile_photo'),
 //   async (req, res) => {
 //     try {
 //       if (!req.file) {

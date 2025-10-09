@@ -142,22 +142,19 @@ const CurrentUserProfile = () => {
             </h2>
 
             <div className={s.bioContent}>
-              <p className={s.bio}>
-                • Гарантия помощи с трудоустройством в ведущие IT-компании
-                <br />
-                • Выпускники зарабатывают от 45к евро
-                <br />• БЕСПЛАТНАЯ...more
-              </p>
+              <p className={s.bio}>{user.bio}</p>
 
-              <a
-                className={s.websiteLink}
-                href="https://bit.ly/3rpiIbh"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={web} alt="website" className={s.webIcon} />
-                bit.ly/3rpiIbh
-              </a>
+              {user.bio_website && (
+                <a
+                  className={s.websiteLink}
+                  href={user.bio_website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={web} alt="website" className={s.webIcon} />
+                  {user.bio_website}
+                </a>
+              )}
             </div>
           </div>
         </div>

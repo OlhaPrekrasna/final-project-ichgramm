@@ -139,7 +139,7 @@ const PostItem = ({
       <div className={styles.header}>
         <div className={styles.avatarContainer}>
           <img
-            src={item.profile_image || avaImage}
+            src={item.profile_photo || avaImage}
             alt="avatar"
             className={styles.avatar}
             onClick={handleUserClick} // Клик по аватарке ведет в профиль

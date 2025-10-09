@@ -17,9 +17,16 @@ export const fetchComments = createAsyncThunk(
 // Добавить комментарий
 export const addComment = createAsyncThunk(
   'comments/addComment',
-  async ({ postId, userId, comment_text, profile_image }, { rejectWithValue }) => {
+  async (
+    { postId, userId, comment_text, profile_photo },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await $api.post(`/comments/${postId}`, { userId, comment_text, profile_image });
+      const response = await $api.post(`/comments/${postId}`, {
+        userId,
+        comment_text,
+        profile_photo,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || 'Error adding comment');
@@ -32,7 +39,9 @@ export const likeComment = createAsyncThunk(
   'comments/likeComment',
   async ({ commentId, userId }, { rejectWithValue }) => {
     try {
-      const response = await $api.post(`/comments/like/${commentId}`, { userId });
+      const response = await $api.post(`/comments/like/${commentId}`, {
+        userId,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || 'Error liking comment');
@@ -42,10 +51,10 @@ export const likeComment = createAsyncThunk(
 
 const commentsSlice = createSlice({
   name: 'comments',
-  initialState: { 
-    comments: [], 
-    loading: false, 
-    error: null 
+  initialState: {
+    comments: [],
+    loading: false,
+    error: null,
   },
   reducers: {
     setComments: (state, action) => {
@@ -87,7 +96,9 @@ const commentsSlice = createSlice({
       })
       .addCase(likeComment.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.comments.findIndex((c) => c._id === action.payload._id);
+        const index = state.comments.findIndex(
+          (c) => c._id === action.payload._id
+        );
         if (index !== -1) {
           state.comments[index] = action.payload;
         }

@@ -72,7 +72,7 @@ const PostPage = () => {
       const newCommentData = {
         _id: response._id,
         user_name: currentUser.username,
-        profile_image: currentUser.profile_image,
+        profile_photo: currentUser.profile_photo,
         comment_text: newComment.trim(),
         created_at: new Date().toISOString(),
       };
@@ -147,7 +147,7 @@ const PostPage = () => {
           <div className={styles.postHeader}>
             <div className={styles.userInfo}>
               <img
-                src={author.profile_image || noPhoto}
+                src={author.profile_photo || noPhoto}
                 alt="User avatar"
                 className={styles.userAvatar}
               />
@@ -186,7 +186,7 @@ const PostPage = () => {
                 comments.map((comment) => (
                   <div key={comment._id} className={styles.commentItem}>
                     <img
-                      src={comment.profile_image || noPhoto}
+                      src={comment.profile_photo || noPhoto}
                       alt="User avatar"
                       className={styles.commentAvatar}
                     />

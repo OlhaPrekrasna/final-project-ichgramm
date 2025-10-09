@@ -18,7 +18,7 @@ const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
 
-  const { _id, profile_image: userAvatar } = useSelector(
+  const { _id, profile_photo: userAvatar } = useSelector(
     (state) => state.auth.user || {}
   );
   const recipient = useSelector((state) => state.user.currentUser);
@@ -129,7 +129,7 @@ const ChatRoom = () => {
         <>
           <div className={s.recipientInfo}>
             <img
-              src={recipient.profile_image}
+              src={recipient.profile_photo}
               alt={recipient.username}
               className={s.profileImage}
             />
@@ -139,7 +139,7 @@ const ChatRoom = () => {
           </div>
           <div className={s.recipientInfo_inside}>
             <img
-              src={recipient.profile_image}
+              src={recipient.profile_photo}
               alt={recipient.username}
               className={s.profileImage_inside}
             />
@@ -168,7 +168,7 @@ const ChatRoom = () => {
               const isMyMessage = message.sender_id === _id;
               const userImage = isMyMessage
                 ? userAvatar
-                : recipient?.profile_image;
+                : recipient?.profile_photo;
 
               return (
                 <li

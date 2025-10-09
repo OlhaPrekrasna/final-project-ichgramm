@@ -74,7 +74,7 @@ const CreatePostModal = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!file) {
       setUploadStatus('Please select an image first');
       return;
@@ -131,11 +131,7 @@ const CreatePostModal = ({ onClose }) => {
     <div className={s.createPostModal} onClick={(e) => e.stopPropagation()}>
       {/* Header */}
       <div className={s.modalHeader}>
-        <button 
-          type="button" 
-          className={s.backButton}
-          onClick={onClose}
-        >
+        <button type="button" className={s.backButton} onClick={onClose}>
           ←
         </button>
         <h2 className={s.modalTitle}>Create new post</h2>
@@ -153,17 +149,13 @@ const CreatePostModal = ({ onClose }) => {
       <div className={s.modalContent}>
         {!file ? (
           // Upload area - shown when no image is selected
-          <div 
+          <div
             className={s.uploadArea}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
             <div className={s.uploadContent}>
-              <img 
-                src={placeCreate} 
-                alt="Upload" 
-                className={s.uploadIcon}
-              />
+              <img src={placeCreate} alt="Upload" className={s.uploadIcon} />
               <p className={s.uploadText}>Drag photos and videos here</p>
               <label htmlFor="fileInput" className={s.fileInputLabel}>
                 Select from computer
@@ -181,23 +173,19 @@ const CreatePostModal = ({ onClose }) => {
           // Edit area - shown when image is selected
           <div className={s.editArea}>
             <div className={s.imagePreview}>
-              <img 
-                src={filePath} 
-                alt="Preview" 
-                className={s.previewImage}
-              />
+              <img src={filePath} alt="Preview" className={s.previewImage} />
             </div>
-            
+
             <div className={s.captionSection}>
               <div className={s.userInfo}>
                 <img
-                  src={currentUser?.profile_image || noPhoto}
+                  src={currentUser?.profile_photo || noPhoto}
                   alt={currentUser?.username}
                   className={s.userAvatar}
                 />
                 <span className={s.username}>{currentUser?.username}</span>
               </div>
-              
+
               <textarea
                 placeholder="Write a caption..."
                 value={caption}
@@ -206,7 +194,7 @@ const CreatePostModal = ({ onClose }) => {
                 rows="4"
                 maxLength="2200"
               />
-              
+
               <div className={s.captionInfo}>
                 <span className={s.charCount}>{caption.length}/2,200</span>
               </div>
@@ -216,9 +204,11 @@ const CreatePostModal = ({ onClose }) => {
 
         {/* Status message */}
         {uploadStatus && (
-          <div className={`${s.statusMessage} ${
-            uploadStatus.includes('successfully') ? s.success : s.error
-          }`}>
+          <div
+            className={`${s.statusMessage} ${
+              uploadStatus.includes('successfully') ? s.success : s.error
+            }`}
+          >
             {uploadStatus}
           </div>
         )}
@@ -326,7 +316,7 @@ const PostHomePageModal = ({ post, onClose, mode = 'view' }) => {
                 <span className={s.gradient_border_inner}>
                   <img
                     className={s.avaImg}
-                    src={post.profile_image || noPhoto}
+                    src={post.profile_photo || noPhoto}
                     alt="profile"
                   />
                 </span>
@@ -461,7 +451,7 @@ export default PostHomePageModal;
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
-    
+
 //     if (!file) {
 //       setUploadStatus('Please select an image first');
 //       return;
@@ -518,8 +508,8 @@ export default PostHomePageModal;
 //     <div className={s.createPostModal} onClick={(e) => e.stopPropagation()}>
 //       {/* Header */}
 //       <div className={s.modalHeader}>
-//         <button 
-//           type="button" 
+//         <button
+//           type="button"
 //           className={s.backButton}
 //           onClick={onClose}
 //         >
@@ -540,15 +530,15 @@ export default PostHomePageModal;
 //       <div className={s.modalContent}>
 //         {!file ? (
 //           // Upload area - shown when no image is selected
-//           <div 
+//           <div
 //             className={s.uploadArea}
 //             onDragOver={handleDragOver}
 //             onDrop={handleDrop}
 //           >
 //             <div className={s.uploadContent}>
-//               <img 
-//                 src={placeCreate} 
-//                 alt="Upload" 
+//               <img
+//                 src={placeCreate}
+//                 alt="Upload"
 //                 className={s.uploadIcon}
 //               />
 //               <p className={s.uploadText}>Drag photos and videos here</p>
@@ -568,23 +558,23 @@ export default PostHomePageModal;
 //           // Edit area - shown when image is selected
 //           <div className={s.editArea}>
 //             <div className={s.imagePreview}>
-//               <img 
-//                 src={filePath} 
-//                 alt="Preview" 
+//               <img
+//                 src={filePath}
+//                 alt="Preview"
 //                 className={s.previewImage}
 //               />
 //             </div>
-            
+
 //             <div className={s.captionSection}>
 //               <div className={s.userInfo}>
 //                 <img
-//                   src={currentUser?.profile_image || noPhoto}
+//                   src={currentUser?.profile_photo || noPhoto}
 //                   alt={currentUser?.username}
 //                   className={s.userAvatar}
 //                 />
 //                 <span className={s.username}>{currentUser?.username}</span>
 //               </div>
-              
+
 //               <textarea
 //                 placeholder="Write a caption..."
 //                 value={caption}
@@ -593,7 +583,7 @@ export default PostHomePageModal;
 //                 rows="4"
 //                 maxLength="2200"
 //               />
-              
+
 //               <div className={s.captionInfo}>
 //                 <span className={s.charCount}>{caption.length}/2,200</span>
 //               </div>
@@ -713,7 +703,7 @@ export default PostHomePageModal;
 //                 <span className={s.gradient_border_inner}>
 //                   <img
 //                     className={s.avaImg}
-//                     src={post.profile_image || noPhoto}
+//                     src={post.profile_photo || noPhoto}
 //                     alt="profile"
 //                   />
 //                 </span>

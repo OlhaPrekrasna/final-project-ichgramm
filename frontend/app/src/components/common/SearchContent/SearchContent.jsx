@@ -48,7 +48,7 @@ function SearchContent() {
                 onClick={() => handleUserClick(user._id)}
               >
                 <img
-                  src={user.profile_image}
+                  src={user.profile_photo}
                   alt={user.username}
                   className={s.userAvatar}
                   onError={(e) => {

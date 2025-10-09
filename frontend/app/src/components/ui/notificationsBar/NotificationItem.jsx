@@ -51,7 +51,7 @@ const NotificationItem = ({
       <div className={s.userAvatar_box}>
         <img
           className={s.avatar}
-          src={user.profile_image || '/default-avatar.png'}
+          src={user.profile_photo || '/default-avatar.png'}
           alt={user.username || 'User'}
         />
         <div className={s.notificationContent}>

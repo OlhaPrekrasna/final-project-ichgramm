@@ -6,7 +6,7 @@ export const createComment = async (req, res) => {
   const { postId } = req.params;
   const { comment_text } = req.body;
   const userId = req.user.userId;
-  const profileImage = req.user.profile_image;
+  const profileImage = req.user.profile_photo;
 
   try {
     // Check if the post exists
@@ -19,7 +19,7 @@ export const createComment = async (req, res) => {
     const comment = new Comment({
       post_id: postId,
       user_id: userId,
-      profile_image: profileImage,
+      profile_photo: profileImage,
       comment_text,
     });
 

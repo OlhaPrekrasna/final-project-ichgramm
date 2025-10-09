@@ -100,7 +100,7 @@ export default function OtherProfileView() {
           <span className={s.gradient_border}>
             <span className={s.gradient_border_inner}>
               <img
-                src={currentUser.profile_image || noPhoto}
+                src={currentUser.profile_photo || noPhoto}
                 alt={currentUser.username}
               />
             </span>

@@ -28,7 +28,7 @@ const ProfileLink = () => {
       >
         <div className={s.photoContainer}>
           <img
-            src={user?.profile_image || noPhoto}
+            src={user?.profile_photo || noPhoto}
             alt={user?.username || 'Profile'}
             className={s.photo}
             onError={(e) => {

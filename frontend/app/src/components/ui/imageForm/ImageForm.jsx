@@ -145,7 +145,7 @@ const ImageForm = ({ closeModal }) => {
             <div className={styles.contentSection}>
               <div className={styles.userInfo}>
                 <img
-                  src={currentUser?.profile_image || noPhoto}
+                  src={currentUser?.profile_photo || noPhoto}
                   alt={currentUser?.username}
                   className={styles.userAvatar}
                 />

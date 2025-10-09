@@ -49,8 +49,8 @@ const CommentContent = ({ postId }) => {
             <img
               src={
                 comment.user_id === currentUser?._id
-                  ? currentUser.profile_image || noPhoto
-                  : comment.profile_image || noPhoto
+                  ? currentUser.profile_photo || noPhoto
+                  : comment.profile_photo || noPhoto
               }
               alt="comment-avatar"
               className={s.commentAvatar}

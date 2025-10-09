@@ -147,7 +147,7 @@ const PostModal = ({ post, onClose, onUpdatePosts }) => {
             <div className={s.topBlockTop}>
               <span className={s.gradient_border}>
                 <span className={s.gradient_border_inner}>
-                  <img src={post.profile_image || noPhoto} alt="profile" />
+                  <img src={post.profile_photo || noPhoto} alt="profile" />
                 </span>
               </span>
               <div className={s.nameCaption}>
@@ -164,7 +164,7 @@ const PostModal = ({ post, onClose, onUpdatePosts }) => {
             <div className={s.topBlock}>
               <span className={s.gradient_border}>
                 <span className={s.gradient_border_inner}>
-                  <img src={post.profile_image || noPhoto} alt="profile" />
+                  <img src={post.profile_photo || noPhoto} alt="profile" />
                 </span>
               </span>
               <div className={s.nameCaption}>

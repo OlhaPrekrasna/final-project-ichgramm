@@ -7,14 +7,14 @@ const AllPostsCard = ({
   likes_count,
   comments_count,
   user_name,
-  profile_image,
+  profile_photo,
   created_at,
 }) => {
   return (
     <div className="post-card">
       <div className="post-card-header">
         <img
-          src={profile_image}
+          src={profile_photo}
           alt={`${user_name} profile`}
           className="profile-image"
         />

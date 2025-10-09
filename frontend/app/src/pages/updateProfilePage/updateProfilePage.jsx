@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { $api } from '../../api/Api.jsx';
+
 import EditProfileForm from '../../components/ui/editProfileForm/EditProfileForm.jsx';
+import { setUser } from '../../redux/slices/authSlice.js';
 import s from './UpdateProfilePage.module.css';
 
 const UpdateProfilePage = () => {
   const navigate = useNavigate();
-  const [profileData, setProfileData] = useState({
-    username: 'ichschool',
-    website: 'bit.ly/3rpilibh',
-    bio: '- Гарантия помощи с трудоустройством в ведущие IT-компании\n- Выпускники зарабатывают от 45к евро\nБЕСПЛАТНАЯ',
-    avatar: null
-  });
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user);
+  const [profileData, setProfileData] = useState(user);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -28,39 +30,36 @@ const UpdateProfilePage = () => {
     setProfileData((prev) => ({
       ...prev,
       avatar: imageUrl,
-      avatarFile: file // сохраняем файл для отправки на сервер
+      avatarFile: file, // сохраняем файл для отправки на сервер
     }));
   };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
-    // Имитация API запроса
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Здесь обычно отправляем данные на сервер
-      // const formData = new FormData();
-      // formData.append('username', profileData.username);
-      // formData.append('website', profileData.website);
-      // formData.append('bio', profileData.bio);
+      const formData = new FormData();
+      formData.append('username', profileData.username);
+      formData.append('bio_website', profileData.bio_website);
+      formData.append('bio', profileData.bio);
       // if (profileData.avatarFile) {
       //   formData.append('avatar', profileData.avatarFile);
       // }
-      
-      console.log('Profile data to save:', {
-        ...profileData,
-        avatarFile: profileData.avatarFile ? 'File selected' : 'No file'
+
+      const response = await $api.put(`/user/${profileData.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      
-      // Показываем сообщение об успехе
+      const { token, user: updatedUser } = response.data;
+      dispatch(setUser({ token, user: updatedUser }));
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+
       setShowSuccessMessage(true);
-      
-      // Через 2 секунды переходим на страницу профиля
       setTimeout(() => {
-        navigate('/profile'); // Замените на ваш путь к странице профиля
-      }, 2000);
-      
+        navigate('/profile');
+      }, 1500);
     } catch (error) {
       console.error('Error saving profile:', error);
     } finally {
@@ -79,9 +78,9 @@ const UpdateProfilePage = () => {
           </div>
         </div>
       )}
-      
+
       <EditProfileForm
-        value={profileData}
+        user={profileData}
         onChange={handleInputChange}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
@@ -118,19 +117,19 @@ export default UpdateProfilePage;
 
 //   const handleSubmit = async () => {
 //     setIsSubmitting(true);
-    
+
 //     // Имитация API запроса
 //     try {
 //       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
 //       // Показываем сообщение об успехе
 //       setShowSuccessMessage(true);
-      
+
 //       // Через 2 секунды переходим на страницу профиля
 //       setTimeout(() => {
 //         navigate('/profile'); // Замените на ваш путь к странице профиля
 //       }, 2000);
-      
+
 //     } catch (error) {
 //       console.error('Error saving profile:', error);
 //     } finally {
@@ -149,7 +148,7 @@ export default UpdateProfilePage;
 //           </div>
 //         </div>
 //       )}
-      
+
 //       <EditProfileForm
 //         value={profileData}
 //         onChange={handleInputChange}
@@ -161,5 +160,3 @@ export default UpdateProfilePage;
 // };
 
 // export default UpdateProfilePage;
-
-

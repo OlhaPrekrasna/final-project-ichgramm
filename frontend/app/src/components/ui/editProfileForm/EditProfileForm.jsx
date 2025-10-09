@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
 import s from './EditProfileForm.module.css';
+import noPhoto from '../../../assets/noPhoto.png';
 
 const EditProfileForm = ({
-  value,
+  user,
   onChange,
   onSubmit,
   isSubmitting,
   onPhotoChange,
 }) => {
-  const { username, website, bio } = value;
+  const { username, bio_website, bio } = user;
   const fileInputRef = useRef(null);
 
   const handleBioChange = (e) => {
@@ -41,16 +42,13 @@ const EditProfileForm = ({
       {/* Profile Image Section */}
       <div className={s.imageSection}>
         <img
-          src={value.avatar || '/api/placeholder/80/80'}
+          src={user.profile_photo || noPhoto}
           alt="Profile"
           className={s.profileImage}
         />
         <div className={s.userInfo}>
-          <div className={s.username}>ICH</div>
-          <div className={s.userBio}>
-            Ichschool
-            <br />- Гарантия помощи с трудоустройством в ведущие IT-компании
-          </div>
+          <div className={s.username}>{user.username}</div>
+          <div className={s.userBio}>{user.bio}</div>
           <button
             type="button"
             className={s.uploadButton}
@@ -77,7 +75,7 @@ const EditProfileForm = ({
           <input
             type="text"
             name="username"
-            value={username || 'ichschool'}
+            value={username}
             onChange={onChange}
             className={s.inputField}
           />
@@ -92,8 +90,8 @@ const EditProfileForm = ({
           <span className={s.labelTitle}>Website</span>
           <input
             type="text"
-            name="website"
-            value={website || 'bit.ly/3rpilibh'}
+            name="bio_website"
+            value={bio_website}
             onChange={onChange}
             className={s.inputField}
           />
@@ -108,23 +106,12 @@ const EditProfileForm = ({
           <span className={s.labelTitle}>About</span>
           <textarea
             name="bio"
-            value={
-              bio ||
-              '- Гарантия помощи с трудоустройством в ведущие IT-компании\n- Выпускники зарабатывают от 45к евро\nБЕСПЛАТНАЯ'
-            }
+            value={bio}
             onChange={handleBioChange}
             className={s.textareaField}
             maxLength={150}
           />
-          <div className={s.charCount}>
-            {
-              (
-                bio ||
-                '- Гарантия помощи с трудоустройством в ведущие IT-компании\n- Выпускники зарабатывают от 45к евро\nБЕСПЛАТНАЯ'
-              ).length
-            }{' '}
-            / 150
-          </div>
+          <div className={s.charCount}>{bio.length} / 150</div>
         </label>
       </div>
 

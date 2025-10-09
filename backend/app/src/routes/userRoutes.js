@@ -19,7 +19,11 @@ router.get('/', find);
 router.get('/:id', getUserProfile);
 
 // PUT /api/v1/user/:id - update user profile +
-router.put('/:id', authMiddleware, updateProfile);
+router.put(
+  '/:id',
+  [authMiddleware, uploadMiddleware.single('profile')],
+  updateProfile
+);
 
 // PUT /api/v1/user/upload-photo - upload user photo
 // router.put('/:id/upload-photo', authMiddleware, uploadProfilePhoto);
