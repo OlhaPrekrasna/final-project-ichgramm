@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { $api } from '../../api/Api.jsx';
@@ -27,7 +27,6 @@ const PostPage = () => {
         const postResponse = await $api.get(`/posts/${id}`);
         const post = postResponse.data;
         setPost(post);
-        console.log(post);
         setLikesCount(post.count_of_likes || 0);
 
         // it's a temp solution. TODO redo after refactoring PostModel
@@ -56,6 +55,10 @@ const PostPage = () => {
 
     fetchPostData();
   }, [id, currentUser]);
+
+  const handleAuthorProfileClick = () => {
+    navigate(`/profile/${post.user_id.id}`);
+  };
 
   const handleAddComment = async () => {
     if (!newComment.trim() || !currentUser) return;
@@ -146,19 +149,21 @@ const PostPage = () => {
         <div className={styles.infoSection}>
           {/* Заголовок поста */}
           <div className={styles.postHeader}>
-            <div className={styles.userInfo}>
-              <img
-                src={author.profile_photo || noPhoto}
-                alt="User avatar"
-                className={styles.userAvatar}
-              />
-              <div className={styles.userDetails}>
-                <span className={styles.username}>{author.username}</span>
-                <span className={styles.postDate}>
-                  {new Date(post.created_at).toLocaleDateString('ru-RU')}
-                </span>
+            <a link="#" onClick={handleAuthorProfileClick}>
+              <div className={styles.userInfo}>
+                <img
+                  src={author.profile_photo || noPhoto}
+                  alt="User avatar"
+                  className={styles.userAvatar}
+                />
+                <div className={styles.userDetails}>
+                  <span className={styles.username}>{author.username}</span>
+                  <span className={styles.postDate}>
+                    {new Date(post.created_at).toLocaleDateString('ru-RU')}
+                  </span>
+                </div>
               </div>
-            </div>
+            </a>
             <button className={styles.followButton}>Подписаться</button>
           </div>
 
