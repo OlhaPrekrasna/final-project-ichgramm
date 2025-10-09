@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import ImageForm from '../../components/ui/imageForm/ImageForm.jsx';
 import s from './CreateNewPostPage.module.css';
 
-const CreateNewPostPage = () => {
+const CreateNewPostPage = ({ menuCloseModal }) => {
   const navigate = useNavigate();
 
-  const handleCloseModal = () => {
-    navigate('/'); // или куда нужно вернуться после создания поста
+  const handleCloseModal = (postId) => {
+    menuCloseModal();
+    navigate(`/posts/${postId}`);
   };
 
   return (

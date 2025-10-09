@@ -28,6 +28,11 @@ const Menu = () => {
 
   const userId = localStorage.getItem('userId') || 'mockUserId';
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalContent(null);
+  };
+
   const openModal = (type) => {
     setIsModalOpen(true);
 
@@ -42,16 +47,11 @@ const Menu = () => {
         break;
       case 'create':
         setModalSize('large');
-        setModalContent(<CreatePostPage />);
+        setModalContent(<CreatePostPage menuCloseModal={closeModal} />);
         break;
       default:
         setModalContent(null);
     }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalContent(null);
   };
 
   const handleLinkClick = (link) => {

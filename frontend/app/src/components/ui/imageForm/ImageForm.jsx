@@ -51,8 +51,10 @@ const ImageForm = ({ closeModal }) => {
 
       if (response.status === 201) {
         setUploadStatus('Post created successfully!');
+
+        const {id} = response.data;
         setTimeout(() => {
-          closeModal();
+          closeModal(id);
         }, 1500);
       }
     } catch (error) {
