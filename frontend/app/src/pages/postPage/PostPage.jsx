@@ -127,7 +127,7 @@ const PostPage = () => {
         {/* Левая часть - изображение */}
         <div className={styles.imageSection}>
           <img
-            src={post.image || noPhoto}
+            src={post.image_url || noPhoto}
             alt="Post"
             className={styles.postImage}
           />

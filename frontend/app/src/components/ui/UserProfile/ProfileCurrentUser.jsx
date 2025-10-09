@@ -28,12 +28,28 @@ const CurrentUserProfile = () => {
 
   // Массив постов с данными
   const userPosts = [
-    { id: 1, image: post1, caption: "Просет с участием выпускников IT Career Hub" },
-    { id: 2, image: post2, caption: "Какие бонусы получают наши студенты?" },
-    { id: 3, image: post3, caption: "Получите инструкцию к поиску работы в Германии" },
-    { id: 4, image: post4, caption: "Хотите в IT, но думаете, что это сложно?" },
-    { id: 5, image: post5, caption: "Станьте Data Analyst за 10 месяцев" },
-    { id: 6, image: post6, caption: "Студентка с тремя детьми и большой мечтой" }
+    {
+      id: 1,
+      image: post1,
+      caption: 'Просет с участием выпускников IT Career Hub',
+    },
+    { id: 2, image: post2, caption: 'Какие бонусы получают наши студенты?' },
+    {
+      id: 3,
+      image: post3,
+      caption: 'Получите инструкцию к поиску работы в Германии',
+    },
+    {
+      id: 4,
+      image: post4,
+      caption: 'Хотите в IT, но думаете, что это сложно?',
+    },
+    { id: 5, image: post5, caption: 'Станьте Data Analyst за 10 месяцев' },
+    {
+      id: 6,
+      image: post6,
+      caption: 'Студентка с тремя детьми и большой мечтой',
+    },
   ];
 
   if (!user) {
@@ -102,14 +118,15 @@ const CurrentUserProfile = () => {
 
           <div className={s.bioSection}>
             <h2 className={s.fullName}>IT Career Hub</h2>
-            
+
             <div className={s.bioContent}>
               <p className={s.bio}>
-                • Гарантия помощи с трудоустройством в ведущие IT-компании<br />
-                • Выпускники зарабатывают от 45к евро<br />
-                • БЕСПЛАТНАЯ...more
+                • Гарантия помощи с трудоустройством в ведущие IT-компании
+                <br />
+                • Выпускники зарабатывают от 45к евро
+                <br />• БЕСПЛАТНАЯ...more
               </p>
-              
+
               <a
                 className={s.websiteLink}
                 href="https://bit.ly/3rpiIbh"
@@ -130,13 +147,13 @@ const CurrentUserProfile = () => {
       {/* Сетка постов */}
       <div className={s.postsGrid}>
         {userPosts.map((post) => (
-          <div 
-            key={post.id} 
+          <div
+            key={post.id}
             className={s.postItem}
             onClick={() => handlePostClick(post.id)}
           >
-            <img 
-              src={post.image} 
+            <img
+              src={post.image_url}
               alt={post.caption}
               className={s.postImage}
             />
@@ -151,8 +168,6 @@ const CurrentUserProfile = () => {
 };
 
 export default CurrentUserProfile;
-
-
 
 // import React, { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
@@ -254,14 +269,14 @@ export default CurrentUserProfile;
 
 //         <div className={s.bioSection}>
 //           <h2 className={s.fullName}>IT Career Hub</h2>
-          
+
 //           <div className={s.bioContent}>
 //             <p className={s.bio}>
 //               • Гарантия помощи с трудоустройством в ведущие IT-компании<br />
 //               • Выпускники зарабатывают от 45к евро<br />
 //               • БЕСПЛАТНАЯ...more
 //             </p>
-            
+
 //             <a
 //               className={s.websiteLink}
 //               href="https://bit.ly/3rpiIbh"
@@ -291,7 +306,6 @@ export default CurrentUserProfile;
 // import s from './ProfileCurrentUser.module.css';
 // import web from '../../../assets/web.svg';
 // import ich from '../../../assets/ich.svg';
-
 
 // const CurrentUserProfile = () => {
 //   const user = useSelector((state) => state.auth.user);
@@ -375,7 +389,7 @@ export default CurrentUserProfile;
 
 //         <div className={s.bioSection}>
 //           <h2 className={s.fullName}>{user.full_name || user.username}</h2>
-          
+
 //           {user.bio && (
 //             <p className={s.bio}>• Гарантия помощи с трудоустройством в ведущие IT-компании
 // • Выпускники зарабатывают от 45к евро
@@ -406,8 +420,6 @@ export default CurrentUserProfile;
 // };
 
 // export default CurrentUserProfile;
-
-
 
 // import React, { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';

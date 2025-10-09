@@ -1,38 +1,6 @@
-// import multer from 'multer';
-
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
 import getUserIdFromToken from '../utils/tokenDecoded.js';
-
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage });
-
-// Настройка клиента S3
-// const s3Client = new S3Client({
-//   region: process.env.AWS_REGION,           // например: "us-east-1"
-//   credentials: {
-//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,     // ключ пользователя
-//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // секрет
-//   },
-// });
-
-// Утилита для загрузки файла в S3
-// const uploadToS3 = async (file) => {
-//   const fileName = `${Date.now()}-${file.originalname}`; // уникальное имя файла
-//   const bucketName = process.env.AWS_BUCKET_NAME;        // имя бакета
-
-//   const params = {
-//     Bucket: bucketName,       // бакет
-//     Key: fileName,            // имя файла
-//     Body: file.buffer,        // содержимое (буфер из multer)
-//     ContentType: file.mimetype, // MIME-тип (image/jpeg, image/png и т.д.)
-//   };
-
-//   await s3Client.send(new PutObjectCommand(params));
-
-// URL файла (если бакет публичный)
-//   return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
-// };
 
 // Получение всех постов пользователя +
 export const getUserPosts = async (req, res) => {
@@ -53,11 +21,21 @@ export const createPost = async (req, res) => {
     }
 
     const { content } = req.body;
+    if (!content) {
+      return res.status(400).json({ error: 'No content were provided!' });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded!' });
+    }
+    const { location: imageUrl, key: imageFile } = req.file;
 
     const post = new Post({
       user_id: currentUser.userId,
       username: currentUser.username,
       content,
+      image_url: imageUrl,
+      image_file: imageFile,
       created_at: new Date(),
     });
     await post.save();

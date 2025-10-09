@@ -47,12 +47,16 @@ const ImageForm = ({ closeModal }) => {
       formData.append('user_id', currentUser._id);
       formData.append('username', currentUser.username);
 
-      const response = await $api.post('/posts', formData);
+      const response = await $api.post('/posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       if (response.status === 201) {
         setUploadStatus('Post created successfully!');
 
-        const {id} = response.data;
+        const { id } = response.data;
         setTimeout(() => {
           closeModal(id);
         }, 1500);

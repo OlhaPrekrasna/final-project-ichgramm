@@ -25,7 +25,7 @@ const PostItem = ({
   const { _id: currentUserId } = currentUser || {};
   const userId =
     typeof item.user_id === 'string' ? item.user_id : item.user_id?._id || '';
-  
+
   const navigate = useNavigate(); // Добавляем навигацию
 
   const [isFollowing, setIsFollowing] = useState(null);
@@ -37,7 +37,7 @@ const PostItem = ({
   useEffect(() => {
     const userHasLiked = userLikes.includes(item._id);
     setIsLiked(userHasLiked);
-    
+
     // Корректируем количество лайков если нужно
     if (userHasLiked && initialLikesCount === 0) {
       setLocalLikesCount(1);
@@ -58,7 +58,7 @@ const PostItem = ({
 
     try {
       await $api.post(`/posts/${item._id}/likes`);
-      
+
       if (isLiked) {
         // Убираем лайк
         const newCount = Math.max(0, likesCount - 1);
@@ -146,7 +146,7 @@ const PostItem = ({
           />
         </div>
         <div className={styles.userInfo}>
-          <span 
+          <span
             className={styles.userName}
             onClick={handleUserClick} // Клик по имени ведет в профиль
           >
@@ -171,7 +171,7 @@ const PostItem = ({
 
       <div className={styles.imgPost}>
         <img
-          src={item.image || background}
+          src={item.image_url || background}
           alt="Post"
           className={styles.postImage}
         />
@@ -187,9 +187,9 @@ const PostItem = ({
             size={20}
           />
           <span className={styles.likesCount}>{likesCount} likes</span>
-          <FaRegComment 
-            className="text-gray-500" 
-            size={20} 
+          <FaRegComment
+            className="text-gray-500"
+            size={20}
             onClick={(e) => {
               e.stopPropagation();
               handlePostClick(); // При клике на комментарий тоже открываем пост
@@ -197,18 +197,16 @@ const PostItem = ({
           />
         </div>
         <div className={styles.caption}>
-          <span 
-            className={styles.bold}
-            onClick={handleUserClick}
-          >
+          <span className={styles.bold} onClick={handleUserClick}>
             {item.user_name}
-          </span>: {item.caption}
+          </span>
+          : {item.caption}
         </div>
       </div>
 
       <div className={styles.commentsContainer}>
         <span>{item.last_comment || 'Add a comment...'}</span>
-        <span 
+        <span
           className={styles.commentText}
           onClick={(e) => {
             e.stopPropagation();

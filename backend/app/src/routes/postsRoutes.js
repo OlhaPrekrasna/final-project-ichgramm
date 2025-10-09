@@ -1,6 +1,7 @@
 import express from 'express';
 // import upload from '../middlewares/multer.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
+import uploadMiddleware from '../middlewares/uploadMiddleware.js';
 import {
   createPost,
   // createPostWithMedia,
@@ -33,7 +34,11 @@ router.get('/user/:userId', authMiddleware, getOtherUserPosts);
 
 // Создание поста с одним изображением
 // router.post('/', authMiddleware, upload.single('image'), createPost);
-router.post('/', authMiddleware, createPost);
+router.post(
+  '/',
+  [authMiddleware, uploadMiddleware.single('image')],
+  createPost
+);
 
 // Создание поста с несколькими медиа (до 5 файлов)
 // router.post(
