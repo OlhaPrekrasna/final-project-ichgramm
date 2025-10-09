@@ -13,6 +13,7 @@ const PostPage = () => {
   const currentUser = useSelector((state) => state.auth.user);
 
   const [post, setPost] = useState(null);
+  const [author, setAuthor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
@@ -24,8 +25,15 @@ const PostPage = () => {
       try {
         // Получаем данные поста
         const postResponse = await $api.get(`/posts/${id}`);
-        setPost(postResponse.data);
+        const post = postResponse.data;
+        setPost(post);
         setLikesCount(postResponse.data.likes_count || 0);
+
+        // it's a temp solution. TODO redo after refactoring PostModel
+        const authorId = post.user_id.id;
+        // Get the author's data
+        const userResponse = await $api.get(`/user/${authorId}`);
+        setAuthor(userResponse.data);
 
         // Получаем комментарии
         const commentsResponse = await $api.get(`/comments/${id}/comments`);
@@ -139,12 +147,12 @@ const PostPage = () => {
           <div className={styles.postHeader}>
             <div className={styles.userInfo}>
               <img
-                src={post.profile_image || noPhoto}
+                src={author.profile_image || noPhoto}
                 alt="User avatar"
                 className={styles.userAvatar}
               />
               <div className={styles.userDetails}>
-                <span className={styles.username}>{post.user_name}</span>
+                <span className={styles.username}>{author.username}</span>
                 <span className={styles.postDate}>
                   {new Date(post.created_at).toLocaleDateString('ru-RU')}
                 </span>
