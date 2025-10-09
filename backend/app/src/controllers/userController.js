@@ -12,7 +12,11 @@ export const getUserProfile = async (req, res) => {
   }
 
   try {
-    const user = await User.findById(id).select('-password -created_at');
+    const user = await User.findById(id)
+      .select('-password -created_at')
+      .populate('count_of_posts')
+      .populate('count_of_followers')
+      .populate('count_of_following');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
