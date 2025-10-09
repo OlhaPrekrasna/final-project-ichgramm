@@ -16,12 +16,13 @@ const PostHomePage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await $api.get('/posts'); // путь к API постов
-        setPosts(res.data);
+        const postsResponse = await $api.get('/posts'); // путь к API постов
+        const posts = postsResponse.data;
+        setPosts(posts);
 
         // Инициализация количества лайков
         const likesObj = {};
-        res.data.forEach((post) => {
+        posts.forEach((post) => {
           likesObj[post._id] = post.count_of_likes || 0;
         });
         setLikesCount(likesObj);
@@ -56,6 +57,7 @@ const PostHomePage = () => {
         <PostItem
           key={post._id}
           item={post}
+          author={post.user_id}
           likesCount={likesCount[post._id] || 0}
           setLikesCount={handleSetLikesCount}
           userLikes={userLikes}

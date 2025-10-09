@@ -11,6 +11,7 @@ import styles from './PostItem.module.css';
 
 const PostItem = ({
   item,
+  author,
   likesCount: initialLikesCount,
   setLikesCount,
   onClick,
@@ -139,7 +140,7 @@ const PostItem = ({
       <div className={styles.header}>
         <div className={styles.avatarContainer}>
           <img
-            src={item.profile_photo || avaImage}
+            src={author.profile_photo || avaImage}
             alt="avatar"
             className={styles.avatar}
             onClick={handleUserClick} // Клик по аватарке ведет в профиль
@@ -150,7 +151,7 @@ const PostItem = ({
             className={styles.userName}
             onClick={handleUserClick} // Клик по имени ведет в профиль
           >
-            {item.user_name}
+            {author.username}
           </span>
           <span className={styles.greyText}>
             • {parseData(item.created_at)} •

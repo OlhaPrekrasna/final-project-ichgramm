@@ -122,7 +122,7 @@ export const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find({}).populate(
       'user_id',
-      'username profile_image'
+      'username profile_photo'
     );
     res.status(200).json(posts);
   } catch (error) {
@@ -152,7 +152,7 @@ export const getOtherUserPosts = async (req, res) => {
 //     const followingIds = user.following.map((followedUser) => followedUser._id);
 
 //     const posts = await Post.find({ user_id: { $in: followingIds } })
-//       .populate('id', 'username profile_image')
+//       .populate('id', 'username profile_photo')
 //       .sort({ created_at: -1 });
 
 //     res.status(200).json(posts);
