@@ -62,7 +62,7 @@ const Menu = () => {
     <nav className={s.menubar}>
       {/* Home */}
       <NavLink
-        to="/home"
+        to="/"
         className={({ isActive }) => (isActive ? s.activeLink : s.link)}
       >
         {({ isActive }) => (

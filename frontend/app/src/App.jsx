@@ -63,8 +63,6 @@ const App = () => {
         <Route path="/upload" element={<ImageForm />} />
         {/* Приватные маршруты */}
         <Route element={<PrivateRoutesUsers />}>
-          <Route path="/home" element={<HomePage />} />
-          {/* <Route path="/explore" element={<ExplorePage />} /> */}
           <Route path="/messages" element={<ChatPage />} />
           <Route path="/create" element={<CreateNewPostPage />} />
           <Route path="/profile" element={<ProfilePage />} />

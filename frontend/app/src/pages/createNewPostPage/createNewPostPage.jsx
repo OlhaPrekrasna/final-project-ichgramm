@@ -7,7 +7,7 @@ const CreateNewPostPage = () => {
   const navigate = useNavigate();
 
   const handleCloseModal = () => {
-    navigate('/home'); // или куда нужно вернуться после создания поста
+    navigate('/'); // или куда нужно вернуться после создания поста
   };
 
   return (

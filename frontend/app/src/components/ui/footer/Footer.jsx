@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className={s.footer}>
       <div className={s.footer_top}>
-        <Link to="/home">Home</Link>
+        <Link to="/">Home</Link>
         <Link to="/search">Search</Link>
         <Link to="/explore">Explore</Link>
         <Link to="/messages">Messages</Link>
