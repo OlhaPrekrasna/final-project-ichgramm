@@ -8,7 +8,9 @@ export const searchUsers = async (req, res) => {
   try {
     const filter = query ? { username: { $regex: query, $options: 'i' } } : {};
 
-    const users = await User.find(filter).select('username bio').limit(10);
+    const users = await User.find(filter)
+      .select('username profile_photo first_name last_name')
+      .limit(10);
 
     res.status(200).json(users);
   } catch (error) {

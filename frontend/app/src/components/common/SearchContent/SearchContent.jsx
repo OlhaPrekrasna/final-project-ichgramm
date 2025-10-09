@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import s from './SearchContent.module.css';
+import noPhoto from '../../../assets/noPhoto.png';
 
 const SearchContent = ({
   searchQuery = '',
@@ -63,14 +64,14 @@ const SearchContent = ({
                     onClick={() => handleUserClick(user)}
                   >
                     <img
-                      src={user.profile_photo || '/default-avatar.png'}
+                      src={user.profile_photo || noPhoto}
                       alt={user.username}
                       className={s.userAvatar}
                     />
                     <div className={s.userInfo}>
                       <p className={s.username}>{user.username}</p>
                       <p className={s.fullname}>
-                        {user.full_name || user.username}
+                        {[user.first_name, user.last_name].join(' ').trim()}
                       </p>
                     </div>
                   </Link>
@@ -103,7 +104,7 @@ const SearchContent = ({
                     onClick={() => handleUserClick(user)}
                   >
                     <img
-                      src={user.profile_photo || '/default-avatar.png'}
+                      src={user.profile_photo || noPhoto}
                       alt={user.username}
                       className={s.userAvatar}
                     />

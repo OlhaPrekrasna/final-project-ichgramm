@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now },
 });
 
+userSchema.virtual('full_name').get(function () {
+  return [this.first_name, this.last_name].join(' ').trim();
+});
+
 // Виртуальные поля
 userSchema.virtual('count_of_posts', {
   ref: 'Post',
