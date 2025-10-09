@@ -1,45 +1,51 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../common/Button/Button.jsx';
 import noPhoto from '../../../assets/noPhoto.png';
-import s from './ProfileCurrentUser.module.css';
+import s from './ProfileUser.module.css';
 import web from '../../../assets/web.svg';
 
 import { $api } from '../../../api/Api.jsx';
 
-const CurrentUserProfile = () => {
+const UserProfile = () => {
   const navigate = useNavigate();
 
-  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState([]);
   const [counters, setCounters] = useState({
     count_followers: 0,
     count_following: 0,
   });
+  const [posts, setPosts] = useState([]);
 
-  const user = useSelector((state) => state.auth.user);
+  const { userId: reqUserId } = useParams();
+  const currentUser = useSelector((state) => state.auth.user);
+  const userId = reqUserId ? reqUserId : currentUser.id;
+
   useEffect(() => {
-    const fetchCounters = async () => {
+    const fetchUser = async () => {
       try {
-        const res = await $api.get(`/user/${user.id}`);
-        const { count_of_followers, count_of_following } = res.data;
+        const res = await $api.get(`/user/${userId}`);
+        const user = res.data;
+        setUser(user);
+        const { count_of_followers, count_of_following } = user;
         setCounters({
           count_followers: count_of_followers || 0,
           count_following: count_of_following || 0,
         });
       } catch (error) {
-        console.error('Error loading counters:', error);
+        console.error('Error loading user:', error);
       }
     };
 
-    fetchCounters();
-  }, []);
+    fetchUser();
+  }, [userId]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await $api.get('/posts/user/me');
+        const res = await $api.get(`/posts/user/${userId}`);
         setPosts(res.data);
       } catch (error) {
         console.error('Ошибка загрузки постов:', error);
@@ -47,7 +53,7 @@ const CurrentUserProfile = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [userId]);
 
   const handleEditProfile = () => {
     navigate('/profile/edit');
@@ -76,17 +82,19 @@ const CurrentUserProfile = () => {
         <div className={s.profileInfo}>
           <div className={s.profileHeader}>
             <h1 className={s.username}>{user.username}</h1>
-            <Button
-              className={s.editBtn}
-              text="Edit profile"
-              style={{
-                fontWeight: 600,
-                color: 'var(--color-text-dark)',
-                backgroundColor: 'var(--color-bg-dark-grey)',
-                border: '1px solid var(--color-border-grey)',
-              }}
-              onClick={handleEditProfile}
-            />
+            {userId === currentUser.id && (
+              <Button
+                className={s.editBtn}
+                text="Edit profile"
+                style={{
+                  fontWeight: 600,
+                  color: 'var(--color-text-dark)',
+                  backgroundColor: 'var(--color-bg-dark-grey)',
+                  border: '1px solid var(--color-border-grey)',
+                }}
+                onClick={handleEditProfile}
+              />
+            )}
           </div>
 
           <div className={s.stats}>
@@ -154,4 +162,4 @@ const CurrentUserProfile = () => {
   );
 };
 
-export default CurrentUserProfile;
+export default UserProfile;

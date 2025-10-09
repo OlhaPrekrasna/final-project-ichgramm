@@ -14,7 +14,6 @@ import UpdateProfilePage from './pages/updateProfilePage/UpdateProfilePage.jsx';
 import ExplorePage from './pages/explorePage/ExplorePage.jsx';
 import HomePage from './pages/homePage/HomePage.jsx';
 import ChatPage from './pages/chatPage/ChatPage.jsx';
-import AnotherProfilePage from './pages/anotherProfilePage/AnotherProfilePage.jsx';
 import ProfilePage from './pages/profilePage/ProfilePage.jsx';
 import ResetPage from './pages/resetPage/ResetPage.jsx';
 import PostPage from './pages/postPage/PostPage.jsx';
@@ -77,7 +76,7 @@ const App = () => {
           <Route path="/create" element={<CreateNewPostPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/edit" element={<UpdateProfilePage />} />
-          <Route path="/profile/:userId" element={<AnotherProfilePage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="/posts/:id" element={<PostPage />} />
         </Route>
       </Routes>

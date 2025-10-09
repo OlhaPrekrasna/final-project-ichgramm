@@ -1,12 +1,11 @@
-import React from 'react';
 import ImageGallery from '../../components/ui/imageGallery/ImageGallery.jsx';
-import ProfileCurrentUser from '../../components/ui/userProfile/ProfileCurrentUser.jsx';
+import ProfileUser from '../../components/ui/userProfile/ProfileUser.jsx';
 import s from './ProfilePage.module.css';
 
 const ProfilePage = () => {
   return (
     <div className={s.profilePage}>
-      <ProfileCurrentUser />
+      <ProfileUser />
       <ImageGallery />
     </div>
   );
